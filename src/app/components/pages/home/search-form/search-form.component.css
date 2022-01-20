@@ -1,0 +1,53 @@
+.flight-list {
+  height: 160px;
+  padding: 16px 8px;
+}
+
+.border-style-my-right {
+  border-style: dashed;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  border-right-color: #dcdcdc;
+}
+
+
+.border-style-my-bottom {
+  border-style: dashed;
+  border-bottom-color: #dcdcdc;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+}
+
+
+.suggestion_box{
+  /* border: 1px solid black; */
+  border-radius: 10px !important;
+  margin-top: 10px !important;
+  position: absolute;
+  background-color: white;
+  z-index: 999;
+}
+
+.suggestion_box_item div{
+  cursor: pointer !important;
+  opacity: 0.7 !important;
+}
+
+.suggestion_box_item div:hover{
+  opacity: 1 !important;
+}
+
+.btn-submit-disabled{
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+.myBackGroundClass{
+  background-image: url(../../../../../assets/images/home-banner-new.jpeg);
+                background-size: cover;
+                 background-position: center center; 
+                 background-repeat: no-repeat;
+                  display:block;
+                }

@@ -1,0 +1,330 @@
+<div class="tab-inner">
+    <div class="row">
+        <div class="col-lg-8">
+            <form class="mb-md-80" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+                <div class="row" *ngIf="this.flightSearchReqData?.adults">
+                    <div class="col-12">
+                        <h5 class="text-custom-black">
+
+                            Adults
+                        </h5>
+                        <ng-container formArrayName="adults">
+                            <ng-container *ngFor="let adultForm of adults.controls; let i = index">
+                                <h6 class="card-title mb-0">Adult {{i+1}} <br></h6>
+                                <div class="row shadow-sm rounded pt-4 mb-4" [formGroupName]="i"
+                                    style="position: relative;">
+                                   
+                                 
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500"> Title
+                                            </label>
+                                            <div class="group-form">
+                                                <select name="class" id="title" name="title"
+                                                    formControlName="title"
+                                                    class="custom-select form-control form-control-custom" nice-select>
+                                                    <option value="" disabled >Title</option>
+                                                    <option value="Mr">Mr</option>
+                                                    <option value="Mrs">Mrs</option>
+                                                    <option value="Miss">Miss</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500"> First
+                                                Name</label>
+                                            <input type="text" formControlName="firstname"
+                                                class="form-control form-control-custom" placeholder="First Name"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Last Name</label>
+                                            <input type="text" formControlName="lastname"
+                                                class="form-control form-control-custom" placeholder="Last Name"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">DOB</label>
+                                            <input type="date" formControlName="dob"
+                                                class="form-control form-control-custom" placeholder="DOB" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Passport</label>
+                                            <input type="text" formControlName="passport"
+                                                class="form-control form-control-custom" placeholder="passport"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="this.flightSearchReqData?.child">
+                    <div class="col-12">
+                        <h5 class="text-custom-black">
+
+                            Childs
+                        </h5>
+                        <ng-container formArrayName="childs">
+                            <ng-container *ngFor="let childForm of childs.controls; let i = index"> <h6 class="card-title mb-0">Child {{i+1}}.</h6>
+                                <div class="row shadow-sm rounded pt-4 mb-4" [formGroupName]="i"
+                                    style="position: relative;">
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500"> Title
+                                            </label>
+                                            <div class="group-form">
+                                                <select name="class" id="title" name="title"
+                                                    formControlName="title"
+                                                    class="custom-select form-control form-control-custom" nice-select>
+                                                    <option value="" disabled >Title</option>
+                                                    <option value="Mr">Mr</option>
+                                                    <option value="Mrs">Mrs</option>
+                                                    <option value="Miss">Miss</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">First
+                                                Name</label>
+                                            <input type="text" formControlName="firstname"
+                                                class="form-control form-control-custom" placeholder="First Name"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Last Name</label>
+                                            <input type="text" formControlName="lastname"
+                                                class="form-control form-control-custom" placeholder="Last Name"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">DOB</label>
+                                            <input type="date" formControlName="dob"
+                                                class="form-control form-control-custom" placeholder="DOB" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Passport</label>
+                                            <input type="text" formControlName="passport"
+                                                class="form-control form-control-custom" placeholder="passport"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="this.flightSearchReqData?.infants">
+                    <div class="col-12">
+                        <h5 class="text-custom-black">
+
+                            Infants
+                        </h5>
+                        <ng-container formArrayName="infants">
+                            <ng-container *ngFor="let infantForm of infants.controls; let i = index">
+                                <h6 class="card-title mb-0">Infant {{i+1}}.</h6>
+                                <div class="row shadow-sm rounded pt-4 mb-4" [formGroupName]="i"
+                                    style="position: relative;">
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500"> Title
+                                            </label>
+                                            <div class="group-form">
+                                                <select name="class" id="title" name="title"
+                                                    formControlName="title"
+                                                    class="custom-select form-control form-control-custom" nice-select>
+                                                    <option value="" disabled >Title</option>
+                                                    <option value="Mr">Mr</option>
+                                                    <option value="Mrs">Mrs</option>
+                                                    <option value="Miss">Miss</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500"> First
+                                                Name</label>
+                                            <input type="text" formControlName="firstname"
+                                                class="form-control form-control-custom" placeholder="First Name"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Last Name</label>
+                                            <input type="text" formControlName="lastname"
+                                                class="form-control form-control-custom" placeholder="Last Name"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">DOB</label>
+                                            <input type="date" formControlName="dob"
+                                                class="form-control form-control-custom" placeholder="DOB" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Passport</label>
+                                            <input type="text" formControlName="passport"
+                                                class="form-control form-control-custom" placeholder="passport"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label class="custom-checkbox mb-0">
+                        <input type="checkbox" name="#">
+                        <span class="checkmark"></span>
+                        Accepted terms and conditions
+                    </label>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn-first btn-submit" [disabled]="!bookingForm.valid">Confirm</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flights-grid">
+                        <div class="flights-grid-wrapper bx-wrapper">
+                            <div class="flights-grid-caption bg-custom-white p-relative">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <h6 class="card-tilte mb-1"> FARE DETAIL:</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="heading-sec row">
+                                            <div class="col-md-6 border-bottom"> Base Price</div>
+                                            <div class="col-md-6  border-bottom"> £366.00</div>
+                                            <div class="col-md-6  border-bottom"> Taxes </div>
+                                            <div class="col-md-6  border-bottom"> £68.00</div>
+                                            <div class="col-md-6  border-bottom"> Flight Booking Charges </div>
+                                            <div class="col-md-6  border-bottom"> £5.00</div>
+
+                                        </div>
+                                        <div class="card-footer row p-0 pt-1 pb-2">
+                                            <div class="col-md-6"> Total Price: </div>
+                                            <div class="col-md-6" > £439.00</div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="bookFlightItem">
+                    <div class="flights-grid mb-xl-30">
+                        <div class="flights-grid-wrapper bx-wrapper">
+                            <div class="flights-grid-caption padding-20 bg-custom-white p-relative">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="heading-sec row">
+                                            <div class="left-side col-lg-6 col-6">
+
+                                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}"
+                                                    style="object-fit: fill;">
+                                            </div>
+                                            <div class="right-side  col-lg-6 col-6 pr-3">
+                                                <span class="price" style="margin-top: 0%; top: 0px!important;"><small
+                                                        style="font-size: 15px;">Price</small><span
+                                                        style="font-size: 30px;">{{bookFlightItem.price}}</span></span>
+                                            </div>
+
+                                            <div class="col-lg-12 col-sm-12 d-flex justify-content-center mt-2 pt-2">
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.dep_time}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.dep_code}}</p>
+                                                </div>
+                                                <div class="mid-gap ">
+                                                    <p class="stop">Stops-{{bookFlightItem.stop}}&nbsp;
+                                                    </p>
+
+
+                                                    <div class="d-flex mt-0 pt-0 mb-0 pb-0">
+                                                        <span>-------------<i
+                                                                class="fas fa-plane text-gray"></i>-------------</span>
+                                                    </div>
+                                                    <p class="stop"> {{bookFlightItem.baggage?bookFlightItem.baggage:0}}
+                                                        Baggage</p>
+
+                                                    <p class="stop">Duration-{{bookFlightItem.totall_time}}</p>
+                                                </div>
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.arr_time}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.arr_code}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 d-flex justify-content-center mt-2 pt-2 border-top"
+                                                *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.dep_time2}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.dep_code2}}</p>
+                                                </div>
+                                                <div class="mid-gap ">
+                                                    <p class="stop">Stops-{{bookFlightItem.stop2}}&nbsp;
+                                                    </p>
+                                                    <div class="d-flex mt-0 pt-0 mb-0 pb-0">
+                                                        <span>-------------<i class="fas fa-plane text-gray"
+                                                                style="transform: rotate(180deg);"></i>-------------</span>
+                                                    </div>
+                                                    <p class="stop">
+                                                        {{bookFlightItem.baggage2?bookFlightItem.baggage2:0}}
+                                                        Baggage</p>
+
+                                                    <p class="stop">Duration-{{bookFlightItem.totall_time2}}</p>
+                                                </div>
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.arr_time2}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.arr_code2}}</p>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

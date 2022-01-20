@@ -1,0 +1,85 @@
+.o1 {
+  order: 1;
+}
+
+.o2 {
+  order: 1;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .o1 {
+    order: 2;
+  }
+
+  .o2 {
+    order: 1;
+  }
+}
+
+
+
+
+.arr_des {
+  font-size: 15px;
+  font-weight: bolder;
+  margin-bottom: 0px;
+}
+
+.mid-gap {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.time_value {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.stop {
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+
+
+
+.mimage {
+  width: 100px;
+  height: 50px;
+  padding-left: 2px;
+  object-fit: fill;
+  padding-right: 4px;
+}
+
+.sidebar_wrap .sidebar .sidebar_widgets {
+  padding-top: 10px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+@media (min-width:320px) {
+
+  .flights-grid .flights-grid-wrapper .flights-grid-caption .heading-sec .right-side .price,
+  .cruise-grid .cruise-grid-wrapper .cruise-grid-caption .price,
+  .hotel-grid .hotel-grid-wrapper .hotel-grid-caption .price {
+    text-align: center !important;
+    top: 20px !important;
+  }
+
+  .mimage {
+    width: 166px;
+    height: 54px;
+    padding-left: 2px;
+    object-fit: fill;
+    padding-right: 4px;
+    padding-bottom: 6px;
+  }
+}

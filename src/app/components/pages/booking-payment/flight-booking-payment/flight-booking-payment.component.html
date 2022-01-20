@@ -1,0 +1,215 @@
+<div class="tab-inner">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 mb-2 pb-2" *ngFor="let adult of adultArr ; let i = index">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title align-items-center mb-2">Adult -{{i+1}}</h6>
+                                <i (click)="editData()" class="fa fa-edit"></i>
+                            </div>
+
+                            <hr class="mb-0 mt-0">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">Name</label>
+                                    <p class="text-muted">{{adult.title}} {{adult.firstname}} {{ adult.lastname}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">DOB</label>
+                                    <p class="text-muted">{{adult.dob||'NA'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">Passport</label>
+                                    <p class="text-muted">{{adult.passport||'NA'}}</p>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12  mb-2 pb-2" *ngFor="let child of childArr ; let i = index">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title align-items-center mb-2">Child -{{i+1}}</h6>
+                                <i (click)="editData()" class="fa fa-edit"></i>
+                            </div>
+                            <hr class="mb-0 mt-0">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">Name</label>
+                                    <p class="text-muted">{{child.title}} {{child.firstname}} {{ child.lastname}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">DOB</label>
+                                    <p class="text-muted">{{child.dob||'NA'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">Passport</label>
+                                    <p class="text-muted">{{child.passport||'NA'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-lg-12  mb-2 pb-2" *ngFor="let infant of infantArr; let i = index">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-title align-items-center mb-2">Infant -{{i+1}}</h6>
+                                <i (click)="editData()" class="fa fa-edit"></i>
+                            </div>
+
+                            <hr class="mb-0 mt-0">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">Name</label>
+                                    <p class="text-muted">{{infant.title}} {{infant.firstname}} {{ infant.lastname}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">DOB</label>
+                                    <p class="text-muted">{{infant.dob||'NA'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="tx-11 font-weight-bold mb-0 text-uppercase">Passport</label>
+                                    <p class="text-muted">{{infant.passport||'NA'}}</p>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flights-grid mb-xl-30">
+                        <div class="flights-grid-wrapper bx-wrapper">
+                            <div class="flights-grid-caption bg-custom-white p-relative">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <h6 class="card-tilte mb-1"> FARE DETAIL:</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="heading-sec row">
+                                            <div class="col-md-6 border-bottom"> Base Price</div>
+                                            <div class="col-md-6  border-bottom"> £366.00</div>
+                                            <div class="col-md-6  border-bottom"> Taxes </div>
+                                            <div class="col-md-6  border-bottom"> £68.00</div>
+                                            <div class="col-md-6  border-bottom"> Flight Booking Charges </div>
+                                            <div class="col-md-6  border-bottom"> £5.00</div>
+
+                                        </div>
+                                        <div class="card-footer row p-0 pt-1 pb-2">
+                                            <div class="col-md-6"> Total Price: </div>
+                                            <div class="col-md-6" > £439.00</div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" *ngIf="bookFlightItem">
+                    <div class="flights-grid mb-xl-30">
+                        <div class="flights-grid-wrapper bx-wrapper">
+                            <div class="flights-grid-caption bg-custom-white p-relative">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="heading-sec row">
+                                            <div class="left-side col-lg-6 col-6">
+
+                                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}"
+                                                    style="object-fit: fill;">
+                                            </div>
+                                            <div class="right-side  col-lg-6 col-6 pr-3">
+                                                <span class="price" style="margin-top: 0%; top: 0px!important;"><small
+                                                        style="font-size: 15px;">Price</small><span
+                                                        style="font-size: 30px;">{{bookFlightItem.price}}</span></span>
+                                            </div>
+
+                                            <div class="col-lg-12 col-sm-12 d-flex justify-content-center mt-2 pt-2">
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.dep_time}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.dep_code}}</p>
+                                                </div>
+                                                <div class="mid-gap ">
+                                                    <p class="stop">Stops-{{bookFlightItem.stop}}&nbsp;
+                                                    </p>
+
+
+                                                    <div class="d-flex mt-0 pt-0 mb-0 pb-0">
+                                                        <span>-------------<i
+                                                                class="fas fa-plane text-gray"></i>-------------</span>
+                                                    </div>
+                                                    <p class="stop"> {{bookFlightItem.baggage?bookFlightItem.baggage:0}}
+                                                        Baggage</p>
+
+                                                    <p class="stop">Duration-{{bookFlightItem.totall_time}}</p>
+                                                </div>
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.arr_time}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.arr_code}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 d-flex justify-content-center mt-2 pt-2 border-top"
+                                                *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.dep_time2}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.dep_code2}}</p>
+                                                </div>
+                                                <div class="mid-gap ">
+                                                    <p class="stop">Stops-{{bookFlightItem.stop2}}&nbsp;
+                                                    </p>
+                                                    <div class="d-flex mt-0 pt-0 mb-0 pb-0">
+                                                        <span>-------------<i class="fas fa-plane text-gray"
+                                                                style="transform: rotate(180deg);"></i>-------------</span>
+                                                    </div>
+                                                    <p class="stop">
+                                                        {{bookFlightItem.baggage2?bookFlightItem.baggage2:0}}
+                                                        Baggage</p>
+
+                                                    <p class="stop">Duration-{{bookFlightItem.totall_time2}}</p>
+                                                </div>
+                                                <div>
+                                                    <span class="time_value"> {{bookFlightItem.arr_time2}}</span>
+                                                    <p class="arr_des"> {{bookFlightItem.arr_code2}}</p>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ng-container *ngIf="paymentUrl">
+            <iframe [src]="paymentUrl" width="100%" height="500" style="border: 2px solid red;">
+
+            </iframe>
+        </ng-container>
+    </div>
+</div>

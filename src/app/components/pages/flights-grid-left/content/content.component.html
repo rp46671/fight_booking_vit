@@ -1,0 +1,1398 @@
+<section class="bg-light-white pt-4">
+    <div class="container">
+        <div class="row">
+            <!-----Left Side Div------>
+            <div class="col-lg-3">
+                <div class="display-time-box">
+                    <div class="d-flex">
+                        <i class="fal fa-clock" style="font-size: 25px;margin: 10px 5px;"></i>
+                        <div class="dis-text">
+                            Display times in <b>AM / PM</b> format
+                        </div>
+                    </div>
+                    <span class="disable-btn"></span>
+                </div>
+                <div class="cLEopS">
+                    <h5>FILTER YOUR RESULTS</h5>
+                    <div class="pIuie">{{cusFlightblockArr?.length}} flights found</div>
+                </div>
+                <div class="left-main-box">
+                    <div class="stop-arrow">
+                        <span class="c-stop">Stops</span>
+                        <div class="stop-arrow">
+                            <div data-testid="Expanded_StopFilter" role="button" tabindex="0">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stop-box">
+                        <div>
+                            <div class="left-stop">
+                                <input name="stop-reset-radio" type="radio" class="form-check-input" checked="">
+                                <label title="" type="checkbox" for="stop-radio" class="form-check-label"> Any number of
+                                    stops</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---Airlines-->
+                <div class="left-main-box">
+                    <div>
+                        <span class="c-stop">Airlines</span>
+                        <div>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div>
+                                <div>All airlines</div>
+                                <div>
+                                    <!--airline_toggle_true-->
+                                </div>
+                            </div>
+                            <!--checkbox-->
+                            <ng-container *ngFor="let airline of cusFlightblockArrfilter">
+
+                                <div class="form-group">
+                                    <label class="custom-checkbox" style="font-size: 8px;">
+                                        <input type="checkbox" name="#airline" value="{{airline.airline}}">
+                                        <span class="checkmark"></span>
+                                        {{airline.airline}}
+                                    </label>
+                                </div>
+
+
+                            </ng-container>
+
+                            <a class="show-all-btn" role="button" href="#">Show all</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!---time-->
+                <div class="left-main-box">
+                    <div>
+                        <span class="c-stop">Time</span>
+                        <div>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div><span class="fly-text">Fly from Lisbon</span>
+                                <div style="font-size: 12px;font-weight: 600;margin-top:5px;">Any time</div>
+                                <div>
+                                    <!--airline_toggle_true-->
+                                </div>
+                            </div>
+                            <!--checkbox-->
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input">
+                                <label title="" type="checkbox" for="airline-UX" class="form-check-label"> Before 06:00
+                                    AM</label>
+                            </div>
+                            <a class="show-all-btn" role="button" href="#">Show all</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!---Price-->
+                <div class="left-main-box">
+                    <div>
+                        <span class="c-stop">Price</span>
+
+
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+                <!---Airports-->
+                <div class="left-main-box">
+                    <div>
+                        <span class="c-stop">Airports</span>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+                <!---Baggage-->
+                <div class="left-main-box">
+                    <div>
+                        <span class="c-stop">Baggage</span>
+                        <div class="stop-box">
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row mb-2"  (click)="openModifySearch(modalModificationPopUP)" style="border-bottom: 1px solid rgb(223, 223, 223);padding-bottom: 15px; cursor: pointer;">
+                            <div class="col-md-1">
+                    
+
+                                <div
+                                    style="font-size: 16px; margin-bottom: 0px;padding:0px; " class="brrrfdddf">{{formDataValue. obj_form_depart.cityName}}</div>
+                                    <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_form_depart.code}}</p>
+
+                                </div>
+                            <div class="col-md-1 d-flex justify-content-around mt-10">
+                                <span>
+                                    <i class="fa fa-long-arrow-right"
+                                        style="font-size:20px;color: rgb(189, 189, 189);font-weight: 600;"></i></span>
+                            </div>
+                            <div class="col-md-1 border-right">
+                                <div
+                                style="font-size: 16px; margin-bottom: 0px;padding:0px;"  class="brrrfdddf">{{formDataValue.obj_to_arrival.cityName}}</div>
+                                <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_to_arrival.code}}</p>
+
+                            </div>
+                            <div class="col-md-2 border-right">
+                                <span
+                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Departure
+                                </span>
+                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.from_depart_date |date}}
+                                </p>
+                            </div>
+
+                            <div class="col-md-2 border-right" *ngIf="formDataValue.to_arrival_date">
+                                <span
+                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Arrival
+                                </span>
+                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.to_arrival_date |date}}
+                                </p>
+                            </div>
+
+                            <div class="col-md-2 border-right">
+                                <span
+                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 3px;padding:0px;">Passengers</span>
+                                <p style="margin-top:-3px; margin-bottom: 0px;">{{ formDataValue.adults + formDataValue.child + formDataValue.infant}}</p>
+                            </div>
+                            <div class="col-md-2 border-right">
+                                <span
+                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Cabin</span>
+                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.class=='Y'? 'Economy':'Business'}}</p>
+                            </div>
+
+                            <button type="button" class="btn-modify"
+                               >Modify search</button>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 etoVOe">
+                                <div class="gpOibI">
+                                    <div>
+                                        <h6>Quickly filter your results:</h6>
+                                    </div>
+                                </div>
+
+
+                                <div class="KElkS">
+                                    <div class="">
+                                        <button type="button" class="btn-rd-1">Direct</button>
+                                        <button type="button" class="btn-rd-1">Checked baggage included</button>
+                                    </div>
+                                    <button type="button" class="btn-rd-1" (click)="showHideCalender()">
+                                        <i class="far fa-calendar-week" style="font-style: 18px;margin-right: 7px;"></i>
+                                        Show pricing calendar
+                                        <i class="far fa-chevron-down"
+                                            style="font-style: 18px;margin-left: 7px;font-weight: 600;"></i></button>
+                                </div>
+                                <div class="KElkS">
+                                    <div class="">
+                                        <button type="button" class="btn-rd-1 "
+                                            (click)="preDeparterDateflightSearchFromSub()">
+                                            <i class="far Fa fa-arrow-alt-from-right"
+                                                style="font-style: 18px;margin-left: 7px;font-weight: 600;"></i>
+
+                                            DEPARTER
+                                            PRE </button>
+                                        <button type="button" class="btn-rd-1" [hidden]="!isRoundTrip"
+                                            (click)="preReturnDateflightSearchFromSub()">
+                                            <i class="far Fa fa-arrow-alt-from-right"
+                                                style="font-style: 18px;margin-left: 7px;font-weight: 600;"></i> RETURN
+                                            PRE </button>
+
+
+
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn-rd-1"
+                                            (click)="nextDeparterDateflightSearchFromSub()">DEPARTER
+                                            NEXT <i class="far Fa fa-arrow-alt-from-left"
+                                                style="font-style: 18px;margin-left: 7px;font-weight: 600;"></i></button>
+                                        <button type="button" class="btn-rd-1" [hidden]="!isRoundTrip"
+                                            (click)="nextReturnDateflightSearchFromSub()">RETURN
+                                            NEXT <i class="far Fa fa-arrow-alt-from-left"
+                                                style="font-style: 18px;margin-left: 7px;font-weight: 600;"></i></button>
+
+
+                                    </div>
+                                </div>
+                                <div *ngIf="calenderShown">
+                                    <div class="departure"><span>Departure</span></div>
+                                    <div style="display: flex;margin-bottom: 10px;">
+                                        <!-- <div class="return">
+                                            <p>Return</p>
+                                        </div> -->
+                                        <table>
+                                            <tbody>
+                                                <tr>
+
+                                                    <th class="tbl-heading2">
+                                                        <div>Wednesday</div>
+                                                    </th>
+                                                    <th class="tbl-heading2">
+                                                        <div>Thursday</div>
+                                                    </th>
+                                                    <th class="tbl-heading2">
+                                                        <div>Friday</div>
+                                                    </th>
+                                                    <th class="tbl-heading2">
+                                                        <div>Saturday</div>
+                                                    </th>
+                                                    <th class="tbl-heading2">
+                                                        <div>Sunday</div>
+                                                    </th>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <span>Price updated to match the latest rates for the selected dates</span>
+                                </div>
+
+                                <div class="eJfmCd">
+                                    <div class="sc-bCQtTp ddThIv sc-gHboQg gCTvEd">
+                                        <div class="btn-box-first">
+                                            <div class="tj-tooltip__children sc-TFwJa cFsBnr">
+                                                <button type="button" class="btn-box-sq2">
+                                                    <div class="text-first">
+                                                        <img src="">
+                                                        <span>Khalid's picks: Best value</span>
+                                                        <i style="font-size: 14px;" class="fas fa-info-circle"></i>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                        <button type="button" class="btn-box-sq">
+                                            <div class="text-box"><span>
+                                                </span>Cheapest:<span class="sc-fepxGN feUlBC">SAR 90</span></div>
+                                        </button>
+                                        <button type="button" class="btn-box-sq">
+                                            <div class="text-box">
+                                                <span></span>Shortest:<span class="sc-fepxGN feUlBC">SAR 90</span>
+                                            </div>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <ng-container *ngIf="cusFlightblockArr.length==0">
+                                    <div class="mid-submain-box ">
+                                        <div class="w-100 px-4 py-2 container">
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-100 px-4 py-2 container">
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+
+                                            <div class="row border border-top-0 mb-3">
+                                                <div class="col-2">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-7">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                                <div class="col-3">
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                    <ngx-skeleton-loader></ngx-skeleton-loader>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="cusFlightblockArr?.length>=0">
+                                    <div class="mid-submain-box ">
+
+                                        <div class="row box-2 mb-2" *ngFor="let item of cusFlightblockArr">
+                                            <div class="col-lg-8">
+                                                <div class="search-result-leg-card">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="img-box">
+                                                                <img class="img-fr"
+                                                                    src="{{defaultImageAddress}}{{item.airline}}{{formatImage}}">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <div class="box2"> {{item.dep_time}}<p class="mb-0 mt-0"
+                                                                    style="font-size: 8px;">
+                                                                    {{item.Dep_date}}</p>
+                                                            </div>
+                                                            <div
+                                                                class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
+                                                                <div class="tj-tooltip__children sc-TFwJa cFsBnr">
+                                                                    <div class="box-4-time"
+                                                                        style="background-color: coral;">
+                                                                        <span>{{item.dep_code}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <div class="box3">
+
+                                                                <p class="stop">
+                                                                    <svg focusable="false" color="inherit"
+                                                                        *ngIf="item.baggage!=0" fill="currentcolor"
+                                                                        aria-hidden="true" role="presentation"
+                                                                        viewBox="0 0 24 24"
+                                                                        preserveAspectRatio="xMidYMid meet" size="24"
+                                                                        width="24" height="24" class="sc-hMqMXs jozQQJ">
+                                                                        <g fill="none" fill-rule="evenodd">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <g>
+                                                                                        <g
+                                                                                            transform="translate(-803 -379) translate(430 330) translate(274 27) translate(99 22)">
+                                                                                            <path d="M0 0H24V24H0z">
+                                                                                            </path>
+                                                                                            <path fill="#B0B0B0"
+                                                                                                d="M1.234 9.484H4.86V7.968c0-.534.412-.968.918-.968h2.449c.506 0 .918.434.918.968v1.516h3.629c.672 0 1.225.579 1.225 1.292v7.258c0 .704-.543 1.28-1.212 1.291-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8H2.86c-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8C.547 19.317 0 18.74 0 18.034v-7.258c0-.71.55-1.292 1.226-1.292h.007zm4.454.14h2.625V8.516c0-.355-.255-.641-.563-.641H6.25c-.31 0-.561.29-.561.641v1.109z">
+                                                                                            </path>
+                                                                                            <circle cx="17.057"
+                                                                                                cy="10.629" r="6.6"
+                                                                                                fill="#1DAC08"
+                                                                                                stroke="#FFF"
+                                                                                                stroke-width=".8">
+                                                                                            </circle>
+
+
+                                                                                            <path fill="#FFF"
+                                                                                                fill-rule="nonzero"
+                                                                                                d="M16.708 13.4c-.34.34-.892.34-1.232 0l-1.908-1.909c-.34-.34-.34-.891 0-1.231.34-.34.891-.34 1.231 0l1.137 1.137c.086.085.225.085.311 0l3.079-3.079c.34-.34.892-.34 1.232 0 .163.163.255.385.255.616 0 .23-.092.452-.255.616l-3.85 3.85z">
+                                                                                            </path>
+
+
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <svg focusable="false" *ngIf="item.baggage==0"
+                                                                        color="inherit" fill="currentcolor"
+                                                                        aria-hidden="true" role="presentation"
+                                                                        viewBox="0 0 24 24"
+                                                                        preserveAspectRatio="xMidYMid meet" size="24"
+                                                                        width="24" height="24" class="sc-hMqMXs jozQQJ">
+                                                                        <g fill="none" fill-rule="evenodd">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <g
+                                                                                        transform="translate(-801 -621) translate(702 599) translate(99 22)">
+                                                                                        <path d="M0 0H24V24H0z"></path>
+                                                                                        <path fill="#B0B0B0"
+                                                                                            d="M1.234 9.484H4.86V7.968c0-.534.412-.968.918-.968h2.449c.506 0 .918.434.918.968v1.516h3.629c.672 0 1.225.579 1.225 1.292v7.258c0 .704-.543 1.28-1.212 1.291-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8H2.86c-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8C.547 19.317 0 18.74 0 18.034v-7.258c0-.71.55-1.292 1.226-1.292h.007zm4.454.14h2.625V8.516c0-.355-.255-.641-.563-.641H6.25c-.31 0-.561.29-.561.641v1.109z">
+                                                                                        </path>
+                                                                                        <circle cx="17.057" cy="10.629"
+                                                                                            r="6.6" fill="#ac3408"
+                                                                                            stroke="#FFF"
+                                                                                            stroke-width=".8"></circle>
+                                                                                        <path fill="#FFF"
+                                                                                            fill-rule="nonzero"
+                                                                                            stroke="#FFF"
+                                                                                            stroke-width=".7"
+                                                                                            d="M14.162 8.038c.216-.216.566-.216.782 0h0l2.092 2.093 2.092-2.093c.216-.216.566-.216.782 0 .216.216.216.566 0 .782l-2.093 2.092 2.093 2.092c.192.192.213.49.064.705l-.064.077c-.216.216-.566.216-.782 0h0l-2.092-2.093-2.092 2.093c-.216.216-.566.216-.782 0-.216-.216-.216-.566 0-.782l2.093-2.092-2.093-2.092c-.192-.192-.213-.49-.064-.705z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                    {{getBaggges(item.baggage)}}
+
+
+                                                                </p>
+
+                                                            </div>
+                                                            <i class="fas fa-fighter-jet flights-icon"></i>
+                                                            <div class="box3-line"></div>
+                                                            <div class="box-last">
+                                                                <div>
+                                                                    <div>
+                                                                        <div>
+                                                                            <!-- <span class="box-last-text">{{ item .totall_time}}</span> -->
+                                                                            <p class="stop">
+                                                                                <svg focusable="false" color="gray400"
+                                                                                    fill="currentcolor"
+                                                                                    aria-hidden="true"
+                                                                                    role="presentation"
+                                                                                    viewBox="0 0 18 18"
+                                                                                    preserveAspectRatio="xMidYMid meet"
+                                                                                    size="16" width="16" height="16"
+                                                                                    class="sc-hMqMXs hEotJY">
+                                                                                    <g fill="none" fill-rule="evenodd">
+                                                                                        <path fill="currentColor"
+                                                                                            fill-rule="nonzero"
+                                                                                            d="M9 0C4.04 0 0 4.04 0 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z">
+                                                                                        </path>
+                                                                                        <path fill="#EAEAEA"
+                                                                                            stroke="#F3F3F3"
+                                                                                            d="M11.954 12.845a.435.435 0 0 1-.624.042l-3.184-2.83A.414.414 0 0 1 8 9.724V5.437A.44.44 0 0 1 8.437 5a.44.44 0 0 1 .437.437v4.079l3.038 2.684a.46.46 0 0 1 .042.645z">
+                                                                                        </path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                                {{item.totall_time}}&nbsp;
+                                                                                {{item.stop}} &nbsp;Stop
+
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <div class="box2">
+                                                                {{item.arr_time }}
+                                                                <p class="mb-0 mt-0" style="font-size: 8px;">
+                                                                    {{item.Dep_date}}</p>
+
+
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="box-4-time">
+                                                                    <span>{{item.arr_code}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ng-container *ngIf="item.flight_id_rt || item.return_date">
+                                                    <div class="search-result-leg-card"
+                                                        style="border-top: 1px solid rgb(223, 223, 223);">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                <div class="img-box">
+                                                                    <img class="img-fr"
+                                                                        src="{{defaultImageAddress}}{{item.airline2}}{{formatImage}}">
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="box2"> {{item.dep_time2}}<p
+                                                                        class="mb-0 mt-0" style="font-size: 8px;">
+                                                                        {{item.return_date}}</p>
+                                                                </div>
+                                                                <div
+                                                                    class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
+                                                                    <div class="tj-tooltip__children sc-TFwJa cFsBnr">
+                                                                        <div class="box-4-time"
+                                                                            style="background-color: coral;">
+                                                                            <span>{{item.dep_code2}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <div class="box3">
+
+                                                                    <p class="stop">
+                                                                        <svg focusable="false" *ngIf="item.baggage!=0"
+                                                                            color="inherit" fill="currentcolor"
+                                                                            aria-hidden="true" role="presentation"
+                                                                            viewBox="0 0 24 24"
+                                                                            preserveAspectRatio="xMidYMid meet"
+                                                                            size="24" width="24" height="24"
+                                                                            class="sc-hMqMXs jozQQJ">
+                                                                            <g fill="none" fill-rule="evenodd">
+                                                                                <g>
+                                                                                    <g>
+                                                                                        <g>
+                                                                                            <g
+                                                                                                transform="translate(-803 -379) translate(430 330) translate(274 27) translate(99 22)">
+                                                                                                <path d="M0 0H24V24H0z">
+                                                                                                </path>
+                                                                                                <path fill="#B0B0B0"
+                                                                                                    d="M1.234 9.484H4.86V7.968c0-.534.412-.968.918-.968h2.449c.506 0 .918.434.918.968v1.516h3.629c.672 0 1.225.579 1.225 1.292v7.258c0 .704-.543 1.28-1.212 1.291-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8H2.86c-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8C.547 19.317 0 18.74 0 18.034v-7.258c0-.71.55-1.292 1.226-1.292h.007zm4.454.14h2.625V8.516c0-.355-.255-.641-.563-.641H6.25c-.31 0-.561.29-.561.641v1.109z">
+                                                                                                </path>
+                                                                                                <circle cx="17.057"
+                                                                                                    *ngIf="item.baggage!=0"
+                                                                                                    cy="10.629" r="6.6"
+                                                                                                    fill="#1DAC08"
+                                                                                                    stroke="#FFF"
+                                                                                                    stroke-width=".8">
+                                                                                                </circle>
+                                                                                                <!-- <circle cx="17.057"
+                                                                                                    *ngIf="item.baggage==0"
+                                                                                                    cy="10.629" r="6.6"
+                                                                                                    fill="#ac3408"
+                                                                                                    stroke="#FFF"
+                                                                                                    stroke-width=".8">
+                                                                                                </circle> -->
+                                                                                                <path fill="#FFF"
+                                                                                                    *ngIf="item.baggage!=0"
+                                                                                                    fill-rule="nonzero"
+                                                                                                    d="M16.708 13.4c-.34.34-.892.34-1.232 0l-1.908-1.909c-.34-.34-.34-.891 0-1.231.34-.34.891-.34 1.231 0l1.137 1.137c.086.085.225.085.311 0l3.079-3.079c.34-.34.892-.34 1.232 0 .163.163.255.385.255.616 0 .23-.092.452-.255.616l-3.85 3.85z">
+                                                                                                </path>
+                                                                                                <!-- <path fill="#FFF"
+                                                                                                    *ngIf="item.baggage==0"
+                                                                                                    fill-rule="nonzero"
+                                                                                                    d="M16.708 13.4c-.34.34-.892.34-1.232 0l-1.908-1.909c-.34-.34-.34-.891 0-1.231.34-.34.891-.34 1.231 0l1.137 1.137c.086.085.225.085.311 0l3.079-3.079c.34-.34.892-.34 1.232 0 .163.163.255.385.255.616 0 .23-.092.452-.255.616l-3.85 3.85z">
+                                                                                                </path> -->
+                                                                                            </g>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                        <svg focusable="false" *ngIf="item.baggage==0"
+                                                                            color="inherit" fill="currentcolor"
+                                                                            aria-hidden="true" role="presentation"
+                                                                            viewBox="0 0 24 24"
+                                                                            preserveAspectRatio="xMidYMid meet"
+                                                                            size="24" width="24" height="24"
+                                                                            class="sc-hMqMXs jozQQJ">
+                                                                            <g fill="none" fill-rule="evenodd">
+                                                                                <g>
+                                                                                    <g>
+                                                                                        <g
+                                                                                            transform="translate(-801 -621) translate(702 599) translate(99 22)">
+                                                                                            <path d="M0 0H24V24H0z">
+                                                                                            </path>
+                                                                                            <path fill="#B0B0B0"
+                                                                                                d="M1.234 9.484H4.86V7.968c0-.534.412-.968.918-.968h2.449c.506 0 .918.434.918.968v1.516h3.629c.672 0 1.225.579 1.225 1.292v7.258c0 .704-.543 1.28-1.212 1.291-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8H2.86c-.032.447-.39.8-.824.8-.434 0-.792-.354-.824-.8C.547 19.317 0 18.74 0 18.034v-7.258c0-.71.55-1.292 1.226-1.292h.007zm4.454.14h2.625V8.516c0-.355-.255-.641-.563-.641H6.25c-.31 0-.561.29-.561.641v1.109z">
+                                                                                            </path>
+                                                                                            <circle cx="17.057"
+                                                                                                cy="10.629" r="6.6"
+                                                                                                fill="#ac3408"
+                                                                                                stroke="#FFF"
+                                                                                                stroke-width=".8">
+                                                                                            </circle>
+                                                                                            <path fill="#FFF"
+                                                                                                fill-rule="nonzero"
+                                                                                                stroke="#FFF"
+                                                                                                stroke-width=".7"
+                                                                                                d="M14.162 8.038c.216-.216.566-.216.782 0h0l2.092 2.093 2.092-2.093c.216-.216.566-.216.782 0 .216.216.216.566 0 .782l-2.093 2.092 2.093 2.092c.192.192.213.49.064.705l-.064.077c-.216.216-.566.216-.782 0h0l-2.092-2.093-2.092 2.093c-.216.216-.566.216-.782 0-.216-.216-.216-.566 0-.782l2.093-2.092-2.093-2.092c-.192-.192-.213-.49-.064-.705z">
+                                                                                            </path>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                        {{getBaggges(item.baggage)}}
+
+
+                                                                        <!-- <svg style="position: relative; top: 0px;    height: 18px;"
+                                                                    focusable="false" color="inherit"
+                                                                    fill="currentcolor" aria-hidden="true"
+                                                                    role="presentation" viewBox="0 0 16 16"
+                                                                    preserveAspectRatio="xMidYMid meet"
+                                                                    width="24px" height="24px"
+                                                                    class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl">
+                                                                    <g fill="none" fill-rule="evenodd">
+                                                                        <path d="M0 0h16v16H0z"></path>
+                                                                        <path fill="currentcolor"
+                                                                            d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
+                                                                        </path>
+                                                                    </g>
+                                                                </svg><span>Direct</span> -->
+                                                                    </p>
+
+                                                                </div>
+                                                                <i class="fas fa-fighter-jet flights-icon2"></i>
+                                                                <div class="box3-line"></div>
+                                                                <div class="box-last">
+                                                                    <div>
+                                                                        <div>
+                                                                            <div>
+                                                                                <!-- <span class="box-last-text">{{ item .totall_time}}</span> -->
+                                                                                <p class="stop">
+                                                                                    <svg focusable="false"
+                                                                                        color="gray400"
+                                                                                        fill="currentcolor"
+                                                                                        aria-hidden="true"
+                                                                                        role="presentation"
+                                                                                        viewBox="0 0 18 18"
+                                                                                        preserveAspectRatio="xMidYMid meet"
+                                                                                        size="16" width="16" height="16"
+                                                                                        class="sc-hMqMXs hEotJY">
+                                                                                        <g fill="none"
+                                                                                            fill-rule="evenodd">
+                                                                                            <path fill="currentColor"
+                                                                                                fill-rule="nonzero"
+                                                                                                d="M9 0C4.04 0 0 4.04 0 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z">
+                                                                                            </path>
+                                                                                            <path fill="#EAEAEA"
+                                                                                                stroke="#F3F3F3"
+                                                                                                d="M11.954 12.845a.435.435 0 0 1-.624.042l-3.184-2.83A.414.414 0 0 1 8 9.724V5.437A.44.44 0 0 1 8.437 5a.44.44 0 0 1 .437.437v4.079l3.038 2.684a.46.46 0 0 1 .042.645z">
+                                                                                            </path>
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                    {{item.totall_time2}}&nbsp;
+                                                                                    {{item.stop2}} &nbsp;Stop
+
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="box2">
+                                                                    {{item.arr_time2 }}
+                                                                    <p class="mb-0 mt-0" style="font-size: 8px;">
+                                                                        {{item.arr_return}}</p>
+
+
+                                                                </div>
+                                                                <div class="">
+                                                                    <div class="box-4-time">
+                                                                        <span>{{item.arr_code2}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                            <div class="col-lg-4 col4">
+                                                <div class="flg-box"><a class="flght-details" role="button"
+                                                        href="#">Flight details</a>
+                                                </div>
+                                                <div class="select-flght">
+                                                    <div class="left-box">
+                                                        <span>Best value</span>
+                                                    </div>
+
+                                                    <div class="sar-90">
+                                                        <div class="SAR">
+                                                            <div class="sar-text">SAR</div>
+                                                            <div>{{item.price}}</div>
+                                                        </div>
+                                                        <button type="button" class="btn-select-flght">
+                                                            Select flight <i style="padding-left: 5px;font-size: 12px;"
+                                                                class="fas fa-chevron-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<ng-template #modalModificationPopUP let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-title">Modify Search</h6>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid py-4">
+            <form autocomplete="off" [formGroup]="flightSearchFrom">
+                <div class="row">
+                    <div class="col-6  col-md-3  border-bottom pb-1">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="One Way" name="flight_type"
+                                formControlName="flight_type" id="wayId" checked (click)="toggleRoundTrip(false)">
+                            <label class="form-check-label" for="wayId1">
+                                One Way
+                            </label>
+                        </div>
+                    </div>
+                    <div class=" col-6  col-md-3 border-bottom pb-1">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="round" name="flight_type"
+                                (click)="toggleRoundTrip(true)" formControlName="flight_type" id="wayId2">
+                            <label class="form-check-label" for="wayId2">
+                                Round Trip
+                            </label>
+                        </div>
+                    </div>
+                    <div class=" col-6 col-md-3 border-bottom  pb-1">
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="vfr" type="checkbox" value="vfr"
+                                id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Special Fare Only
+                            </label>
+                        </div>
+                    </div>
+                    <div class=" col-6 col-md-3  border-bottom pb-1">
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="direct" type="checkbox" value="direct"
+                                id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Non Stop Flights
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 pt-3 " [class.col-lg-4]="!isRoundTrip">
+                        <div class="form-group suggestion_parent_box" style="position: relative;">
+                            <label class="fs-14 text-custom-black fw-500">From</label>
+                            <input type="search" name="form_depart" #selectvalye formControlName="form_depart"
+                                class="form-control form-control-custom" placeholder="city, distirct or specific airpot"
+                                (keyup)="getFromLocationByCode(selectvalye.value)">
+                            <div class="suggestion_box w-100" style="max-height: 200px; overflow-y: auto;"
+                                *ngIf="fromLocationArr.length>0">
+                                <div class="suggestion_box_item" *ngFor="let fromLocationItem of fromLocationArr;">
+                                    <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                        (click)="set_form_depart_val(fromLocationItem, 'all')">
+                                        <b class="text-primary" style="font-size: x-small;">{{
+                                            fromLocationItem.cityCode }} - {{
+                                            fromLocationItem.cityName }}</b>
+                                        <div class="d-flex justify-content-between">
+                                            <b class="text-dark">All Airport</b>
+                                            <b class="text-success">{{fromLocationItem.cityCode}}</b>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                        *ngFor="let item of fromLocationItem['childArr'];"
+                                        (click)="set_form_depart_val(item)">
+                                        <b class="text-primary" style="font-size: x-small;">{{
+                                            item.cityCode }} - {{
+                                            item.cityName }}</b>
+                                        <b class="text-muted" style="font-size: xx-small;">{{
+                                            item.countryName }}</b>
+                                        <div class="d-flex justify-content-between">
+                                            <b class="text-dark">{{item.name }}</b>
+                                            <b class="text-danger">{{item.code
+                                                }}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 pt-3" [class.col-lg-4]="!isRoundTrip">
+                        <div class="form-group suggestion_parent_box" style="position: relative;">
+                            <label class="fs-14 text-custom-black fw-500">To</label>
+                            <input type="search" name="to_arrival" formControlName="to_arrival"
+                                class="form-control form-control-custom" placeholder="city, distirct or specific airpot"
+                                #to_val (keyup)="getToLocationByCode(to_val.value)">
+
+                            <div class="suggestion_box w-100" style="max-height: 200px; overflow-y: auto;"
+                                *ngIf="toLocationArr.length>0">
+                                <div class="suggestion_box_item" *ngFor="let toLocationItem of toLocationArr;">
+                                    <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                        (click)="set_to_arrival_val(toLocationItem, 'all')">
+                                        <b class="text-primary" style="font-size: x-small;">{{
+                                            toLocationItem.cityCode }} - {{
+                                            toLocationItem.cityName }}</b>
+                                        <div class="d-flex justify-content-between">
+                                            <b class="text-dark">All Airport</b>
+                                            <b class="text-success">{{toLocationItem.cityCode}}</b>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                        *ngFor="let item of toLocationItem['childArr'];"
+                                        (click)="set_to_arrival_val(item)">
+                                        <b class="text-primary" style="font-size: x-small;">{{
+                                            item.cityCode }} - {{
+                                            item.cityName }}</b>
+                                        <b class="text-muted" style="font-size: xx-small;">{{
+                                            item.countryName }}</b>
+                                        <div class="d-flex justify-content-between">
+                                            <b class="text-dark">{{item.name }}</b>
+                                            <b class="text-danger">{{item.code
+                                                }}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 pt-3" [class.col-lg-4]="!isRoundTrip">
+                        <div class="form-group">
+                            <label class="fs-14 text-custom-black fw-500">Departer</label>
+                            <div class="input-group group-form">
+                                <input type="date" [min]="today" name="from_depart_date"
+                                    formControlName="from_depart_date"
+                                    class="form-control form-control-custom datepickr" placeholder="mm/dd/yy"
+                                    (change)="reset_from_depart_date()">
+                                <span class="input-group-append">
+                                    <i class="far fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 pt-3" *ngIf="isRoundTrip">
+                        <div class="form-group">
+                            <label class="fs-14 text-custom-black fw-500">Return</label>
+                            <div class="input-group group-form">
+                                <input type="date" [min]="from_depart_date?.value" name="to_arrival_date"
+                                    formControlName="to_arrival_date" class="form-control form-control-custom datepickr"
+                                    placeholder="mm/dd/yy">
+                                <span class="input-group-append">
+                                    <i class="far fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4  pt-3">
+                        <div class="form-group">
+                            <label class="fs-14 text-custom-black fw-500">
+                                Your Preferred Airline
+                            </label>
+                            <div class="group-form">
+                                <angular2-multiselect [data]="dropdownList" formControlName="preferred_carriers"
+                                    [(ngModel)]="selectedItems" [settings]="dropdownSettings"
+                                    (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                                    class="form-control form-control-custom"
+                                    style="padding: 0; padding-left: 10px; padding-right: 10px;">
+                                </angular2-multiselect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4  pt-3">
+                        <div class="form-group">
+                            <label class="fs-14 text-custom-black fw-500">
+                                Cabin Class
+                            </label>
+                            <div class="group-form">
+                                <select name="class" formControlName="class"
+                                    class="custom-select form-control form-control-custom" nice-select>
+                                    <option value="Y">Economy</option>
+                                    <option value="C">Business</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12  pt-3">
+                        <div class="row">
+                            <div class="col-4 col-md-3">
+                                <div class="form-group">
+                                    <label class="fs-14 text-custom-black fw-500">Adults</label>
+                                    <div class="group-form">
+                                        <select class="custom-select form-control form-control-custom" nice-select
+                                            name="adults" formControlName="adults" #mySelect
+                                            (change)="onChangeAdults($event)">
+                                            <option *ngFor="let item of adultsArray;" [value]="item">{{item}}
+                                            </option>
+                                        </select>
+                                        <input type="hidden" name="adult_ptc">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-3">
+                                <div class="form-group">
+                                    <label class="fs-14 text-custom-black fw-500">Kids</label>
+                                    <div class="group-form">
+                                        <select class="custom-select form-control form-control-custom" nice-select
+                                            name='child' formControlName="child">
+                                            <option *ngFor="let item of childArray;" [value]="item">{{item}}
+                                            </option>
+
+                                        </select>
+
+                                        <input type="hidden" name="child_ptc" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-3 ">
+                                <div class="form-group">
+                                    <label class="fs-14 text-custom-black fw-500">Infants</label>
+                                    <div class="group-form">
+                                        <select name="infant" formControlName="infant"
+                                            class="custom-select form-control form-control-custom" nice-select>
+                                            <option *ngFor="let item of infantArray;" [value]="item">{{item}}
+                                            </option>
+
+                                        </select>
+
+                                        <input type="hidden" name="infant_ptc" class="form-control ">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 ">
+                                <div class="form-group">
+                                    <label class="submit"></label>
+                                    <button *ngIf="!loading" class="btn-first btn-submit full-width btn-height"
+                                        (click)="flightSearchFromSub()"  (click)="modal.close('Ok')"
+                                        [class.btn-submit-disabled]="flightSearchFrom.invalid"
+                                        [disabled]="flightSearchFrom.invalid">
+                                        Search
+                                    </button>
+                                    <button class="btn-first btn-height full-width" *ngIf="loading">
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        &nbsp;
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        &nbsp;
+                                        <div class="spinner-grow spinner-grow-sm" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalViewPopUP let-modal>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+
+    <!-- {{viewDataAll | json}} -->
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="table-responsive mt-1">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-active m-2">
+                            <!-- {{indexAll.value}} -->
+                            <th class="p-3">Trip # </th>
+                            <th class="p-3" colspan="2">{{arr_code}} to {{dep_code}}</th>
+                            <th class="p-3">{{Dep_date}} | {{arr_time}}-{{dep_time}}</th>
+                            <th class="p-3">EY1556</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <div class="spinner-border text-info mr-5" style="position: absolute; left: 50%;top:50%"
+                            role="status" *ngIf="loadingViewDta">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <ng-container *ngIf="gds=='gal'">
+                            <tr *ngFor="let item of viewDataAll">
+                                <td><span style="width: 40%;"><img
+                                            src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"></span>
+                                    <p class="mb-0">{{item.flight_CabinClass}}</p>
+                                    <p class="mb-0">{{item.from_Carrier}}{{item.from_FlightNumber}}</p>
+                                </td>
+                                <td>
+
+                                    <p class="mb-0">{{item.from_cityName}}({{item.from_Origin}})</p>
+                                    <p class="mb-0">{{item.from_airportname}}</p>
+                                    <p class="mb-0"> {{item.from_countryName}}</p>
+                                    <p class="mb-0"> {{item.from_flight_time}} {{item.from_flight_date}}</p>
+                                </td>
+                                <td><i class="dwtltd-icon icon-21"></i>
+                                    <svg _ngcontent-cyg-c224="" focusable="false" color="inherit" fill="currentcolor"
+                                        aria-hidden="true" role="presentation" viewBox="0 0 16 16"
+                                        preserveAspectRatio="xMidYMid meet" width="24px" height="24px"
+                                        class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl" style="position: relative; top: 4px;">
+                                        <g _ngcontent-cyg-c224="" fill="none" fill-rule="evenodd">
+                                            <path _ngcontent-cyg-c224="" d="M0 0h16v16H0z"></path>
+                                            <path _ngcontent-cyg-c224="" fill="currentcolor"
+                                                d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <i class="dwtltd-icon icon-21"></i>
+                                </td>
+                                <td>
+                                    <p class="mb-0"></p>
+                                    <p class="mb-0">{{item.to_cityName}}({{item.to_Destination}})</p>
+                                    <p class="mb-0">{{item.to_airportname}}</p>
+                                    <p class="mb-0"> {{item.to_countryName}}</p>
+                                    <p class="mb-0">{{item.to_flight_time}} {{item.to_flight_date}}</p>
+
+                                </td>
+                                <td>
+                                    <p class="mb-0"><i class="fa fa-suitcase" aria-hidden="true"></i>
+                                        {{item.BaggageAllowance}}</p>
+                                    <p></p>
+                                    <p></p>
+                                    <p></p>
+                                    <p class="fdetcenter"> {{item.overlay_time}}
+                                        {{item.overlay_Origin}}
+                                    </p>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="viewDataAll2">
+                                <tr class="table-active m-2">
+                                    <!-- {{indexAll2.value}} -->
+                                    <th class="p-3">Trip # </th>
+                                    <th class="p-3" colspan="2">{{arr_code}} to {{dep_code}}</th>
+                                    <th class="p-3">{{Dep_date}} | {{arr_time}}-{{dep_time}}</th>
+                                    <th class="p-3">EY1556</th>
+                                </tr>
+                                <tr *ngFor="let item of viewDataAll2">
+
+                                    <td><span style="width: 40%;"><img
+                                                src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"></span>
+                                        <p class="mb-0">{{item.flight_CabinClass}}</p>
+                                        <p class="mb-0">{{item.from_Carrier}}{{item.from_FlightNumber}}</p>
+                                    </td>
+                                    <td>
+
+                                        <p class="mb-0">{{item.from_cityName}}({{item.from_Origin}})</p>
+                                        <p class="mb-0">{{item.from_airportname}}</p>
+                                        <p class="mb-0"> {{item.from_countryName}}</p>
+                                        <p class="mb-0"> {{item.from_flight_time}} {{item.from_flight_date}}</p>
+                                    </td>
+                                    <td><i class="dwtltd-icon icon-21"></i>
+                                        <svg _ngcontent-cyg-c224="" focusable="false" color="inherit"
+                                            fill="currentcolor" aria-hidden="true" role="presentation"
+                                            viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" width="24px"
+                                            height="24px" class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl"
+                                            style="position: relative; top: 4px;">
+                                            <g _ngcontent-cyg-c224="" fill="none" fill-rule="evenodd">
+                                                <path _ngcontent-cyg-c224="" d="M0 0h16v16H0z"></path>
+                                                <path _ngcontent-cyg-c224="" fill="currentcolor"
+                                                    d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        <i class="dwtltd-icon icon-21"></i>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0"></p>
+                                        <p class="mb-0">{{item.to_cityName}}({{item.to_Destination}})</p>
+                                        <p class="mb-0">{{item.to_airportname}}</p>
+                                        <p class="mb-0"> {{item.to_countryName}}</p>
+                                        <p class="mb-0">{{item.to_flight_time}} {{item.to_flight_date}}</p>
+
+                                    </td>
+                                    <td>
+                                        <p class="mb-0"><i class="fa fa-suitcase" aria-hidden="true"></i>
+                                            {{item.BaggageAllowance}}</p>
+                                        <p></p>
+                                        <p></p>
+                                        <p></p>
+                                        <p class="fdetcenter"> {{item.overlay_time}}
+                                            {{item.overlay_Origin}}
+                                        </p>
+                                    </td>
+                                </tr>
+
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="gds=='ama'">
+                            <tr *ngFor="let item of viewDataAll">
+                                <td><span style="width: 40%;"><img
+                                            src="{{defaultImageAddress}}{{item.flight_name}}{{formatImage}}"></span>
+                                    <p class="mb-0">{{item.flight_Class}}</p>
+                                    <p class="mb-0">{{item.flight_name}}{{item.flightno}}</p>
+                                </td>
+                                <td>
+
+                                    <p class="mb-0">{{item.cityName_arrival}}</p>
+                                    <p class="mb-0">{{item.airportname_arrival}}</p>
+                                    <p class="mb-0"> {{item.countryName_arrival}}</p>
+                                    <p class="mb-0"> {{item.date_arrival}} {{item.time_arrival}} </p>
+                                </td>
+                                <td><i class="dwtltd-icon icon-21"></i>
+                                    <svg _ngcontent-cyg-c224="" focusable="false" color="inherit" fill="currentcolor"
+                                        aria-hidden="true" role="presentation" viewBox="0 0 16 16"
+                                        preserveAspectRatio="xMidYMid meet" width="24px" height="24px"
+                                        class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl" style="position: relative; top: 4px;">
+                                        <g _ngcontent-cyg-c224="" fill="none" fill-rule="evenodd">
+                                            <path _ngcontent-cyg-c224="" d="M0 0h16v16H0z"></path>
+                                            <path _ngcontent-cyg-c224="" fill="currentcolor"
+                                                d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <i class="dwtltd-icon icon-21"></i>
+                                </td>
+                                <td>
+                                    <p class="mb-0"></p>
+                                    <p class="mb-0">{{item.cityName_departure}}</p>
+                                    <p class="mb-0">{{item.airportname_departure}}</p>
+                                    <p class="mb-0"> {{item.countryName_departure}}</p>
+                                    <p class="mb-0">{{item.time_departure}} </p>
+
+                                </td>
+                                <td>
+                                    <p class="mb-0">
+                                    </p>
+                                    <p></p>
+                                    <p></p>
+                                    <p></p>
+                                    <p class="fdetcenter"> {{item.layover_time}}
+                                        {{item.transit_city}}
+                                    </p>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+
+
+                        <!-- <p class="fdetcenter">Stay at Heathrow from 17:30:00 to 08:00:00</p>
+                     -->
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalTaxPopUP let-modal>
+
+    <div class="modal-body p-3">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-tilte p-0 mb-1 ">Detail</h6>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pax count</th>
+                            <th>ptc_ntype</th>
+                            <th>Total Fare Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of viewDataPrice">
+                            <td>{{ item.paxcount }}</td>
+                            <td>{{ item.ptc_ntype }}</td>
+                            <td>{{ item.totalFareAmount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Close</button>
+    </div>
+</ng-template>

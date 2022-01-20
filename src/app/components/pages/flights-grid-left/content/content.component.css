@@ -1,0 +1,137 @@
+.o1 {
+  order: 1;
+}
+
+.o2 {
+  order: 1;
+}
+.brrrfdddf {
+  white-space: nowrap; 
+  width: 50px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .o1 {
+    order: 2;
+  }
+
+  .o2 {
+    order: 1;
+  }
+}
+
+.padding-20 {
+  padding: 6px;
+}
+
+table th,
+table td {
+  border: 1px solid #dfdfdf;
+  padding: 2px;
+}
+
+.arr_des {
+  font-size: 15px;
+  font-weight: bolder;
+  margin-bottom: 0px;
+}
+
+.mid-gap {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.time_value {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.stop {
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+
+
+
+.mimage {
+  width: 100px;
+  height: 50px;
+  padding-left: 2px;
+  object-fit: fill;
+  padding-right: 4px;
+}
+
+.sidebar_wrap .sidebar .sidebar_widgets {
+  padding-top: 10px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+@media (min-width:320px) {
+  .flights-grid .flights-grid-wrapper .flights-grid-caption .heading-sec .right-side .price,
+  .cruise-grid .cruise-grid-wrapper .cruise-grid-caption .price,
+  .hotel-grid .hotel-grid-wrapper .hotel-grid-caption .price {
+    text-align: center !important;
+    top: 20px !important;
+  }
+
+  .mimage {
+    width: 166px;
+    height: 54px;
+    padding-left: 2px;
+    object-fit: fill;
+    padding-right: 4px;
+    padding-bottom: 6px;
+  }
+}
+
+.suggestion_box_item {
+  z-index: 999 !important;
+  position: absolute !important;
+  background-color: white !important;
+}
+
+.suggestion_box_item div {
+  cursor: pointer !important;
+  opacity: 0.7 !important;
+}
+
+.suggestion_box_item div:hover {
+  opacity: 1 !important;
+}
+
+
+
+
+label.custom-checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #d4d4db;
+    width: 14px  !important;;
+    height: 14px !important;
+    background-color: #fff;
+    border-radius: 0px;
+}
+label.custom-checkbox .checkmark:after {
+  left: 4px;
+  top: 0px;
+  width: 4px;
+  height: 9px;
+  border: solid #4dc8cf;
+  border-width: 0 2px 2px 0;
+  transform: rotate(
+45deg
+);
+}
+

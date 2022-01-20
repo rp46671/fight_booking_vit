@@ -1,0 +1,310 @@
+<div class="banner-tabs mb-4 " style="padding-top: 60px;">
+    <div class="myBackGroundClass" style="padding-top: 70px;padding-bottom: 70px;">
+        <div class="container ">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="tabs">
+                        <ul ngbNav #nav="ngbNav" class="custom-flex nav nav-tabs">
+                            <li [ngbNavItem]="1">
+                                <ng-template ngbNavContent>
+                                    <div class="tab-inner">
+                                        <form autocomplete="off" [formGroup]="flightSearchFrom">
+                                            <div class="row">
+                                                <div class="col-6  col-md-3  border-bottom pb-1">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" value="One Way"
+                                                            name="flight_type" formControlName="flight_type" id="wayId"
+                                                            checked (click)="toggleRoundTrip(false)">
+                                                        <label class="form-check-label" for="wayId1">
+                                                            One Way
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class=" col-6  col-md-3 border-bottom pb-1">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" value="round"
+                                                            name="flight_type" (click)="toggleRoundTrip(true)"
+                                                            formControlName="flight_type" id="wayId2">
+                                                        <label class="form-check-label" for="wayId2">
+                                                            Round Trip
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class=" col-6 col-md-3 border-bottom  pb-1">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" formControlName="vfr"
+                                                            type="checkbox" value="vfr" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Special Fare Only
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class=" col-6 col-md-3  border-bottom pb-1">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" formControlName="direct"
+                                                            type="checkbox" value="direct" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Non Stop Flights
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-4 pt-3 " [class.col-lg-4]="!isRoundTrip">
+                                                    <div class="form-group suggestion_parent_box"
+                                                        style="position: relative;">
+                                                        <label class="fs-14 text-custom-black fw-500">From</label>
+                                                        <input type="search" name="form_depart" #selectvalye
+                                                            formControlName="form_depart"
+                                                            class="form-control form-control-custom"
+                                                            placeholder="city, distirct or specific airpot"
+                                                            (keyup)="getFromLocationByCode(selectvalye.value)">
+                                                        <div class="suggestion_box w-100"
+                                                            style="max-height: 200px; overflow-y: auto;"
+                                                            *ngIf="fromLocationArr.length>0">
+                                                            <div class="suggestion_box_item"
+                                                                *ngFor="let fromLocationItem of fromLocationArr;">
+                                                                <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                                                    (click)="set_form_depart_val(fromLocationItem, 'all')">
+                                                                    <b class="text-primary"
+                                                                        style="font-size: x-small;">{{
+                                                                        fromLocationItem.cityCode }} - {{
+                                                                        fromLocationItem.cityName }}</b>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <b class="text-dark">All Airport</b>
+                                                                        <b
+                                                                            class="text-success">{{fromLocationItem.cityCode}}</b>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                                                    *ngFor="let item of fromLocationItem['childArr'];"
+                                                                    (click)="set_form_depart_val(item)">
+                                                                    <b class="text-primary"
+                                                                        style="font-size: x-small;">{{
+                                                                        item.cityCode }} - {{
+                                                                        item.cityName }}</b>
+                                                                    <b class="text-muted"
+                                                                        style="font-size: xx-small;">{{
+                                                                        item.countryName }}</b>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <b class="text-dark">{{item.name }}</b>
+                                                                        <b class="text-danger">{{item.code
+                                                                            }}</b>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-4 pt-3" [class.col-lg-4]="!isRoundTrip">
+                                                    <div class="form-group suggestion_parent_box"
+                                                        style="position: relative;">
+                                                        <label class="fs-14 text-custom-black fw-500">To</label>
+                                                        <input type="text" name="to_arrival"
+                                                            formControlName="to_arrival"
+                                                            class="form-control form-control-custom"
+                                                            placeholder="city, distirct or specific airpot" #to_val
+                                                            (keyup)="getToLocationByCode(to_val.value)">
+
+                                                        <div class="suggestion_box w-100"
+                                                            style="max-height: 200px; overflow-y: auto;"
+                                                            *ngIf="toLocationArr.length>0">
+                                                            <div class="suggestion_box_item"
+                                                                *ngFor="let toLocationItem of toLocationArr;">
+                                                                <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                                                    (click)="set_to_arrival_val(toLocationItem, 'all')">
+                                                                    <b class="text-primary"
+                                                                        style="font-size: x-small;">{{
+                                                                        toLocationItem.cityCode }} - {{
+                                                                        toLocationItem.cityName }}</b>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <b class="text-dark">All Airport</b>
+                                                                        <b
+                                                                            class="text-success">{{toLocationItem.cityCode}}</b>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex flex-column justify-content-between px-4 bg-light mb-1"
+                                                                    *ngFor="let item of toLocationItem['childArr'];"
+                                                                    (click)="set_to_arrival_val(item)">
+                                                                    <b class="text-primary"
+                                                                        style="font-size: x-small;">{{
+                                                                        item.cityCode }} - {{
+                                                                        item.cityName }}</b>
+                                                                    <b class="text-muted"
+                                                                        style="font-size: xx-small;">{{
+                                                                        item.countryName }}</b>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <b class="text-dark">{{item.name }}</b>
+                                                                        <b class="text-danger">{{item.code
+                                                                            }}</b>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-4 pt-3" [class.col-lg-4]="!isRoundTrip">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">Departer</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="date" [min]="today" name="from_depart_date"
+                                                                formControlName="from_depart_date"
+                                                                class="form-control form-control-custom datepickr"
+                                                                placeholder="mm/dd/yy"
+                                                                (change)="reset_from_depart_date()">
+                                                            <span class="input-group-append">
+                                                                <i class="far fa-calendar"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-4 pt-3" *ngIf="isRoundTrip">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">Return</label>
+                                                        <div class="input-group group-form">
+                                                            <input type="date" [min]="from_depart_date?.value"
+                                                                name="to_arrival_date" formControlName="to_arrival_date"
+                                                                class="form-control form-control-custom datepickr"
+                                                                placeholder="mm/dd/yy">
+                                                            <span class="input-group-append">
+                                                                <i class="far fa-calendar"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4  pt-3">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">
+                                                            Your Preferred Airline
+                                                        </label>
+                                                        <div class="group-form">
+                                                            <angular2-multiselect [data]="dropdownList"
+                                                                formControlName="preferred_carriers"
+                                                                [(ngModel)]="selectedItems"
+                                                                [settings]="dropdownSettings"
+                                                                (onSelect)="onItemSelect($event)"
+                                                                (onDeSelect)="OnItemDeSelect($event)"
+                                                                (onSelectAll)="onSelectAll($event)"
+                                                                (onDeSelectAll)="onDeSelectAll($event)"
+                                                                class="form-control form-control-custom"
+                                                                style="padding: 0; padding-left: 10px; padding-right: 10px;">
+                                                            </angular2-multiselect>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4  pt-3">
+                                                    <div class="form-group">
+                                                        <label class="fs-14 text-custom-black fw-500">
+                                                            Cabin Class
+                                                        </label>
+                                                        <div class="group-form">
+                                                            <select name="class" formControlName="class"
+                                                                class="custom-select form-control form-control-custom"
+                                                                nice-select>
+                                                                <option value="Y">Economy</option>
+                                                                <option value="C">Business</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-12  pt-3">
+                                                    <div class="row">
+                                                        <div class="col-4 col-md-3">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    class="fs-14 text-custom-black fw-500">Adults</label>
+                                                                <div class="group-form">
+                                                                    <select
+                                                                        class="custom-select form-control form-control-custom"
+                                                                        nice-select name="adults"
+                                                                        formControlName="adults" #mySelect
+                                                                        (change)="onChangeAdults($event)">
+                                                                        <option *ngFor="let item of adultsArray;"
+                                                                            [value]="item">{{item}}</option>
+                                                                    </select>
+                                                                    <input type="hidden" name="adult_ptc">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 col-md-3">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    class="fs-14 text-custom-black fw-500">Kids</label>
+                                                                <div class="group-form">
+                                                                    <select
+                                                                        class="custom-select form-control form-control-custom"
+                                                                        nice-select name='child'
+                                                                        formControlName="child">
+                                                                        <option *ngFor="let item of childArray;"
+                                                                            [value]="item">{{item}}</option>
+
+                                                                    </select>
+
+                                                                    <input type="hidden" name="child_ptc"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 col-md-3 ">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    class="fs-14 text-custom-black fw-500">Infants</label>
+                                                                <div class="group-form">
+                                                                    <select name="infant" formControlName="infant"
+                                                                        class="custom-select form-control form-control-custom"
+                                                                        nice-select>
+                                                                        <option *ngFor="let item of infantArray;"
+                                                                            [value]="item">{{item}}</option>
+
+                                                                    </select>
+
+                                                                    <input type="hidden" name="infant_ptc"
+                                                                        class="form-control ">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-3 ">
+                                                            <div class="form-group">
+                                                                <label class="submit"></label>
+                                                                <button *ngIf="!loading"
+                                                                    class="btn-first btn-submit full-width btn-height"
+                                                                    (click)="flightSearchFromSub()"
+                                                                    [class.btn-submit-disabled]="flightSearchFrom.invalid"
+                                                                    [disabled]="flightSearchFrom.invalid">
+                                                                    Search
+                                                                </button>
+                                                                <button class="btn-first btn-height full-width"
+                                                                    *ngIf="loading">
+                                                                    <div class="spinner-grow spinner-grow-sm"
+                                                                        role="status">
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    </div>
+                                                                    &nbsp;
+                                                                    <div class="spinner-grow spinner-grow-sm"
+                                                                        role="status">
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    </div>
+                                                                    &nbsp;
+                                                                    <div class="spinner-grow spinner-grow-sm"
+                                                                        role="status">
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    </div>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+
+                        <div [ngbNavOutlet]="nav" class="bg-custom-white bx-wrapper padding-20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

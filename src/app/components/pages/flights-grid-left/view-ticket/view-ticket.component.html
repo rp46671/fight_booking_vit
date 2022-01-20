@@ -1,0 +1,229 @@
+<div class="container">
+    <div class="row shadow my-3" *ngIf="!showingValue">
+        <div class="col-12 p-4">
+            <h1 class="display-4">Print Ticket</h1>
+            <form>
+                <div class="form-group">
+                    <label for="refrenceNumber">Please Enter Your Booking Refrence Number</label>
+                    <input type="text" style="width: 200px;" #refrenceNumber class="form-control form-control-sm"
+                        id="refrenceNumber" placeholder="Booking Refrence Number" maxlength="6" minlength="6">
+                    <small id="refrenceNumber" class="form-text text-muted">We'll never share your booking refrence
+                        number with anyone
+                        else.</small>
+                </div>
+                <button type="submit" (click)="getTicket(refrenceNumber)" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="showingValue">
+        <!-- BEGIN INVOICE -->
+        <div class="col-xs-12">
+            <div class="grid invoice">
+                <div class="grid-body">
+                    <div class="invoice-title">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <img src="../../../../assets/images/khalsa.png" alt="" height="25"
+                                    style="max-width: 60%;">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2>ELECTRONIC TICKET<br>
+
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <address>
+                                        <div>
+                                            <strong>
+                                                YOUR BOOKING REFERENCE:
+
+                                                <span style="font-size: 26px;color: Red; padding-left: 8%;">
+                                                    <ng-container *ngIf="statusData && statusData?.users && statusData.users?.detail1">
+                                                        <b class="mb-0" *ngFor="let user of statusData.users?.detail1">
+                                                            {{user.gdspnr}}</b>
+                                                        </ng-container>
+                                                    </span>
+                                            </strong>
+
+
+                                        </div>
+                                    </address>
+
+                                </div>
+                                <div class="col-lg-12">
+
+                                    <div>
+                                        <p style="color: blue; font-size: 17px; margin-bottom: 0px;"> At the airport,
+                                            you must
+                                            present proof of identity.</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-4">
+                                    <p class="mb-0">PASSENGERS</p>
+                                    <ng-container *ngIf="statusData && statusData?.users && statusData.users?.detail1">
+                                        <p class="mb-0" *ngFor="let user of statusData.users?.detail1">
+                                            {{user.passangers_names}}</p>
+                                    </ng-container>
+                                </div>
+
+                                <div class="col-lg-6 mt-4">
+                                    <p class="mb-0">Ticket Number</p>
+                                    <ng-container *ngIf="statusData && statusData?.users && statusData.users?.detail1">
+                                        <p class="mb-0" *ngFor="let user of statusData.users?.detail1">{{user.tktno}}
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 text-right">
+
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h3>ITINERARY </h3>
+                            <div class="table-responsive">
+
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="line">
+                                            <td> <strong>Date</strong></td>
+                                            <td><strong>Departure
+                                                </strong></td>
+                                            <td><strong>Arrival</strong></td>
+                                            <td><strong>Flight
+                                                </strong></td>
+                                            <td><strong>AirLine PNR</strong></td>
+                                            <td><strong>Total baggage**
+                                                </strong></td>
+                                            <td><strong>Cabin</strong></td>
+                                            <td><strong>Class</strong> </td>
+                                            <td><strong>Status*</strong></td>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <ng-container
+                                            *ngIf="statusData && statusData?.airlines && statusData.airlines?.detail">
+                                            <tr *ngFor="let airline of statusData.airlines?.detail">
+                                                <td>{{ airline.depDate }}</td>
+                                                <td>{{ airline.dep_time }}<br>
+                                                  {{ airline.boardpointDetailcityName }} <br>
+                                                    {{ airline.boardpointDetailcityCode }}<br>
+                                                    {{ airline.boardairportname }}
+                                                    {{ airline.departterminal }}
+                                                </td>
+                                                <td>{{ airline.arr_time }}
+                                                    {{ airline.dayChangeIndicatorland }}   
+                                                    
+                                                    <br>
+                                                    {{ airline.offpointDetailcityName }} <br>
+                                                      {{ airline.offpointDetail }}<br>
+                                                      {{ airline.offpointDetailairportname }}
+                                                      {{ airline.arrterminal }}
+                                                    </td>
+
+                                                <td>{{ airline.airlinename.airline_code }}{{ airline.flightno }}</td>
+                                                <td>{{ airline.airlinrepnr }}</td>
+                                                <td>
+                                                    <i class="fa fa-suitcase" aria-hidden="true"></i>
+  
+                                                    
+                                                    {{ airline.baggageAllowance }}<br>
+
+                                                 Stop.   {{ airline.noofstopstkt }}<br>
+                                                    {{ airline.ticket_facility }}<br>
+                                                    {{ airline.ticket_facility1 }}
+
+                                                </td>
+                                                <td>{{ airline.classDesignator }}</td>
+                                                <td>{{ airline.Classofservice }}</td>
+                                                <td>{{ airline.tktstatuscode }}</td>
+                                               
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-12 ">
+                            <h5>Receipt</h5>
+                            <div class="table-responsive">
+
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="line">
+
+
+                                            <td> <strong>Name</strong></td>
+                                            <td><strong>Ticket Number
+                                                </strong></td>
+                                            <td><strong>Form of
+                                                    Payment</strong></td>
+                                            <td><strong>Fare
+                                                    excluding
+                                                </strong></td>
+
+                                            <td><strong>Taxes, carrier surcharge and applicable
+                                                    ticketing fees
+                                                </strong></td>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+
+                                            <td>SINGH MANDEEP MR<br>
+                                                (Adult)
+                                            </td>
+                                            <td>057 146 397 451 3 </td>
+                                            <td>Exchange</td>
+                                            <td>FORFAIT</td>
+                                            <td>EUR 0.00 Airport tax <br>
+                                                EUR 0.00 Carrier surcharge <br>
+                                                EUR 0.00 Service Fees <br>
+                                                EUR 0.00 Other taxes </td>
+                                            <td></td>
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                            <div>
+                                <h5 style="color: blue;"> Total cost : EUR 0</h5>
+                                <p class="mb-0"> Date and place of issue : 14 Oct 2021 1 PLACE AIME CESAIRE MONTREUIL
+                                </p>
+                                <p class="mb-0"> IATA: 20401323</p>
+                                <p class="mb-0"> Restriction : SKCHG ND</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END INVOICE -->
+    </div>
+</div>

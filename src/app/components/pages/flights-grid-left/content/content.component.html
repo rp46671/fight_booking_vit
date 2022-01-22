@@ -31,7 +31,9 @@
 
                             <div class="form-group">
                                 <label class="custom-checkbox" style="font-size: 11px;">
-                                    <input type="checkbox" name="{{airline.stop}}" value="{{airline.stop}}">
+                                    <input type="checkbox" name="{{airline.stop}}" value="{{airline.stop}}"
+                                        (change)="StoreStopsInfomation(airline.stop,$event)"
+                                        [checked]="airline.isSelected">
                                     <span class="checkmark"></span>
                                     Stop- {{airline.stop}}
                                 </label>
@@ -43,11 +45,11 @@
                 </div>
 
 
-                 <!---Baggage-->
-                 <div class="left-main-box">
+                <!---Baggage-->
+                <div class="left-main-box">
                     <div>
                         <span class="c-stop">Baggage</span>
-                        
+
                     </div>
                     <div class="stop-box">
                         <hr class="hr1">
@@ -56,8 +58,9 @@
 
                             <div class="form-group">
                                 <label class="custom-checkbox" style="font-size: 11px;">
-                                    <input type="checkbox" name="{{baggage.baggage}}" value="{{baggage.baggage}}" 
-                                    (change)="StoreBaggadeInfomation(baggage.baggage,$event)" [checked]="baggage.isSelected">
+                                    <input type="checkbox" name="{{baggage.baggage}}" value="{{baggage.baggage}}"
+                                        (change)="StoreBaggadeInfomation(baggage.baggage,$event)"
+                                        [checked]="baggage.isSelected">
                                     <span class="checkmark"></span>
                                     Baggage - {{baggage.baggage}}
                                 </label>
@@ -76,13 +79,15 @@
                     <div>
                         <hr class="hr1">
                         <!--checkbox-->
-                        <ng-container *ngFor="let airline of cusFlightblockArrfilter">
+                        <ng-container *ngFor="let airFight of cusFlightblockArrfilter">
 
                             <div class="form-group">
                                 <label class="custom-checkbox" style="font-size: 11px;">
-                                    <input type="checkbox" name="#airline" value="{{airline.airline}}">
+                                    <input type="checkbox" name="#{{airFight.airline}}" value="{{airFight.airline}}"
+                                        (change)="StoreArrfilterInfomation(airFight.airline,$event)"
+                                        [checked]="airFight.isSelected">
                                     <span class="checkmark"></span>
-                                    {{airline.airline}}
+                                    {{airFight.airline}}
                                 </label>
                             </div>
 
@@ -93,11 +98,11 @@
 
                 </div>
 
-               
 
-                
-              
-               
+
+
+
+
 
 
             </div>
@@ -1180,14 +1185,15 @@
                                 <div style="display: flex; margin-bottom: 20px;">
                                     <div style="flex: 0.9 1 0%; padding-right: 20px;">
                                         <div style="display: flex;align-items: flex-start;">
-                                            <img src="/assets/images/flights-UI/FR.png" class="img-fr"
-                                                style="height: 50px;">
+                                            <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
+                                                class="img-fr" style="height: 50px;">
                                             <div>
-                                                <div>Ryanair</div>
-                                                <div>FR-1083</div>
-                                                <div></div>
-                                                <div>{{item.flight_CabinClass}}</div>
 
+                                                <div style="font-weight:100;">
+                                                    {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
+                                                <div style="font-weight:100;">{{item.cabin}}</div>
+                                                <div></div>
+                                                <div></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1195,35 +1201,52 @@
                                         <div style="font-size: 14px;">
 
                                             <span style="font-weight: bold;
-                                            ">{{item.from_cityName}}({{item.from_Origin}})</span>
-                                            <span>am</span>
+                                            ">{{item.from_Origin}} {{item.from_flight_time}}</span>
+                                            <span></span>
                                         </div>
                                         <div class="timing-text">
-                                            Sat, 29 Jan
+                                            {{item.from_weekday}}, {{item.from_flight_date}}
                                         </div>
-                                        <span>Lisbon Portela Airport</span>
+                                        <span> {{item.from_airportname}}
+                                            {{item.from_terminal}}</span><br>
+                                        <span style="font-weight:100;">
+                                            {{item.from_cityName}}, {{item.from_countryName}}</span>
                                     </div>
                                     <div style="flex: 0.9 1 0%;padding-right: 20px;">
                                         <div style="font-size: 14px;">
-                                            <span class="orange-bva">BVA</span>
+                                            <span class="orange-bva">{{item.to_Origin}}</span>
                                             <span style="font-weight: bold;
-                                            margin-left: 5px;">10:25</span>
-                                            <span>am</span>
+                                            margin-left: 5px;">{{item.to_time_arrival}}</span>
+                                            <span></span>
                                         </div>
                                         <div class="timing-text">
-                                            Sat, 29 Jan
+                                            {{item.to_weekday}}, {{item.to_date_arrival}}
                                         </div>
+                                        <span> {{item.to_airportname}}
+                                            {{item.to_terminal}}
+                                        </span><br>
+                                        <span style="font-weight:100;">
+                                            {{item.to_cityName}}, {{item.to_countryName}}</span>
                                     </div>
-
                                 </div>
                             </div>
 
-                            <div class="orangeVividLight">
+                            <div class="yelooVividLight" *ngIf="item.transit_city">
+                                <div style="text-align: center;">
+                                    <i style="margin-right: 8px;" class="fa fa-clock"></i>
+                                    Waiting time in<b>{{item.transit_city}}</b>
+                                </div>
+                                <div style="text-align: end;">
+                                    {{item.overlay_time}}
+                                </div>
+                            </div>
+
+                            <!-- <div class="orangeVividLight">
                                 <div>
                                     <i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
                                     <span>Arrival Airport</span>: This trip arrives at <b>BVA</b> Paris, France
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div *ngFor="let allindex1 of indexAll">
@@ -1247,10 +1270,6 @@
                         </div>
 
                     </div>
-                    <!--Departure-->
-
-
-
 
                 </div>
             </div>

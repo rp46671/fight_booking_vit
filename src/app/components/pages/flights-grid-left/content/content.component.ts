@@ -52,7 +52,11 @@ export class ContentComponent implements OnInit, OnDestroy {
   cusFlightblockArrstop: any[] = [];
   cusFlightblockArrbaggage: any[] = [];
   StoreBaggadeInfomationArry: any[] = [];
-
+  StoreStopsInfomationArry: any[] = [];
+  StoreArrfilterInfomationArry: any[] = [];
+  sendingArrayAirline: any[] = [];
+  sendingArrayStops: any[] = [];
+  sendingArrayBaggage: any[] = [];
   constructor(
     private locationsService: LocationsService,
     private formBuilder: FormBuilder,
@@ -157,21 +161,55 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
 
-  load(showLoad = true, stops: any = null, bagges: any = null, airlineName: any = null) {
+  load(showLoad = true) {
+    this.sendingArrayBaggage = [];
+    this.sendingArrayStops = [];
+    this.sendingArrayAirline = [];
+    if (this.cusFlightblockArrbaggage.length != 0) {
+      this.cusFlightblockArrbaggage.forEach((element, index) => {
+        if (element.isSelected) {
+          this.sendingArrayBaggage.push(element.baggage)
+        }
+      });
+    }
+    if (this.cusFlightblockArrstop.length != 0) {
+      this.cusFlightblockArrstop.forEach((element, index) => {
+        if (element.isSelected) {
+          this.sendingArrayStops.push(element.stop)
+        }
+
+      });
+    }
+    if (this.cusFlightblockArrfilter.length != 0) {
+      this.cusFlightblockArrfilter.forEach((element, index) => {
+        if (element.isSelected) {
+          this.sendingArrayAirline.push(element.airline)
+        }
+
+      });
+    }
     if (showLoad) {
       this.isLoadingEvent.emit(true);
     }
-    this.locationsService.get_alll(this.localUserIds, true, true, ['TP']).subscribe((res: any) => {
+    this.locationsService.get_alll(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
       this.cusFlightblockArrfilter = res.filter;
+      this.cusFlightblockArrfilter.forEach(ele => {
+        ele.isSelected = false;
+      });
+      //  console.log("this.cusFlightblockArrfilter",this.cusFlightblockArrfilter)
+      this.changesArrfilterInfomationArry();
       this.cusFlightblockArrbaggage = res.baggage;
       this.cusFlightblockArrbaggage.forEach(ele => {
         ele.isSelected = false;
-      })
-     
-     this.changesBaggadeInfomationArry()
+      });
+      this.changesBaggadeInfomationArry();
       this.cusFlightblockArrstop = res.stop;
+      this.cusFlightblockArrstop.forEach(ele => {
+        ele.isSelected = false;
+      });
+      this.changesStopsInfomationArry();
 
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
@@ -184,7 +222,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   StoreBaggadeInfomation(val: any, event: any) {
     if (event.target.checked) {
-      this.StoreBaggadeInfomationArry.push({baggage: val,isSelected: event.target.checked})
+      this.StoreBaggadeInfomationArry.push({ baggage: val, isSelected: event.target.checked })
       this.StoreBaggadeInfomationArry = this.StoreBaggadeInfomationArry.filter(
         (element, i) => i === this.StoreBaggadeInfomationArry.indexOf(element));
     } else {
@@ -193,19 +231,66 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.StoreBaggadeInfomationArry);
-    this.changesBaggadeInfomationArry()
+    this.changesBaggadeInfomationArry();
+    this.load()
   }
   changesBaggadeInfomationArry() {
-      for (let i = 0; i < this.cusFlightblockArrbaggage.length; i++) {
-        for (let j = 0; j < this.StoreBaggadeInfomationArry.length; j++) {
-          if (this.cusFlightblockArrbaggage[i].baggage === this.StoreBaggadeInfomationArry[j].baggage) {
-            console.log("match",this.cusFlightblockArrbaggage[i])
-          }
+    for (let i = 0; i < this.cusFlightblockArrbaggage.length; i++) {
+      for (let j = 0; j < this.StoreBaggadeInfomationArry.length; j++) {
+        if (this.cusFlightblockArrbaggage[i].baggage === this.StoreBaggadeInfomationArry[j].baggage) {
+          this.cusFlightblockArrbaggage[i].isSelected = true
         }
+      }
 
+    }
+  }
+  StoreStopsInfomation(val: any, event: any) {
+    if (event.target.checked) {
+      this.StoreStopsInfomationArry.push({ stop: val, isSelected: event.target.checked })
+      this.StoreStopsInfomationArry = this.StoreStopsInfomationArry.filter(
+        (element, i) => i === this.StoreStopsInfomationArry.indexOf(element));
+    } else {
+      this.StoreStopsInfomationArry.forEach((element, index) => {
+        if (element.stop == val) this.StoreStopsInfomationArry.splice(index, 1);
+      });
+    }
+    console.log(this.StoreStopsInfomationArry);
+    this.changesStopsInfomationArry();
+    this.load();
+  }
+  changesStopsInfomationArry() {
+    for (let i = 0; i < this.cusFlightblockArrstop.length; i++) {
+      for (let j = 0; j < this.StoreStopsInfomationArry.length; j++) {
+        if (this.cusFlightblockArrstop[i].stop === this.StoreStopsInfomationArry[j].stop) {
+          this.cusFlightblockArrstop[i].isSelected = true
+        }
+      }
+
+    }
+  }
+  StoreArrfilterInfomation(val: any, event: any) {
+    if (event.target.checked) {
+      this.StoreArrfilterInfomationArry.push({ airline: val, price: null, isSelected: event.target.checked })
+      this.StoreArrfilterInfomationArry = this.StoreArrfilterInfomationArry.filter(
+        (element, i) => i === this.StoreArrfilterInfomationArry.indexOf(element));
+    } else {
+      this.StoreArrfilterInfomationArry.forEach((element, index) => {
+        if (element.airline == val) this.StoreArrfilterInfomationArry.splice(index, 1);
+      });
+    }
+    console.log(this.StoreArrfilterInfomationArry);
+    this.changesArrfilterInfomationArry();
+    this.load();
+  }
+  changesArrfilterInfomationArry() {
+    for (let i = 0; i < this.cusFlightblockArrfilter.length; i++) {
+      for (let j = 0; j < this.StoreArrfilterInfomationArry.length; j++) {
+        if (this.cusFlightblockArrfilter[i].airline === this.StoreArrfilterInfomationArry[j].airline) {
+          this.cusFlightblockArrfilter[i].isSelected = true
+        }
       }
     }
-
+  }
   toggleRoundTrip(roundTrip: boolean) {
     this.isRoundTrip = roundTrip;
   }

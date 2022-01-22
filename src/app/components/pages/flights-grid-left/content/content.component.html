@@ -21,140 +21,110 @@
                         <span class="c-stop">Stops</span>
                         <div class="stop-arrow">
                             <div data-testid="Expanded_StopFilter" role="button" tabindex="0">
-
                             </div>
                         </div>
                     </div>
                     <div class="stop-box">
-                        <div>
-                            <div class="left-stop">
-                                <input name="stop-reset-radio" type="radio" class="form-check-input" checked="">
-                                <label title="" type="checkbox" for="stop-radio" class="form-check-label"> Any number of
-                                    stops</label>
+                        <hr class="hr1">
+                        <!--checkbox-->
+                        <ng-container *ngFor="let airline of cusFlightblockArrstop">
+
+                            <div class="form-group">
+                                <label class="custom-checkbox" style="font-size: 11px;">
+                                    <input type="checkbox" name="{{airline.stop}}" value="{{airline.stop}}">
+                                    <span class="checkmark"></span>
+                                    Stop- {{airline.stop}}
+                                </label>
                             </div>
-                        </div>
+
+
+                        </ng-container>
+                    </div>
+                </div>
+
+
+                 <!---Baggage-->
+                 <div class="left-main-box">
+                    <div>
+                        <span class="c-stop">Baggage</span>
+                        
+                    </div>
+                    <div class="stop-box">
+                        <hr class="hr1">
+                        <!--checkbox-->
+                        <ng-container *ngFor="let baggage of cusFlightblockArrbaggage">
+
+                            <div class="form-group">
+                                <label class="custom-checkbox" style="font-size: 11px;">
+                                    <input type="checkbox" name="{{baggage.baggage}}" value="{{baggage.baggage}}" 
+                                    (change)="StoreBaggadeInfomation(baggage.baggage,$event)" [checked]="baggage.isSelected">
+                                    <span class="checkmark"></span>
+                                    Baggage - {{baggage.baggage}}
+                                </label>
+                            </div>
+
+
+                        </ng-container>
                     </div>
                 </div>
                 <!---Airlines-->
                 <div class="left-main-box">
                     <div>
-                        <span class="c-stop">Airlines</span>
-                        <div>
-
-                        </div>
+                        <span class="c-stop ">Airlines</span>
                     </div>
 
                     <div>
-                        <div>
-                            <div>
-                                <div>All airlines</div>
-                                <div>
-                                    <!--airline_toggle_true-->
-                                </div>
+                        <hr class="hr1">
+                        <!--checkbox-->
+                        <ng-container *ngFor="let airline of cusFlightblockArrfilter">
+
+                            <div class="form-group">
+                                <label class="custom-checkbox" style="font-size: 11px;">
+                                    <input type="checkbox" name="#airline" value="{{airline.airline}}">
+                                    <span class="checkmark"></span>
+                                    {{airline.airline}}
+                                </label>
                             </div>
-                            <!--checkbox-->
-                            <ng-container *ngFor="let airline of cusFlightblockArrfilter">
-
-                                <div class="form-group">
-                                    <label class="custom-checkbox" style="font-size: 8px;">
-                                        <input type="checkbox" name="#airline" value="{{airline.airline}}">
-                                        <span class="checkmark"></span>
-                                        {{airline.airline}}
-                                    </label>
-                                </div>
 
 
-                            </ng-container>
-
-                            <a class="show-all-btn" role="button" href="#">Show all</a>
-                        </div>
+                        </ng-container>
                     </div>
+
 
                 </div>
 
-                <!---time-->
-                <div class="left-main-box">
-                    <div>
-                        <span class="c-stop">Time</span>
-                        <div>
+               
 
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <div><span class="fly-text">Fly from Lisbon</span>
-                                <div style="font-size: 12px;font-weight: 600;margin-top:5px;">Any time</div>
-                                <div>
-                                    <!--airline_toggle_true-->
-                                </div>
-                            </div>
-                            <!--checkbox-->
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input">
-                                <label title="" type="checkbox" for="airline-UX" class="form-check-label"> Before 06:00
-                                    AM</label>
-                            </div>
-                            <a class="show-all-btn" role="button" href="#">Show all</a>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!---Price-->
-                <div class="left-main-box">
-                    <div>
-                        <span class="c-stop">Price</span>
-
-
-                        <div>
-
-                        </div>
-                    </div>
-                </div>
-                <!---Airports-->
-                <div class="left-main-box">
-                    <div>
-                        <span class="c-stop">Airports</span>
-                        <div>
-
-                        </div>
-                    </div>
-                </div>
-                <!---Baggage-->
-                <div class="left-main-box">
-                    <div>
-                        <span class="c-stop">Baggage</span>
-                        <div class="stop-box">
-
-                        </div>
-                    </div>
-                </div>
+                
+              
+               
 
 
             </div>
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row mb-2"  (click)="openModifySearch(modalModificationPopUP)" style="border-bottom: 1px solid rgb(223, 223, 223);padding-bottom: 15px; cursor: pointer;">
-                            <div class="col-md-1">
-                    
+            <div class="col-lg-9 pl-0 pr-0">
+                <div class="row ml-0 mr-0">
+                    <div class="col-lg-12 pr-0 pl-0">
+                        <div class="row mb-2 d-flex" (click)="openModifySearch(modalModificationPopUP)"
+                            style="border-bottom: 1px solid rgb(223, 223, 223);padding-bottom: 15px; cursor: pointer;">
+                            <div class="col-md-1 ">
 
-                                <div
-                                    style="font-size: 16px; margin-bottom: 0px;padding:0px; " class="brrrfdddf">{{formDataValue. obj_form_depart.cityName}}</div>
-                                    <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_form_depart.code}}</p>
 
-                                </div>
+                                <div style="font-size: 16px; margin-bottom: 0px;padding:0px; " class="brrrfdddf">
+                                    {{formDataValue. obj_form_depart.cityName}}</div>
+                                <p style="margin-top:-8px;    margin-bottom: 0px;">
+                                    {{formDataValue.obj_form_depart.code}}</p>
+
+                            </div>
                             <div class="col-md-1 d-flex justify-content-around mt-10">
                                 <span>
                                     <i class="fa fa-long-arrow-right"
                                         style="font-size:20px;color: rgb(189, 189, 189);font-weight: 600;"></i></span>
                             </div>
                             <div class="col-md-1 border-right">
-                                <div
-                                style="font-size: 16px; margin-bottom: 0px;padding:0px;"  class="brrrfdddf">{{formDataValue.obj_to_arrival.cityName}}</div>
-                                <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_to_arrival.code}}</p>
+                                <div style="font-size: 16px; margin-bottom: 0px;padding:0px;" class="brrrfdddf">
+                                    {{formDataValue.obj_to_arrival.cityName}}</div>
+                                <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_to_arrival.code}}
+                                </p>
 
                             </div>
                             <div class="col-md-2 border-right">
@@ -176,16 +146,18 @@
                             <div class="col-md-2 border-right">
                                 <span
                                     style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 3px;padding:0px;">Passengers</span>
-                                <p style="margin-top:-3px; margin-bottom: 0px;">{{ formDataValue.adults + formDataValue.child + formDataValue.infant}}</p>
+                                <p style="margin-top:-3px; margin-bottom: 0px;">{{ formDataValue.adults +
+                                    formDataValue.child + formDataValue.infant}}</p>
                             </div>
                             <div class="col-md-2 border-right">
                                 <span
                                     style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Cabin</span>
-                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.class=='Y'? 'Economy':'Business'}}</p>
+                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.class=='Y'?
+                                    'Economy':'Business'}}</p>
                             </div>
-
-                            <button type="button" class="btn-modify"
-                               >Modify search</button>
+                            <div class="col-md-1">
+                                <button type="button" class="btn-modify">Modify search</button>
+                            </div>
                         </div>
 
 
@@ -866,8 +838,9 @@
                                                 </ng-container>
                                             </div>
                                             <div class="col-lg-4 col4">
-                                                <div class="flg-box"><a class="flght-details" role="button"
-                                                        href="#">Flight details</a>
+                                                <div class="flg-box"><button class="flght-details" role="button"
+                                                        (click)="viewData(modalViewPopUP,item)" href="#">Flight
+                                                        details</button>
                                                 </div>
                                                 <div class="select-flght">
                                                     <div class="left-box">
@@ -879,7 +852,8 @@
                                                             <div class="sar-text">SAR</div>
                                                             <div>{{item.price}}</div>
                                                         </div>
-                                                        <button type="button" class="btn-select-flght">
+                                                        <button type="button" class="btn-select-flght"
+                                                            (click)="navToBookFlight(item)">
                                                             Select flight <i style="padding-left: 5px;font-size: 12px;"
                                                                 class="fas fa-chevron-right"></i>
                                                         </button>
@@ -1139,7 +1113,7 @@
                                 <div class="form-group">
                                     <label class="submit"></label>
                                     <button *ngIf="!loading" class="btn-first btn-submit full-width btn-height"
-                                        (click)="flightSearchFromSub()"  (click)="modal.close('Ok')"
+                                        (click)="flightSearchFromSub()" (click)="modal.close('Ok')"
                                         [class.btn-submit-disabled]="flightSearchFrom.invalid"
                                         [disabled]="flightSearchFrom.invalid">
                                         Search
@@ -1168,201 +1142,137 @@
 </ng-template>
 
 <ng-template #modalViewPopUP let-modal>
-    <div class="modal-header">
-        <button type="button" class="close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
+    <div class="modal-body-md border-md">
+        <button type="button" class="close-btn-md clos-md" (click)="modal.dismiss('Cross click')">
+
+            <span aria-hidden="true">close</span>
         </button>
 
-    </div>
-
-    <!-- {{viewDataAll | json}} -->
-    <div class="row">
-        <div class="col-md-12 ">
-            <div class="table-responsive mt-1">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="table-active m-2">
-                            <!-- {{indexAll.value}} -->
-                            <th class="p-3">Trip # </th>
-                            <th class="p-3" colspan="2">{{arr_code}} to {{dep_code}}</th>
-                            <th class="p-3">{{Dep_date}} | {{arr_time}}-{{dep_time}}</th>
-                            <th class="p-3">EY1556</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <div class="spinner-border text-info mr-5" style="position: absolute; left: 50%;top:50%"
-                            role="status" *ngIf="loadingViewDta">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <ng-container *ngIf="gds=='gal'">
-                            <tr *ngFor="let item of viewDataAll">
-                                <td><span style="width: 40%;"><img
-                                            src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"></span>
-                                    <p class="mb-0">{{item.flight_CabinClass}}</p>
-                                    <p class="mb-0">{{item.from_Carrier}}{{item.from_FlightNumber}}</p>
-                                </td>
-                                <td>
-
-                                    <p class="mb-0">{{item.from_cityName}}({{item.from_Origin}})</p>
-                                    <p class="mb-0">{{item.from_airportname}}</p>
-                                    <p class="mb-0"> {{item.from_countryName}}</p>
-                                    <p class="mb-0"> {{item.from_flight_time}} {{item.from_flight_date}}</p>
-                                </td>
-                                <td><i class="dwtltd-icon icon-21"></i>
-                                    <svg _ngcontent-cyg-c224="" focusable="false" color="inherit" fill="currentcolor"
-                                        aria-hidden="true" role="presentation" viewBox="0 0 16 16"
-                                        preserveAspectRatio="xMidYMid meet" width="24px" height="24px"
-                                        class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl" style="position: relative; top: 4px;">
-                                        <g _ngcontent-cyg-c224="" fill="none" fill-rule="evenodd">
-                                            <path _ngcontent-cyg-c224="" d="M0 0h16v16H0z"></path>
-                                            <path _ngcontent-cyg-c224="" fill="currentcolor"
-                                                d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
-                                            </path>
-                                        </g>
-                                    </svg>
-                                    <i class="dwtltd-icon icon-21"></i>
-                                </td>
-                                <td>
-                                    <p class="mb-0"></p>
-                                    <p class="mb-0">{{item.to_cityName}}({{item.to_Destination}})</p>
-                                    <p class="mb-0">{{item.to_airportname}}</p>
-                                    <p class="mb-0"> {{item.to_countryName}}</p>
-                                    <p class="mb-0">{{item.to_flight_time}} {{item.to_flight_date}}</p>
-
-                                </td>
-                                <td>
-                                    <p class="mb-0"><i class="fa fa-suitcase" aria-hidden="true"></i>
-                                        {{item.BaggageAllowance}}</p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p class="fdetcenter"> {{item.overlay_time}}
-                                        {{item.overlay_Origin}}
-                                    </p>
-                                </td>
-                            </tr>
-                            <ng-container *ngIf="viewDataAll2">
-                                <tr class="table-active m-2">
-                                    <!-- {{indexAll2.value}} -->
-                                    <th class="p-3">Trip # </th>
-                                    <th class="p-3" colspan="2">{{arr_code}} to {{dep_code}}</th>
-                                    <th class="p-3">{{Dep_date}} | {{arr_time}}-{{dep_time}}</th>
-                                    <th class="p-3">EY1556</th>
-                                </tr>
-                                <tr *ngFor="let item of viewDataAll2">
-
-                                    <td><span style="width: 40%;"><img
-                                                src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"></span>
-                                        <p class="mb-0">{{item.flight_CabinClass}}</p>
-                                        <p class="mb-0">{{item.from_Carrier}}{{item.from_FlightNumber}}</p>
-                                    </td>
-                                    <td>
-
-                                        <p class="mb-0">{{item.from_cityName}}({{item.from_Origin}})</p>
-                                        <p class="mb-0">{{item.from_airportname}}</p>
-                                        <p class="mb-0"> {{item.from_countryName}}</p>
-                                        <p class="mb-0"> {{item.from_flight_time}} {{item.from_flight_date}}</p>
-                                    </td>
-                                    <td><i class="dwtltd-icon icon-21"></i>
-                                        <svg _ngcontent-cyg-c224="" focusable="false" color="inherit"
-                                            fill="currentcolor" aria-hidden="true" role="presentation"
-                                            viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" width="24px"
-                                            height="24px" class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl"
-                                            style="position: relative; top: 4px;">
-                                            <g _ngcontent-cyg-c224="" fill="none" fill-rule="evenodd">
-                                                <path _ngcontent-cyg-c224="" d="M0 0h16v16H0z"></path>
-                                                <path _ngcontent-cyg-c224="" fill="currentcolor"
-                                                    d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                        <i class="dwtltd-icon icon-21"></i>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0"></p>
-                                        <p class="mb-0">{{item.to_cityName}}({{item.to_Destination}})</p>
-                                        <p class="mb-0">{{item.to_airportname}}</p>
-                                        <p class="mb-0"> {{item.to_countryName}}</p>
-                                        <p class="mb-0">{{item.to_flight_time}} {{item.to_flight_date}}</p>
-
-                                    </td>
-                                    <td>
-                                        <p class="mb-0"><i class="fa fa-suitcase" aria-hidden="true"></i>
-                                            {{item.BaggageAllowance}}</p>
-                                        <p></p>
-                                        <p></p>
-                                        <p></p>
-                                        <p class="fdetcenter"> {{item.overlay_time}}
-                                            {{item.overlay_Origin}}
-                                        </p>
-                                    </td>
-                                </tr>
-
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-container *ngIf="gds=='ama'">
-                            <tr *ngFor="let item of viewDataAll">
-                                <td><span style="width: 40%;"><img
-                                            src="{{defaultImageAddress}}{{item.flight_name}}{{formatImage}}"></span>
-                                    <p class="mb-0">{{item.flight_Class}}</p>
-                                    <p class="mb-0">{{item.flight_name}}{{item.flightno}}</p>
-                                </td>
-                                <td>
-
-                                    <p class="mb-0">{{item.cityName_arrival}}</p>
-                                    <p class="mb-0">{{item.airportname_arrival}}</p>
-                                    <p class="mb-0"> {{item.countryName_arrival}}</p>
-                                    <p class="mb-0"> {{item.date_arrival}} {{item.time_arrival}} </p>
-                                </td>
-                                <td><i class="dwtltd-icon icon-21"></i>
-                                    <svg _ngcontent-cyg-c224="" focusable="false" color="inherit" fill="currentcolor"
-                                        aria-hidden="true" role="presentation" viewBox="0 0 16 16"
-                                        preserveAspectRatio="xMidYMid meet" width="24px" height="24px"
-                                        class="sc-kEmuub dxOCGp sc-hMqMXs bfqhPl" style="position: relative; top: 4px;">
-                                        <g _ngcontent-cyg-c224="" fill="none" fill-rule="evenodd">
-                                            <path _ngcontent-cyg-c224="" d="M0 0h16v16H0z"></path>
-                                            <path _ngcontent-cyg-c224="" fill="currentcolor"
-                                                d="M8.002 13.429h.42c.557 0 1.009-.44 1.009-.572v.572c0-.316-.44-.572-1.003-.572h-.14l1.714-1.714h.14c.554 0 1.003-.439 1.003-.572v.572c0-.316-.449-.572-.857-.572l1.143-1.428c0-.286.857-.288.857-.288s1.43.028 2.287.002C15.432 8.883 16 8.286 16 8c.003-.286-.568-.857-1.425-.857h-2.287s-.857 0-.857-.286L10.288 5.43c.012 0 0 0 0 0 .473 0 .857-.44.857-.572v.572c0-.316-.438-.572-1.003-.572h-.14L8.287 3.143h.14c.555 0 1.004-.439 1.004-.572v.572c0-.316-.444-.572-.992-.572h-.46L6.253.534S5.895 0 5.39 0l-.441.029s.482.828 1.625 3.4C7.716 6 7.716 6 7.716 6.857l-.572.286H4.572c0 .055-.285 0-1.428.286L1.453 5.547S.857 4.857 0 4.857l1.429 2.857L0 8l1.429.286L0 11.143c.857 0 1.363-.44 1.363-.44l1.78-2.132c1.144.286 1.43.286 1.43.286h2.571l.572.286c0 .857 0 .857-1.143 3.428C5.43 15.143 4.977 16 4.977 16h.412s.516-.108.863-.506l1.75-2.065z">
-                                            </path>
-                                        </g>
-                                    </svg>
-                                    <i class="dwtltd-icon icon-21"></i>
-                                </td>
-                                <td>
-                                    <p class="mb-0"></p>
-                                    <p class="mb-0">{{item.cityName_departure}}</p>
-                                    <p class="mb-0">{{item.airportname_departure}}</p>
-                                    <p class="mb-0"> {{item.countryName_departure}}</p>
-                                    <p class="mb-0">{{item.time_departure}} </p>
-
-                                </td>
-                                <td>
-                                    <p class="mb-0">
-                                    </p>
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <p class="fdetcenter"> {{item.layover_time}}
-                                        {{item.transit_city}}
-                                    </p>
-                                </td>
-                            </tr>
-                        </ng-container>
-
-
-
-                        <!-- <p class="fdetcenter">Stay at Heathrow from 17:30:00 to 08:00:00</p>
-                     -->
-
-                    </tbody>
-                </table>
-
+        <div>
+            <div class="btn-box-2">
+                <div class="flight-mid-md">
+                    <button type="button" class="btn-md-flgt">Flight itinerary</button>
+                    <button type="button" class="btn-md-flgt">Baggage info</button>
+                    <button type="button" class="btn-md-flgt">Cancel & change</button>
+                    <button type="button" class="btn-md-flgt">Fare details</button>
+                </div>
             </div>
 
+            <!--Departure-->
+            <div>
+                <div style="padding-left: 15px;padding-right: 15px;">
+                    <div style="    padding-top: 10px;">
+                        <div class="d-flex dis-box-2">
+                            <div class="dept">
+                                <div><i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
+                                    Departure, <span style="font-weight: bold;">Lisbon </span>
+                                    <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
+                                    Arrival <span style="font-weight: bold;"> Paris</span>
+                                </div>
+                            </div>
+                            <div>
+
+                                Total duration <span style="font-weight: bold;"> 02h 30m</span>
+                            </div>
+                        </div>
+                        <div *ngFor="let item of viewDataAll">
+                            <div style="padding-top:10px">
+                                <div style="display: flex; margin-bottom: 20px;">
+                                    <div style="flex: 0.9 1 0%; padding-right: 20px;">
+                                        <div style="display: flex;align-items: flex-start;">
+                                            <img src="/assets/images/flights-UI/FR.png" class="img-fr"
+                                                style="height: 50px;">
+                                            <div>
+                                                <div>Ryanair</div>
+                                                <div>FR-1083</div>
+                                                <div></div>
+                                                <div>{{item.flight_CabinClass}}</div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                        <div style="font-size: 14px;">
+
+                                            <span style="font-weight: bold;
+                                            ">{{item.from_cityName}}({{item.from_Origin}})</span>
+                                            <span>am</span>
+                                        </div>
+                                        <div class="timing-text">
+                                            Sat, 29 Jan
+                                        </div>
+                                        <span>Lisbon Portela Airport</span>
+                                    </div>
+                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                        <div style="font-size: 14px;">
+                                            <span class="orange-bva">BVA</span>
+                                            <span style="font-weight: bold;
+                                            margin-left: 5px;">10:25</span>
+                                            <span>am</span>
+                                        </div>
+                                        <div class="timing-text">
+                                            Sat, 29 Jan
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="orangeVividLight">
+                                <div>
+                                    <i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
+                                    <span>Arrival Airport</span>: This trip arrives at <b>BVA</b> Paris, France
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngFor="let allindex1 of indexAll">
+
+                            {{allindex1.airline_cod}}
+                            {{allindex1.dep_arr}}
+                            {{allindex1.dep_time}}
+                            {{allindex1.index_arr}}
+                            {{allindex1.index_dep}}
+                        </div>
+
+                        <div *ngFor="let allindex2 of indexAll2">
+
+
+                            {{allindex2.airline_cod}}
+                            {{allindex2.dep_arr}}
+                            {{allindex2.dep_time}}
+                            {{allindex2.index_arr}}
+                            {{allindex2.index_dep}}
+
+                        </div>
+
+                    </div>
+                    <!--Departure-->
+
+
+
+
+                </div>
+            </div>
+
+
+
+            <!---bottom hide btn-->
+            <div class="hide-box-bttom">
+                <button class="hide-btn">Hide details</button>
+                <button type="button" class="select-flight">Select flight SAR 184
+                    <i _ngcontent-cck-c225="" class="fas fa-chevron-right"
+                        style="padding-left: 5px; font-size: 12px;"></i>
+                </button>
+            </div>
+            <!---bottom hide btn-->
         </div>
+
+
+
     </div>
+    <!-----Modal------>
+
 </ng-template>
 
 <ng-template #modalTaxPopUP let-modal>

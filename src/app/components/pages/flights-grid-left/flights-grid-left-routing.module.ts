@@ -10,7 +10,6 @@ const routes: Routes = [
     path: '',
     component: FlightsGridLeftComponent,
     children: [
-      
       { path: '', pathMatch: 'full', redirectTo: 'content-fight' },
       { path: 'content-fight', component: ContentComponent },
       { path: 'view-fight', component: ViewDetailsComponent },

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,10 +8,12 @@ import moment from 'moment';
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  styleUrls: ['./content.component.css'],
+
+  encapsulation: ViewEncapsulation.None
 })
 export class ContentComponent implements OnInit, OnDestroy {
-  calenderShown:boolean=false;
+  calenderShown: boolean = false;
   filterAsideBar = false;
   loading = false;
   @Output('isLoading') isLoadingEvent = new EventEmitter<boolean>();
@@ -47,6 +49,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   indexAll2: any;
   indexAll: any;
   formDataValue: any;
+  cusFlightblockArrstop: any[] = [];
+  cusFlightblockArrbaggage: any[] = [];
+  StoreBaggadeInfomationArry: any[] = [];
 
   constructor(
     private locationsService: LocationsService,
@@ -65,13 +70,13 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.localUserIds = localUserId?.detail.id;
     this.buildForm();
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
-    
+    this.formDataValue = JSON.parse(data);
+
     this.load();
     this.interval = setInterval(() => {
-    this.load(false);
-    this.getCalender(this.localUserIds)
-    
+      this.load(false);
+      this.getCalender(this.localUserIds)
+
     }, 15000);
 
     console.log(" this.formDataValue", this.formDataValue)
@@ -140,32 +145,66 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  getBaggges(valu:any){
-    if(valu=="0" ||valu==""){
+  getBaggges(valu: any) {
+    if (valu == "0" || valu == "") {
       return 'Not Include'
-    }else{
+    } else {
       return valu
     }
   }
-showHideCalender(){
-  this.calenderShown=!this.calenderShown
-}
+  showHideCalender() {
+    this.calenderShown = !this.calenderShown
+  }
 
 
-  load(showLoad = true ,stops:any=null,bagges:any=null,airlineName:any=null) {
+  load(showLoad = true, stops: any = null, bagges: any = null, airlineName: any = null) {
     if (showLoad) {
       this.isLoadingEvent.emit(true);
     }
-    this.locationsService.get_alll(this.localUserIds,true,true,['TP']).subscribe((res: any) => {
+    this.locationsService.get_alll(this.localUserIds, true, true, ['TP']).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
-      this.cusFlightblockArrfilter=res.filter
+      this.cusFlightblockArrfilter = res.filter;
+      this.cusFlightblockArrbaggage = res.baggage;
+      this.cusFlightblockArrbaggage.forEach(ele => {
+        ele.isSelected = false;
+      })
+     
+     this.changesBaggadeInfomationArry()
+      this.cusFlightblockArrstop = res.stop;
+
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = [];
       //   alert('Error');
     });
+
+
   }
+
+  StoreBaggadeInfomation(val: any, event: any) {
+    if (event.target.checked) {
+      this.StoreBaggadeInfomationArry.push({baggage: val,isSelected: event.target.checked})
+      this.StoreBaggadeInfomationArry = this.StoreBaggadeInfomationArry.filter(
+        (element, i) => i === this.StoreBaggadeInfomationArry.indexOf(element));
+    } else {
+      this.StoreBaggadeInfomationArry.forEach((element, index) => {
+        if (element.baggage == val) this.StoreBaggadeInfomationArry.splice(index, 1);
+      });
+    }
+    console.log(this.StoreBaggadeInfomationArry);
+    this.changesBaggadeInfomationArry()
+  }
+  changesBaggadeInfomationArry() {
+      for (let i = 0; i < this.cusFlightblockArrbaggage.length; i++) {
+        for (let j = 0; j < this.StoreBaggadeInfomationArry.length; j++) {
+          if (this.cusFlightblockArrbaggage[i].baggage === this.StoreBaggadeInfomationArry[j].baggage) {
+            console.log("match",this.cusFlightblockArrbaggage[i])
+          }
+        }
+
+      }
+    }
 
   toggleRoundTrip(roundTrip: boolean) {
     this.isRoundTrip = roundTrip;
@@ -305,9 +344,9 @@ showHideCalender(){
 
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
-    
+
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
+    this.formDataValue = JSON.parse(data);
 
     window.sessionStorage.removeItem('confirmBookFlightData');
 
@@ -353,10 +392,10 @@ showHideCalender(){
   openModifySearch(content: any) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title', size: 'xl', scrollable: false, centered: true,
-  
+
     }).result.then((result) => {
       this.confirmResut = `Closed with: ${result}`;
-    
+
     }, (reason) => {
       this.confirmResut = `Dismissed with: ${reason}`;
     });
@@ -429,8 +468,8 @@ showHideCalender(){
 
         this.viewDataAll = res.detail;
         this.viewDataAll2 = res.detail1;
-        this.indexAll = res.index;
-        this.indexAll2 = res.index1;
+        this.indexAll = res.index1;
+        this.indexAll2 = res.index2;
         this.loadingViewDta = false;
         console.log(" this.viewDataAll", this.viewDataAll)
       }, (err: any) => {
@@ -450,6 +489,9 @@ showHideCalender(){
       }
       this.locationsService.Api_viewamadeus(reqData).subscribe((res: any) => {
         this.viewDataAll = res.detail;
+        this.viewDataAll2 = res.detail1;
+        this.indexAll = res.index1;
+        this.indexAll2 = res.index2;
         this.loadingViewDta = false;
         console.log(" this.viewDataAll", this.viewDataAll)
       }, (err: any) => {
@@ -501,9 +543,9 @@ showHideCalender(){
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
     this.applyData(formValue);
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
-   
-    console.log( " this.formDataValue this.formDataValue",this.formDataValue)
+    this.formDataValue = JSON.parse(data);
+
+    console.log(" this.formDataValue this.formDataValue", this.formDataValue)
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.removeItem('confirmBookFlightData');
     this.isLoadingEvent.emit(true);
@@ -545,8 +587,8 @@ showHideCalender(){
 
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
-   
+    this.formDataValue = JSON.parse(data);
+
     window.sessionStorage.removeItem('confirmBookFlightData');
     this.isLoadingEvent.emit(true);
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
@@ -598,8 +640,8 @@ showHideCalender(){
 
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
-   
+    this.formDataValue = JSON.parse(data);
+
     window.sessionStorage.removeItem('confirmBookFlightData');
 
     this.isLoadingEvent.emit(true);
@@ -648,8 +690,8 @@ showHideCalender(){
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
     this.applyData(formValue);
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
-   
+    this.formDataValue = JSON.parse(data);
+
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.removeItem('confirmBookFlightData');
     this.isLoadingEvent.emit(true);
@@ -690,8 +732,8 @@ showHideCalender(){
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
     this.applyData(formValue);
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
-    this.formDataValue=JSON.parse(data);
-   
+    this.formDataValue = JSON.parse(data);
+
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.removeItem('confirmBookFlightData');
     this.isLoadingEvent.emit(true);

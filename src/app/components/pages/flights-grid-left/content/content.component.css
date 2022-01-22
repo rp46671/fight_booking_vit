@@ -252,10 +252,10 @@ label.custom-checkbox .checkmark {
     top: 0;
     left: 0;
     border: 1px solid #d4d4db;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     background-color: #fff;
-    border-radius: 0px;
+    border-radius: 3px;
 }
 
 label.custom-checkbox .checkmark:after {

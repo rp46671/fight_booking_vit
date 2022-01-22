@@ -520,7 +520,7 @@ align-items: center;
   padding: 6px 10px;
   margin: 10px 0px 0px;
   height: 40px;
-  border-radius: 2px;font-size: 12px;
+  border-radius: 2px;font-size: 12px;width: 100%;
 }
 .text-first span {
   font-weight: 700;

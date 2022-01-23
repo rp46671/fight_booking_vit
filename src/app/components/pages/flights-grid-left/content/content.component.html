@@ -870,7 +870,34 @@
                                                     </div>
                                                 </ng-container>
                                             </div>
-                                            <div class="col-lg-4 col4">
+
+                                            <!----------Mobile--------------->
+                                            <div class="col-lg-4 d-flex">
+
+                                                <div class="col-lg-1">
+                                                    <button class="flght-details" role="button"
+                                                        (click)="viewData(modalViewPopUP,item)" href="#">Flight
+                                                        details</button>
+                                                    
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    
+                                                    <div class="sar-text">SAR <b style="font-size: 14px;">{{item.price}}</b></div>
+                                                           
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <button type="button" class="btn-select-flght"
+                                                            (click)="navToBookFlight(item)">
+                                                            Select flight <i style="padding-left: 5px;font-size: 12px;"
+                                                                class="fas fa-chevron-right"></i>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                            <!----------Mobile--------------->
+
+                                            <!----------web--------------->
+                                            <!--<div class="col-lg-4 col4">
                                                 <div class="flg-box"><button class="flght-details" role="button"
                                                         (click)="viewData(modalViewPopUP,item)" href="#">Flight
                                                         details</button>
@@ -893,7 +920,9 @@
                                                     </div>
                                                 </div>
 
-                                            </div>
+                                            </div>-->
+                                            <!----------web--------------->
+                                        
                                         </div>
                                     </div>
                                 </ng-container>
@@ -1175,149 +1204,163 @@
 </ng-template>
 
 <ng-template #modalViewPopUP let-modal>
-    <div class="modal-body-md border-md">
-        <button type="button" class="close-btn-md clos-md" (click)="modal.dismiss('Cross click')">
+    
+   
 
-            <span aria-hidden="true">close</span>
-        </button>
+        <div class="modal-content modal-body-md border-md">
+            <button type="button" class="close-btn-md clos-md" (click)="modal.dismiss('Cross click')">
 
-        <div>
-            <div class="btn-box-2">
-                <div class="flight-mid-md">
+                <span aria-hidden="true">close</span>
+            </button>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="flight-mid-md p-3">
                     <button type="button" class="btn-md-flgt">Flight itinerary</button>
                     <button type="button" class="btn-md-flgt">Baggage info</button>
                     <button type="button" class="btn-md-flgt">Cancel & change</button>
                     <button type="button" class="btn-md-flgt">Fare details</button>
+                    </div>
                 </div>
             </div>
 
-            <!--Departure-->
+
             <div>
-                <div style="padding-left: 15px;padding-right: 15px;">
-                    <div style="    padding-top: 10px;">
-                        <div class="d-flex dis-box-2">
-                            <div class="dept">
-                                <div><i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
-                                    Departure, <span style="font-weight: bold;">Lisbon </span>
-                                    <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
-                                    Arrival <span style="font-weight: bold;"> Paris</span>
+            <!-- <div class="btn-box-2">
+                    <div class="flight-mid-md">
+                        <button type="button" class="btn-md-flgt">Flight itinerary</button>
+                        <button type="button" class="btn-md-flgt">Baggage info</button>
+                        <button type="button" class="btn-md-flgt">Cancel & change</button>
+                        <button type="button" class="btn-md-flgt">Fare details</button>
+                    </div>
+                </div>-->
+
+                <!--Departure-->
+                <div>
+                    <div style="padding-left: 15px;padding-right: 15px;">
+                        <div style="    padding-top: 10px;">
+                            <div class="d-flex dis-box-2">
+                                <div class="dept">
+                                    <div><i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
+                                        Departure, <span style="font-weight: bold;">Lisbon </span>
+                                        <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
+                                        Arrival <span style="font-weight: bold;"> Paris</span>
+                                    </div>
+                                </div>
+                                <div>
+
+                                    Total duration <span style="font-weight: bold;"> 02h 30m</span>
                                 </div>
                             </div>
-                            <div>
+                            <div *ngFor="let item of viewDataAll">
+                                <div style="padding-top:10px">
+                                    <div style="display: flex; margin-bottom: 20px;">
+                                        <div style="flex: 0.9 1 0%; padding-right: 20px;">
+                                            <div style="display: flex;align-items: flex-start;">
+                                                <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
+                                                    class="img-fr" style="height: 50px;">
+                                                <div>
 
-                                Total duration <span style="font-weight: bold;"> 02h 30m</span>
-                            </div>
-                        </div>
-                        <div *ngFor="let item of viewDataAll">
-                            <div style="padding-top:10px">
-                                <div style="display: flex; margin-bottom: 20px;">
-                                    <div style="flex: 0.9 1 0%; padding-right: 20px;">
-                                        <div style="display: flex;align-items: flex-start;">
-                                            <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
-                                                class="img-fr" style="height: 50px;">
-                                            <div>
-
-                                                <div style="font-weight:100;">
-                                                    {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
-                                                <div style="font-weight:100;">{{item.cabin}}</div>
-                                                <div></div>
-                                                <div></div>
+                                                    <div style="font-weight:100;">
+                                                        {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
+                                                    <div style="font-weight:100;">{{item.cabin}}</div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
-                                        <div style="font-size: 14px;">
+                                        <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                            <div style="font-size: 14px;">
 
-                                            <span style="font-weight: bold;
-                                            ">{{item.from_Origin}} {{item.from_flight_time}}</span>
-                                            <span></span>
+                                                <span style="font-weight: bold;
+                                                ">{{item.from_Origin}} {{item.from_flight_time}}</span>
+                                                <span></span>
+                                            </div>
+                                            <div class="timing-text">
+                                                {{item.from_weekday}}, {{item.from_flight_date}}
+                                            </div>
+                                            <span> {{item.from_airportname}}
+                                                {{item.from_terminal}}</span><br>
+                                            <span style="font-weight:100;">
+                                                {{item.from_cityName}}, {{item.from_countryName}}</span>
                                         </div>
-                                        <div class="timing-text">
-                                            {{item.from_weekday}}, {{item.from_flight_date}}
+                                        <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                            <div style="font-size: 14px;">
+                                                <span class="orange-bva">{{item.to_Origin}}</span>
+                                                <span style="font-weight: bold;
+                                                margin-left: 5px;">{{item.to_time_arrival}}</span>
+                                                <span></span>
+                                            </div>
+                                            <div class="timing-text">
+                                                {{item.to_weekday}}, {{item.to_date_arrival}}
+                                            </div>
+                                            <span> {{item.to_airportname}}
+                                                {{item.to_terminal}}
+                                            </span><br>
+                                            <span style="font-weight:100;">
+                                                {{item.to_cityName}}, {{item.to_countryName}}</span>
                                         </div>
-                                        <span> {{item.from_airportname}}
-                                            {{item.from_terminal}}</span><br>
-                                        <span style="font-weight:100;">
-                                            {{item.from_cityName}}, {{item.from_countryName}}</span>
-                                    </div>
-                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
-                                        <div style="font-size: 14px;">
-                                            <span class="orange-bva">{{item.to_Origin}}</span>
-                                            <span style="font-weight: bold;
-                                            margin-left: 5px;">{{item.to_time_arrival}}</span>
-                                            <span></span>
-                                        </div>
-                                        <div class="timing-text">
-                                            {{item.to_weekday}}, {{item.to_date_arrival}}
-                                        </div>
-                                        <span> {{item.to_airportname}}
-                                            {{item.to_terminal}}
-                                        </span><br>
-                                        <span style="font-weight:100;">
-                                            {{item.to_cityName}}, {{item.to_countryName}}</span>
                                     </div>
                                 </div>
+
+                                <div class="yelooVividLight" *ngIf="item.transit_city">
+                                    <div style="text-align: center;">
+                                        <i style="margin-right: 8px;" class="fa fa-clock"></i>
+                                        Waiting time in<b>{{item.transit_city}}</b>
+                                    </div>
+                                    <div style="text-align: end;">
+                                        {{item.overlay_time}}
+                                    </div>
+                                </div>
+
+                                <!-- <div class="orangeVividLight">
+                                    <div>
+                                        <i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
+                                        <span>Arrival Airport</span>: This trip arrives at <b>BVA</b> Paris, France
+                                    </div>
+                                </div> -->
                             </div>
 
-                            <div class="yelooVividLight" *ngIf="item.transit_city">
-                                <div style="text-align: center;">
-                                    <i style="margin-right: 8px;" class="fa fa-clock"></i>
-                                    Waiting time in<b>{{item.transit_city}}</b>
-                                </div>
-                                <div style="text-align: end;">
-                                    {{item.overlay_time}}
-                                </div>
+                            <div *ngFor="let allindex1 of indexAll">
+
+                                {{allindex1.airline_cod}}
+                                {{allindex1.dep_arr}}
+                                {{allindex1.dep_time}}
+                                {{allindex1.index_arr}}
+                                {{allindex1.index_dep}}
                             </div>
 
-                            <!-- <div class="orangeVividLight">
-                                <div>
-                                    <i style="margin-right: 8px;" class="fa fa-fighter-jet"></i>
-                                    <span>Arrival Airport</span>: This trip arrives at <b>BVA</b> Paris, France
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div *ngFor="let allindex1 of indexAll">
-
-                            {{allindex1.airline_cod}}
-                            {{allindex1.dep_arr}}
-                            {{allindex1.dep_time}}
-                            {{allindex1.index_arr}}
-                            {{allindex1.index_dep}}
-                        </div>
-
-                        <div *ngFor="let allindex2 of indexAll2">
+                            <div *ngFor="let allindex2 of indexAll2">
 
 
-                            {{allindex2.airline_cod}}
-                            {{allindex2.dep_arr}}
-                            {{allindex2.dep_time}}
-                            {{allindex2.index_arr}}
-                            {{allindex2.index_dep}}
+                                {{allindex2.airline_cod}}
+                                {{allindex2.dep_arr}}
+                                {{allindex2.dep_time}}
+                                {{allindex2.index_arr}}
+                                {{allindex2.index_dep}}
+
+                            </div>
 
                         </div>
 
                     </div>
-
                 </div>
+
+
+
+                <!---bottom hide btn-->
+                <div class="hide-box-bttom">
+                    <button class="hide-btn">Hide details</button>
+                    <button type="button" class="select-flight">Select flight SAR 184
+                        <i _ngcontent-cck-c225="" class="fas fa-chevron-right"
+                            style="padding-left: 5px; font-size: 12px;"></i>
+                    </button>
+                </div>
+                <!---bottom hide btn-->
             </div>
-
-
-
-            <!---bottom hide btn-->
-            <div class="hide-box-bttom">
-                <button class="hide-btn">Hide details</button>
-                <button type="button" class="select-flight">Select flight SAR 184
-                    <i _ngcontent-cck-c225="" class="fas fa-chevron-right"
-                        style="padding-left: 5px; font-size: 12px;"></i>
-                </button>
-            </div>
-            <!---bottom hide btn-->
         </div>
 
-
-
-    </div>
+    
     <!-----Modal------>
 
 </ng-template>

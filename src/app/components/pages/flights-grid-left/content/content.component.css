@@ -12,6 +12,25 @@
   text-overflow: ellipsis; 
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+
+  .btn-select-flght {
+    padding: 0px 3px;font-size: 13px;
+  }
+  .flg-box{
+    text-align: left;
+  }
+  .sar-text{
+    text-align: left;}
+
+  .flght-details{
+    text-align: left;
+  }
+  .modal-body-md{
+    max-width: 395px !important;
+  }
+  .btn-md-flgt{
+    margin-top: 10px;
+  }
   .o1 {
     order: 2;
   }
@@ -229,7 +248,7 @@ table td {
   border: 1px solid rgb(35, 165, 185);
   background: rgb(255, 255, 255);
   transition: all 0.3s ease 0s;
-  padding: 8px 12px;    min-width: 197px;
+  padding: 8px 12px;    
 }
 .orange-bva{
   color: white;

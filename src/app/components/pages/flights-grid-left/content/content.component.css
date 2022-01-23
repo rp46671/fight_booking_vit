@@ -188,6 +188,19 @@ table td {
   justify-content: space-between;
   margin-bottom: 0px;
 }
+.yelooVividLight{
+  display: flex;
+  background: rgb(218, 219, 146);
+  padding: 4px;
+  -webkit-box-align: center;
+  align-items: center;
+  color: white;
+  border-radius: 2px;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 0px;
+}
 .hide-box-bttom{
   border-top: 1px solid rgb(228, 232, 237);
   display: flex;

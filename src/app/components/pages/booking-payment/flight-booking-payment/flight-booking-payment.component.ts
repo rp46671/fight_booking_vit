@@ -18,7 +18,7 @@ export class FlightBookingPaymentComponent implements OnInit {
   bookFlightItem: any = null;
   paymentUrl: SafeUrl = "";
   loading: boolean = false;
-
+  localUserId:any
   constructor(
     private _location: Location,
     protected _sanitizer: DomSanitizer,
@@ -28,6 +28,8 @@ export class FlightBookingPaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.localUserId= window.localStorage.getItem('fight-user');
+    this.localUserId = JSON.parse(this.localUserId);
     let bookFlightObj: any = window.sessionStorage.getItem('bookFlight');
     let confirmBookFlightData: any = window.sessionStorage.getItem('confirmBookFlightData');
    
@@ -55,7 +57,9 @@ export class FlightBookingPaymentComponent implements OnInit {
 
   onPaymentConfirmSubmitData(value: any) {  
     let reqData = {
-      user_id:5678,
+      user_id:this.localUserId,
+      myAirSegment1: value?.myAirSegment1,
+      myAirSegment2: value?.myAirSegment2,
       flight_id: this.bookFlightItem?.flight_id,
       flight_rec: this.bookFlightItem?.flight_rec,
       adult_no: this.adultArr.length,
@@ -94,7 +98,7 @@ export class FlightBookingPaymentComponent implements OnInit {
     }
     
     this.loading = true;
-    
+    console.log(reqData)
     if (value.gds == "gal") {
       
       console.log("gal", value.gds)

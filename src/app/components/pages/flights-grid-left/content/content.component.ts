@@ -72,14 +72,15 @@ export class ContentComponent implements OnInit, OnDestroy {
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
+    console.log(" this.localUserIds", this.localUserIds)
     this.buildForm();
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
     this.formDataValue = JSON.parse(data);
 
     this.load();
     this.interval = setInterval(() => {
-     // this.load(false);
-      this.getCalender(this.localUserIds)
+     this.load(false);
+     this.getCalender(this.localUserIds)
 
     }, 15000);
 

@@ -62,11 +62,11 @@ export class SearchFormComponent implements OnInit {
     this.selectedItems = [];
     this.dropdownSettings = {
       singleSelection: false,
-      text: "Select Countries",
+      text: "Select Preferred Airline",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       enableSearchFilter: true,
-      classes: "myclass custom-class"
+      classes: "custom-class"
     };
   }
   onItemSelect(item: any) {

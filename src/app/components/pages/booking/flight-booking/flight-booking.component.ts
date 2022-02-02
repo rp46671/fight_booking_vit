@@ -35,12 +35,13 @@ export class FlightBookingComponent implements OnInit {
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
-
+    
     let bookFlightObj: any = window.sessionStorage.getItem('bookFlight');
     let flightSearchReqData: any = window.sessionStorage.getItem('flightSearchReqData');
     let confirmBookFlightData: any = window.sessionStorage.getItem('confirmBookFlightData');
     confirmBookFlightData = JSON.parse(confirmBookFlightData);
     this.bookFlightItem = JSON.parse(bookFlightObj);
+    this.PriceApiCalling(this.bookFlightItem)
     if (!this.bookFlightItem) {
       this._location.back();
     }
@@ -209,4 +210,46 @@ export class FlightBookingComponent implements OnInit {
   deleteInfant(infantIndex: number) {
     this.infants.removeAt(infantIndex);
   }
+
+PriceApiCalling(item:any){
+  if (this.bookFlightItem.gds == "gal") {
+    let reqData = {
+      "flgith_id": item.flight_id,
+      "flight_rec": item.flight_rec,
+      "gds": item.gds,
+      "myAirSegment1": item.myAirSegment1,
+      "myAirSegment2": item.myAirSegment2,
+      "price": item.price,
+      "unique_id": this.localUserIds,
+      "session": item.session,
+    }
+    this.locationsService.Api_price_onload_gal(reqData).subscribe((res: any) => {
+    console.log("hhha",res);
+      }, (err: any) => {
+      alert('Something is wrong')
+      this.router.navigate(['/flight-grid-left/content-fight']);
+      this.loading = false;
+    });
+  } else if (this.bookFlightItem.gds == "ama") {
+    let reqData = {
+      "bag_ref_no": item.bag_ref_no,
+      "bag_ref_no_rt": item.bag_ref_no,
+      "flight_id": item.flight_id,
+      "flight_id_rt": item.flight_id_rt,
+      "flight_rec": item.flight_rec,
+      "gds": item.gds,
+      "price": item.price,
+      "session": item.session,
+      "unique_id": this.localUserIds
+    }
+    this.locationsService.Api_price_onload(reqData).subscribe((res: any) => {
+    console.log("rddd",res ) 
+    }, (err: any) => {
+        alert('Something is wrong')
+        this.router.navigate(['/flight-grid-left/content-fight']);
+      this.loading = false;
+    });
+  }
+}
+ 
 }

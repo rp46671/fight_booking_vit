@@ -57,6 +57,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   sendingArrayAirline: any[] = [];
   sendingArrayStops: any[] = [];
   sendingArrayBaggage: any[] = [];
+  _price: any;
+  viwItemData: any;
   constructor(
     private locationsService: LocationsService,
     private formBuilder: FormBuilder,
@@ -166,23 +168,23 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.sendingArrayBaggage = [];
     this.sendingArrayStops = [];
     this.sendingArrayAirline = [];
-    if (this.cusFlightblockArrbaggage.length != 0) {
-      this.cusFlightblockArrbaggage.forEach((element, index) => {
-        if (element.isSelected) {
+    if (this.StoreBaggadeInfomationArry.length != 0) {
+      this.StoreBaggadeInfomationArry.forEach((element, index) => {
+        console.log(this.StoreBaggadeInfomationArry,"this.StoreBaggadeInfomationArry")
+        if (element.isSelected==true) {
           this.sendingArrayBaggage.push(element.baggage)
         }
       });
     }
-    if (this.cusFlightblockArrstop.length != 0) {
-      this.cusFlightblockArrstop.forEach((element, index) => {
+    if (this.StoreStopsInfomationArry.length != 0) {
+      this.StoreStopsInfomationArry.forEach((element, index) => {
         if (element.isSelected) {
           this.sendingArrayStops.push(element.stop)
         }
-
       });
     }
-    if (this.cusFlightblockArrfilter.length != 0) {
-      this.cusFlightblockArrfilter.forEach((element, index) => {
+    if (this.StoreArrfilterInfomationArry.length != 0) {
+      this.StoreArrfilterInfomationArry.forEach((element, index) => {
         if (element.isSelected) {
           this.sendingArrayAirline.push(element.airline)
         }
@@ -222,6 +224,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   StoreBaggadeInfomation(val: any, event: any) {
+    console.log("baggeee",event.target.checked);
+  
     if (event.target.checked) {
       this.StoreBaggadeInfomationArry.push({ baggage: val, isSelected: event.target.checked })
       this.StoreBaggadeInfomationArry = this.StoreBaggadeInfomationArry.filter(
@@ -232,7 +236,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.StoreBaggadeInfomationArry);
-    this.changesBaggadeInfomationArry();
+  //  this.changesBaggadeInfomationArry();
     this.load()
   }
   changesBaggadeInfomationArry() {
@@ -246,6 +250,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
   StoreStopsInfomation(val: any, event: any) {
+    console.log("stop",event.target.checked);
     if (event.target.checked) {
       this.StoreStopsInfomationArry.push({ stop: val, isSelected: event.target.checked })
       this.StoreStopsInfomationArry = this.StoreStopsInfomationArry.filter(
@@ -256,20 +261,22 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.StoreStopsInfomationArry);
-    this.changesStopsInfomationArry();
+  //  this.changesStopsInfomationArry();
     this.load();
   }
   changesStopsInfomationArry() {
     for (let i = 0; i < this.cusFlightblockArrstop.length; i++) {
       for (let j = 0; j < this.StoreStopsInfomationArry.length; j++) {
         if (this.cusFlightblockArrstop[i].stop === this.StoreStopsInfomationArry[j].stop) {
-          this.cusFlightblockArrstop[i].isSelected = true
+          this.cusFlightblockArrstop[i].isSelected = true;
+
         }
       }
 
     }
   }
   StoreArrfilterInfomation(val: any, event: any) {
+  console.log("airline",event.target.checked);
     if (event.target.checked) {
       this.StoreArrfilterInfomationArry.push({ airline: val, price: null, isSelected: event.target.checked })
       this.StoreArrfilterInfomationArry = this.StoreArrfilterInfomationArry.filter(
@@ -280,7 +287,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.StoreArrfilterInfomationArry);
-    this.changesArrfilterInfomationArry();
+    //this.changesArrfilterInfomationArry();
     this.load();
   }
   changesArrfilterInfomationArry() {
@@ -527,6 +534,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
   viewData(content: any, item: any) {
+    this.viwItemData=item
     this.loadingViewDta = true;
     this.viewDataAll = [];
     this.viewDataAll2 = [];
@@ -538,6 +546,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.Dep_date = item.Dep_date
     this.arr_time = item.arr_time
     this.dep_time = item.dep_time
+    this._price= item.price
 
     if (item.gds == "gal") {
       let reqData = {

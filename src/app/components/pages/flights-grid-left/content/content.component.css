@@ -272,8 +272,7 @@ table td {
 
     -webkit-box-pack: justify;
     justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 14px;
+  
     border-bottom: 1px solid rgb(228, 232, 237);
 }
 

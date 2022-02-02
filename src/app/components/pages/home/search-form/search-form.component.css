@@ -2,7 +2,11 @@
   height: 160px;
   padding: 16px 8px;
 }
-
+.cuppa-dropdown{
+  overflow-x: hidden!important;
+  height: 65px!important;
+  overflow-y: scroll!important;
+}
 .border-style-my-right {
   border-style: dashed;
   border-top-style: none;

@@ -130,6 +130,15 @@ export class LocationsService {
     data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/Api_viewgaleus/price_api', data, { withCredentials: true });
   }
+  public Api_price_onload(data: any) {
+    data = this.bindData(data);
+    return this._http.post('https://www.khalsatravel.net/flight/Api_price_onload', data, { withCredentials: true });
+  }
+ 
+  public Api_price_onload_gal(data: any) {
+    data = this.bindData(data);
+    return this._http.post('https://www.khalsatravel.net/flight/Api_price_onload_gal', data, { withCredentials: true });
+  }
 
   public ama_print(data: any): Observable<Object> {
     data = this.bindData(data);

@@ -19,6 +19,7 @@ export class FlightBookingPaymentComponent implements OnInit {
   paymentUrl: SafeUrl = "";
   loading: boolean = false;
   localUserId:any
+  bookingDetailPrice: any;
   constructor(
     private _location: Location,
     protected _sanitizer: DomSanitizer,
@@ -56,6 +57,7 @@ export class FlightBookingPaymentComponent implements OnInit {
   }
 
   onPaymentConfirmSubmitData(value: any) {  
+    this.loading = true;
     let reqData = {
       user_id:this.localUserId,
       myAirSegment1: value?.myAirSegment1,
@@ -103,6 +105,7 @@ export class FlightBookingPaymentComponent implements OnInit {
       
       console.log("gal", value.gds)
       this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
+        this.bookingDetailPrice=res.detail
         this.loading = false;
       }, (err: any) => {
         this.loading = false;
@@ -111,6 +114,7 @@ export class FlightBookingPaymentComponent implements OnInit {
       console.log("ama", value.gds)
       this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
         this.loading = false;
+        this.bookingDetailPrice=res.detail
       }, (err: any) => {
         this.loading = false;
       });

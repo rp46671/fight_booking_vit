@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~angular2-multiselect-dropdown/themes/default.theme.css";
+.c-btn{
+  overflow-x: hidden!important;
+  height: 40px!important;
+  overflow-y: scroll!important;
+}
 button:focus,
 button:hover,
 ngb-rating:focus {

@@ -1,646 +1,678 @@
-
-  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" >
+<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
     <div class="row pl-0 pr-0">
-    <div class="col-md-8">
-      <div class="card-tra-det">
-        <h5 class="mb-0 pb-0">Enter traveller details</h5>
-        <div class="card-body">
-          <div class="" style="padding: 0px 20px;">
-            <div class="warings">
-              <i></i>
-              <p class="p-text">This airline does not require your passport details to confirm this
-                booking.
-                You will only need your passport details once you check-in.</p>
-            </div>
-            <div class="warings mt-2">
-              <p class="p-text-2">Enter your details as they appear on your passport. Use English only.
-              </p>
-            </div>
-          </div>
-
-          <!----Adult 1-->
-          <div class="mb-md-80">
-            <div class="row ml-0 mr-0" *ngIf="flightSearchReqData?.adults">
-
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <ng-container formArrayName="adults">
-                  <ng-container *ngFor="let adultForm of adults.controls; let i = index">
-                    <h6 class="card-title  mt-2 mb-1">Adult {{i+1}}</h6>
-                    <div class="row mr-0 ml-0 border-bottom" [formGroupName]="i">
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">First name</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <select id="title" name="title" formControlName="title" class="form-control">
-                                <option value="" disabled>Title</option>
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                              </select>
-                            </div>
-                            <input type="text" formControlName="firstname" class="form-control" placeholder="First Name"
-                              required>
-
-                            <div class="invalid-feedback">
-                              Please choose a username.
-                            </div>
-                          </div>
-
+        <div class="col-md-8">
+            <div class="card-tra-det">
+                <h5 class="mb-0 pb-0">Enter traveller details</h5>
+                <div class="card-body">
+                    <div class="" style="padding: 0px 20px;">
+                        <div class="warings">
+                            <i></i>
+                            <p class="p-text">This airline does not require your passport details to confirm this
+                                booking.
+                                You will only need your passport details once you check-in.</p>
                         </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">Last name</label>
-                          <input type="text" formControlName="lastname" class="form-control" placeholder="Last Name"
-                            required>
+                        <div class="warings mt-2">
+                            <p class="p-text-2">Enter your details as they appear on your passport. Use English only.
+                            </p>
                         </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">DOB</label>
-
-                          <input type="date" formControlName="dob" class="form-control " placeholder="DOB" required>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">Gender</label>
-
-                          <select class="form-control" formControlName="gender">
-                            <option value="" disabled selected>Select the Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Transgender">Transgender</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-12">
-                        <div class="form-group">
-                          <input type="checkbox" class="input-add-flight-book" [checked]="passportOpendetailsAddults==i"
-                            (change)="passportOpendetailsaddultsFunction(i,$event)">
-                          <label> Passport Details(optional)</label>
-                        </div>
-                        <ng-container *ngIf="passportOpendetailsAddults==i">
-                          <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                              <div class="form-group">
-                                <label class="lable-1">Passport</label>
-                                <input type="text" formControlName="passport" class="form-control"
-                                  placeholder="Passport" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                              <div class="form-group">
-                                <label class="lable-1">Issue Date</label>
-                                <input type="date" formControlName="issueDate" class="form-control"
-                                  placeholder="issueDate" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Expiry Date</label>
-                                <input type="date" formControlName="expiryDate" class="form-control"
-                                  placeholder="Expiry Date" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Passport Issue Country</label>
-                                <input type="text" formControlName="passportIssueCountry" class="form-control"
-                                  placeholder="Passport Issue Country" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Country of Nationality</label>
-                                <input type="text" formControlName="countryofNationality" class="form-control"
-                                  placeholder="Country of Nationality" required>
-                              </div>
-                            </div>
-                          </div>
-                        </ng-container>
-
-                      </div>
-                      <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="mb-2">
-                          <div>
-                            <input type="checkbox" class="input-add-flight-book">
-                            <label> Add frequent flyer details (optional)</label>
-                          </div>
-
-                          <div>
-                            <input type="checkbox" class="input-add-flight-book">
-                            <label> Add meal and special assistance (optional)</label>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
-                  </ng-container>
-                </ng-container>
-              </div>
 
-            </div>
+                    <!----Adult 1-->
+                    <div class="mb-md-80">
+                        <div class="row ml-0 mr-0" *ngIf="flightSearchReqData?.adults">
 
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <ng-container formArrayName="adults">
+                                    <ng-container *ngFor="let adultForm of adults.controls; let i = index">
+                                        <h6 class="card-title  mt-2 mb-1">Adult {{i+1}}</h6>
+                                        <div class="row mr-0 ml-0 border-bottom" [formGroupName]="i">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">First name</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <select id="title" name="title" formControlName="title"
+                                                                class="form-control">
+                                                                <option value="" disabled>Title</option>
+                                                                <option value="Mr">Mr</option>
+                                                                <option value="Mrs">Mrs</option>
+                                                                <option value="Miss">Miss</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="text" formControlName="firstname"
+                                                            class="form-control" placeholder="First Name" required>
 
+                                                        <div class="invalid-feedback">
+                                                            Please choose a username.
+                                                        </div>
+                                                    </div>
 
-            <div class="row ml-0 mr-0" *ngIf="flightSearchReqData?.child">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">Last name</label>
+                                                    <input type="text" formControlName="lastname" class="form-control"
+                                                        placeholder="Last Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">DOB</label>
 
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <ng-container formArrayName="childs">
-                  <ng-container *ngFor="let childForm of childs.controls; let i = index">
-                    <h6 class="card-title  mt-2 mb-1">Child {{i+1}}</h6>
-                    <div class="row mr-0 ml-0 border-bottom" [formGroupName]="i">
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">First name</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <select id="title" name="title" formControlName="title" class="form-control">
-                                <option value="" disabled>Title</option>
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                              </select>
+                                                    <input type="date" formControlName="dob" class="form-control "
+                                                        placeholder="DOB" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">Gender</label>
+
+                                                    <select class="form-control" formControlName="gender">
+                                                        <option value="" disabled selected>Select the Gender</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Transgender">Transgender</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <input type="checkbox" class="input-add-flight-book"
+                                                        [checked]="passportOpendetailsAddults==i"
+                                                        (change)="passportOpendetailsaddultsFunction(i,$event)">
+                                                    <label> Passport Details(optional)</label>
+                                                </div>
+                                                <ng-container *ngIf="passportOpendetailsAddults==i">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Passport</label>
+                                                                <input type="text" formControlName="passport"
+                                                                    class="form-control" placeholder="Passport"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Issue Date</label>
+                                                                <input type="date" formControlName="issueDate"
+                                                                    class="form-control" placeholder="issueDate"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Expiry Date</label>
+                                                                <input type="date" formControlName="expiryDate"
+                                                                    class="form-control" placeholder="Expiry Date"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Passport Issue Country</label>
+                                                                <input type="text"
+                                                                    formControlName="passportIssueCountry"
+                                                                    class="form-control"
+                                                                    placeholder="Passport Issue Country" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Country of Nationality</label>
+                                                                <input type="text"
+                                                                    formControlName="countryofNationality"
+                                                                    class="form-control"
+                                                                    placeholder="Country of Nationality" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="mb-2">
+                                                    <div>
+                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <label> Add frequent flyer details (optional)</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <label> Add meal and special assistance (optional)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
                             </div>
-                            <input type="text" formControlName="firstname" class="form-control" placeholder="First Name"
-                              required>
-
-                            <div class="invalid-feedback">
-                              Please choose a username.
-                            </div>
-                          </div>
 
                         </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">Last name</label>
-                          <input type="text" formControlName="lastname" class="form-control" placeholder="Last Name"
-                            required>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">DOB</label>
 
-                          <input type="date" formControlName="dob" class="form-control " placeholder="DOB" required>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">Gender</label>
 
-                          <select class="form-control" formControlName="gender">
-                            <option value="" disabled selected>Select the Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Transgender">Transgender</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-12">
-                        <div class="form-group">
-                          <input type="checkbox" class="input-add-flight-book"
-                            (change)="passportOpendetailsChildFunction(i,$event)"
-                            [checked]="passportOpendetailsChild==i">
-                          <label> Passport Details(optional)</label>
-                        </div>
-                        <ng-container *ngIf="passportOpendetailsChild==i">
-                          <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                              <div class="form-group">
-                                <label class="lable-1">Passport</label>
-                                <input type="text" formControlName="passport" class="form-control"
-                                  placeholder="Passport" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                              <div class="form-group">
-                                <label class="lable-1">Issue Date</label>
-                                <input type="date" formControlName="issueDate" class="form-control"
-                                  placeholder="issueDate" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Expiry Date</label>
-                                <input type="date" formControlName="expiryDate" class="form-control"
-                                  placeholder="Expiry Date" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Passport Issue Country</label>
-                                <input type="text" formControlName="passportIssueCountry" class="form-control"
-                                  placeholder="Passport Issue Country" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Country of Nationality</label>
-                                <input type="text" formControlName="countryofNationality" class="form-control"
-                                  placeholder="Country of Nationality" required>
-                              </div>
-                            </div>
-                          </div>
-                        </ng-container>
 
-                      </div>
-                      <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="mb-2">
-                          <div>
-                            <input type="checkbox" class="input-add-flight-book">
-                            <label> Add frequent flyer details (optional)</label>
-                          </div>
+                        <div class="row ml-0 mr-0" *ngIf="flightSearchReqData?.child">
 
-                          <div>
-                            <input type="checkbox" class="input-add-flight-book">
-                            <label> Add meal and special assistance (optional)</label>
-                          </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <ng-container formArrayName="childs">
+                                    <ng-container *ngFor="let childForm of childs.controls; let i = index">
+                                        <h6 class="card-title  mt-2 mb-1">Child {{i+1}}</h6>
+                                        <div class="row mr-0 ml-0 border-bottom" [formGroupName]="i">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">First name</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <select id="title" name="title" formControlName="title"
+                                                                class="form-control">
+                                                                <option value="" disabled>Title</option>
+                                                                <option value="Mr">Mr</option>
+                                                                <option value="Mrs">Mrs</option>
+                                                                <option value="Miss">Miss</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="text" formControlName="firstname"
+                                                            class="form-control" placeholder="First Name" required>
+
+                                                        <div class="invalid-feedback">
+                                                            Please choose a username.
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">Last name</label>
+                                                    <input type="text" formControlName="lastname" class="form-control"
+                                                        placeholder="Last Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">DOB</label>
+
+                                                    <input type="date" formControlName="dob" class="form-control "
+                                                        placeholder="DOB" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">Gender</label>
+
+                                                    <select class="form-control" formControlName="gender">
+                                                        <option value="" disabled selected>Select the Gender</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Transgender">Transgender</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <input type="checkbox" class="input-add-flight-book"
+                                                        (change)="passportOpendetailsChildFunction(i,$event)"
+                                                        [checked]="passportOpendetailsChild==i">
+                                                    <label> Passport Details(optional)</label>
+                                                </div>
+                                                <ng-container *ngIf="passportOpendetailsChild==i">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Passport</label>
+                                                                <input type="text" formControlName="passport"
+                                                                    class="form-control" placeholder="Passport"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Issue Date</label>
+                                                                <input type="date" formControlName="issueDate"
+                                                                    class="form-control" placeholder="issueDate"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Expiry Date</label>
+                                                                <input type="date" formControlName="expiryDate"
+                                                                    class="form-control" placeholder="Expiry Date"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Passport Issue Country</label>
+                                                                <input type="text"
+                                                                    formControlName="passportIssueCountry"
+                                                                    class="form-control"
+                                                                    placeholder="Passport Issue Country" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Country of Nationality</label>
+                                                                <input type="text"
+                                                                    formControlName="countryofNationality"
+                                                                    class="form-control"
+                                                                    placeholder="Country of Nationality" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="mb-2">
+                                                    <div>
+                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <label> Add frequent flyer details (optional)</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <label> Add meal and special assistance (optional)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
                         </div>
-                      </div>
 
+
+
+                        <div class="row ml-0 mr-0" *ngIf="flightSearchReqData?.infants">
+
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <ng-container formArrayName="infants">
+                                    <ng-container *ngFor="let infantForm of infants.controls; let i = index">
+                                        <h6 class="card-title mb-1 mt-2">Infant {{i+1}}</h6>
+                                        <div class="row mr-0 ml-0 border-bottom" [formGroupName]="i">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">First name</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <select id="title" name="title" formControlName="title"
+                                                                class="form-control">
+                                                                <option value="" disabled>Title</option>
+                                                                <option value="Mr">Mr</option>
+                                                                <option value="Mrs">Mrs</option>
+                                                                <option value="Miss">Miss</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="text" formControlName="firstname"
+                                                            class="form-control" placeholder="First Name" required>
+
+                                                        <div class="invalid-feedback">
+                                                            Please choose a username.
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">Last name</label>
+                                                    <input type="text" formControlName="lastname" class="form-control"
+                                                        placeholder="Last Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">DOB</label>
+
+                                                    <input type="date" formControlName="dob" class="form-control "
+                                                        placeholder="DOB" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="lable-1">Gender</label>
+
+                                                    <select class="form-control" formControlName="gender">
+                                                        <option value="" disabled selected>Select the Gender</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Transgender">Transgender</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <input type="checkbox" class="input-add-flight-book"
+                                                        [checked]="passportOpendetailsInfrnt==i"
+                                                        (change)="passportOpendetailsInfrntFunction(i,$event)">
+                                                    <label> Passport Details(optional)</label>
+                                                </div>
+                                                <ng-container *ngIf="passportOpendetailsInfrnt==i">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Passport</label>
+                                                                <input type="text" formControlName="passport"
+                                                                    class="form-control" placeholder="Passport"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Issue Date</label>
+                                                                <input type="date" formControlName="issueDate"
+                                                                    class="form-control" placeholder="issueDate"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Expiry Date</label>
+                                                                <input type="date" formControlName="expiryDate"
+                                                                    class="form-control" placeholder="Expiry Date"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Passport Issue Country</label>
+                                                                <input type="text"
+                                                                    formControlName="passportIssueCountry"
+                                                                    class="form-control"
+                                                                    placeholder="Passport Issue Country" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="lable-1">Country of Nationality</label>
+                                                                <input type="text"
+                                                                    formControlName="countryofNationality"
+                                                                    class="form-control"
+                                                                    placeholder="Country of Nationality" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="mb-2">
+                                                    <div>
+                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <label> Add frequent flyer details (optional)</label>
+                                                    </div>
+
+                                                    <div>
+                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <label> Add meal and special assistance (optional)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
                     </div>
-                  </ng-container>
-                </ng-container>
-              </div>
+                </div>
             </div>
 
+            <!--------------Enter contact details--------------------->
+            <div class="card-tra-det">
+                <h5 class="mb-0 ">Enter contact details</h5>
+
+                <div class="card-body">
+
+                    <div class="row frm-1 d-flex">
+                        <div class="col-md-6">
+                            <label class="lable-1">Email address</label>
+                            <div class="d-flex">
 
 
-            <div class="row ml-0 mr-0" *ngIf="flightSearchReqData?.infants">
+                                <input class="form-control" placeholder="Email to receive e-ticket">
 
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <ng-container formArrayName="infants">
-                  <ng-container *ngFor="let infantForm of infants.controls; let i = index">
-                    <h6 class="card-title mb-1 mt-2">Infant {{i+1}}</h6>
-                    <div class="row mr-0 ml-0 border-bottom" [formGroupName]="i">
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">First name</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <select id="title" name="title" formControlName="title" class="form-control">
-                                <option value="" disabled>Title</option>
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                              </select>
                             </div>
-                            <input type="text" formControlName="firstname" class="form-control" placeholder="First Name"
-                              required>
-
-                            <div class="invalid-feedback">
-                              Please choose a username.
-                            </div>
-                          </div>
-
                         </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">Last name</label>
-                          <input type="text" formControlName="lastname" class="form-control" placeholder="Last Name"
-                            required>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">DOB</label>
+                        <div class="col-md-6">
+                            <label class="lable-1">Mobile number</label>
+                            <div class="d-flex">
+                                <input class="form-control" placeholder="Mobile number">
 
-                          <input type="date" formControlName="dob" class="form-control " placeholder="DOB" required>
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label class="lable-1">Gender</label>
 
-                          <select class="form-control" formControlName="gender">
-                            <option value="" disabled selected>Select the Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Transgender">Transgender</option>
-                          </select>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-sm-12 col-md-12">
-                        <div class="form-group">
-                          <input type="checkbox" class="input-add-flight-book" [checked]="passportOpendetailsInfrnt==i"
-                            (change)="passportOpendetailsInfrntFunction(i,$event)">
-                          <label> Passport Details(optional)</label>
-                        </div>
-                        <ng-container *ngIf="passportOpendetailsInfrnt==i">
-                          <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                              <div class="form-group">
-                                <label class="lable-1">Passport</label>
-                                <input type="text" formControlName="passport" class="form-control"
-                                  placeholder="Passport" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                              <div class="form-group">
-                                <label class="lable-1">Issue Date</label>
-                                <input type="date" formControlName="issueDate" class="form-control"
-                                  placeholder="issueDate" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Expiry Date</label>
-                                <input type="date" formControlName="expiryDate" class="form-control"
-                                  placeholder="Expiry Date" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Passport Issue Country</label>
-                                <input type="text" formControlName="passportIssueCountry" class="form-control"
-                                  placeholder="Passport Issue Country" required>
-                              </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4">
-                              <div class="form-group">
-                                <label class="lable-1">Country of Nationality</label>
-                                <input type="text" formControlName="countryofNationality" class="form-control"
-                                  placeholder="Country of Nationality" required>
-                              </div>
-                            </div>
-                          </div>
-                        </ng-container>
-
-                      </div>
-                      <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="mb-2">
-                          <div>
-                            <input type="checkbox" class="input-add-flight-book">
-                            <label> Add frequent flyer details (optional)</label>
-                          </div>
-
-                          <div>
-                            <input type="checkbox" class="input-add-flight-book">
-                            <label> Add meal and special assistance (optional)</label>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
-                  </ng-container>
-                </ng-container>
-              </div>
+
+
+                </div>
+
             </div>
-          </div>
+            <!--------------end contact details--------------------->
+
         </div>
-      </div>
+        <div class="col-md-4">
+            <div class="right-pane sticky-top">
 
-      <!--------------Enter contact details--------------------->
-      <div class="card-tra-det">
-        <h5 class="mb-0 ">Enter contact details</h5>
-
-        <div class="card-body">
-
-          <div class="row frm-1 d-flex">
-            <div class="col-md-6">
-              <label class="lable-1">Email address</label>
-              <div class="d-flex">
+                <div class="add-to-card p-2 pl-3 pr-3">
 
 
-                <input class="form-control" placeholder="Email to receive e-ticket">
-
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label class="lable-1">Mobile number</label>
-              <div class="d-flex">
-                <input class="form-control" placeholder="Mobile number">
-
-
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-      <!--------------end contact details--------------------->
-
-    </div>
-    <div class="col-md-4">
-      <div class="right-pane sticky-top">
-
-        <div class="add-to-card p-2 pl-3 pr-3">
-
-
-          <div class="row pb-2 pt-3">
-            <div class="col-8">
-              <span style="    font-size: 20px;
+                    <div class="row pb-2 pt-3">
+                        <div class="col-8">
+                            <span style="    font-size: 20px;
                     font-weight: 600;
                     color: rgb(58, 58, 58);">Flight summary</span>
-            </div>
-            <div class="col-4 text-align-right">
-              <button class="flight-detl-rgt mt-2 btn-cancel" role="button"
-                (click)="viewData(modalViewPopUP,bookFlightItem)">Flight details</button>
-            </div>
-          </div>
-
-          <div class="row pb-2 pt-3">
-            <div class="col-2">
-              <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}" class="img-fr">
-
-            </div>
-            <div class="col-2">
-              <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time}}
-              </div>
-              <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
-                <div class="tj-tooltip__children sc-TFwJa cFsBnr">
-                  <div class="box-4-time" style="background-color: coral;">
-                    <span> {{bookFlightItem.dep_code}}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-5">
-              <div class="box3">
-                <p class="stop">
-                  Stops-{{bookFlightItem.stop}}&nbsp;
-                </p>
-              </div>
-              <i class="fas fa-fighter-jet flights-icon"></i>
-              <div class="box3-line"></div>
-              <div class="box-last">
-                <div>
-                  <div>
-                    <div>
-
-                      <p class="stop">
-                        <i class="fa fa-clock" style="font-size: 14px;"></i> {{bookFlightItem.totall_time}}
-
-                      </p>
+                        </div>
+                        <div class="col-4 text-align-right">
+                            <button class="flight-detl-rgt mt-2 btn-cancel" role="button"
+                                (click)="viewData(modalViewPopUP,bookFlightItem)">Flight details</button>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="box2" style="font-size: 13px;">
-                {{bookFlightItem.arr_time}}
-              </div>
-              <div class="">
-                <div class="box-4-time">
-                  <span>{{bookFlightItem.arr_code}}</span>
-                </div>
-              </div>
-            </div>
 
-          </div>
-          <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
-            <div class="row pb-2 pt-3">
-              <div class="col-2">
-                <img src="{{defaultImageAddress}}{{bookFlightItem.airline2}}{{formatImage}}" class="img-fr">
+                    <div class="row pb-2 pt-3">
+                        <div class="col-2">
+                            <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}" class="img-fr">
 
-              </div>
-              <div class="col-2">
-                <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time2}}
-                </div>
-                <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
-                  <div class="tj-tooltip__children sc-TFwJa cFsBnr">
-                    <div class="box-4-time" style="background-color: coral;">
-                      <span> {{bookFlightItem.dep_code2}}</span>
+                        </div>
+                        <div class="col-2">
+                            <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time}}
+                            </div>
+                            <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
+                                <div class="tj-tooltip__children sc-TFwJa cFsBnr">
+                                    <div class="box-4-time" style="background-color: coral;">
+                                        <span> {{bookFlightItem.dep_code}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="box3">
+                                <p class="stop">
+                                    Stops-{{bookFlightItem.stop}}&nbsp;
+                                </p>
+                            </div>
+                            <i class="fas fa-fighter-jet flights-icon"></i>
+                            <div class="box3-line"></div>
+                            <div class="box-last">
+                                <div>
+                                    <div>
+                                        <div>
+
+                                            <p class="stop">
+                                                <i class="fa fa-clock" style="font-size: 14px;"></i>
+                                                {{bookFlightItem.totall_time}}
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="box2" style="font-size: 13px;">
+                                {{bookFlightItem.arr_time}}
+                            </div>
+                            <div class="">
+                                <div class="box-4-time">
+                                    <span>{{bookFlightItem.arr_code}}</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-5">
-                <div class="box3">
-                  <p class="stop">
-                    Stops-{{bookFlightItem.stop2}}&nbsp;
-                  </p>
-                </div>
-                <i class="fas fa-fighter-jet flights-icon"></i>
-                <div class="box3-line"></div>
-                <div class="box-last">
-                  <div>
-                    <div>
-                      <div>
+                    <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
+                        <div class="row pb-2 pt-3">
+                            <div class="col-2">
+                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline2}}{{formatImage}}"
+                                    class="img-fr">
 
-                        <p class="stop">
-                          <i class="fa fa-clock" style="font-size: 14px;"></i> {{bookFlightItem.totall_time2}}
+                            </div>
+                            <div class="col-2">
+                                <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time2}}
+                                </div>
+                                <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
+                                    <div class="tj-tooltip__children sc-TFwJa cFsBnr">
+                                        <div class="box-4-time" style="background-color: coral;">
+                                            <span> {{bookFlightItem.dep_code2}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="box3">
+                                    <p class="stop">
+                                        Stops-{{bookFlightItem.stop2}}&nbsp;
+                                    </p>
+                                </div>
+                                <i class="fas fa-fighter-jet flights-icon"></i>
+                                <div class="box3-line"></div>
+                                <div class="box-last">
+                                    <div>
+                                        <div>
+                                            <div>
 
-                        </p>
-                      </div>
+                                                <p class="stop">
+                                                    <i class="fa fa-clock" style="font-size: 14px;"></i>
+                                                    {{bookFlightItem.totall_time2}}
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="box2" style="font-size: 13px;">
+                                    {{bookFlightItem.arr_time2}}
+                                </div>
+                                <div class="">
+                                    <div class="box-4-time">
+                                        <span>{{bookFlightItem.arr_code2}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
+                                <div class="search-result-leg-card" style="border-top: 1px solid rgb(223, 223, 223);">
+
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </ng-container>
+
+
+                    <div class="row pb-2 pt-3">
+                        <div class="col-6">
+                            <span style="font-size: 20px; font-weight: 600;color: rgb(58, 58, 58);">Fare details</span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <a href="" class="btn-cancel">Cancel & change</a>
+                        </div>
                     </div>
-                  </div>
+                    <ng-container *ngFor="let adultForm of adultsArrayPrice; let i = index">
+                        <div class="row mb-1">
+                            <div class="col-6">
+                                <span class="traveller1">Traveller (Adults)-{{i+1}} &nbsp;<i
+                                        class="fas fa-chevron-down pl-1"></i></span>
+                            </div>
+                            <div class="col-6 text-align-right">
+                                <span class="price-right">{{adultForm.totalFareAmount}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngFor="let childForm of childArrayPrice; let i = index">
+                        <div class="row mb-1">
+                            <div class="col-6">
+                                <span class="traveller1">Traveller (Child)-{{i+1}} &nbsp; &nbsp;<i
+                                        class="fas fa-chevron-down pl-1"></i></span>
+                            </div>
+                            <div class="col-6 text-align-right">
+                                <span class="price-right">{{childForm.totalFareAmount}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngFor="let infantForm of infArrayPrice; let i = index">
+                        <div class="row mb-1">
+                            <div class="col-6">
+                                <span class="traveller1">Traveller (Infant)-{{i+1}} &nbsp;<i
+                                        class="fas fa-chevron-down pl-1"></i></span>
+                            </div>
+                            <div class="col-6 text-align-right">
+                                <span class="price-right">{{infantForm.totalFareAmount}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="left-side-text">Service fee <i class="far fa-info-circle"></i></span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <span class="price-right">EUR 40.00</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="left-side-text">VAT <i class="far fa-info-circle"></i></span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <span class="price-right">EUR 0.00</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <span style="font-size: 14px;font-weight: bold;color: rgb(58, 58, 58);">Total (incl.
+                                VAT)</span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <span class="price-right" style="font-size: 18px;">EUR {{bookFlightItem.price}}</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row pl-3 pr-3 pt-3">
+                        <button class="add-submit" type="submit" [disabled]="!bookingForm.valid">
+                            Continue to final details
+                            <i class="fas fa-chevron-right pl-1"></i>
+                        </button>
+
+                    </div>
+
                 </div>
-              </div>
-              <div class="col-2">
-                <div class="box2" style="font-size: 13px;">
-                  {{bookFlightItem.arr_time2}}
-                </div>
-                <div class="">
-                  <div class="box-4-time">
-                    <span>{{bookFlightItem.arr_code2}}</span>
-                  </div>
-                </div>
-              </div>
-
-
-
-              <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
-                <div class="search-result-leg-card" style="border-top: 1px solid rgb(223, 223, 223);">
-
-                </div>
-              </ng-container>
 
             </div>
-          </ng-container>
-
-
-          <div class="row pb-2 pt-3">
-            <div class="col-6">
-              <span style="font-size: 20px; font-weight: 600;color: rgb(58, 58, 58);">Fare details</span>
-            </div>
-            <div class="col-6 text-align-right">
-              <a href="" class="btn-cancel">Cancel & change</a>
-            </div>
-          </div>
-          <ng-container *ngFor="let adultForm of adultsArrayPrice; let i = index">
-            <div class="row mb-1">
-              <div class="col-6">
-                <span class="traveller1">Traveller (Adults)-{{i+1}} &nbsp;<i
-                    class="fas fa-chevron-down pl-1"></i></span>
-              </div>
-              <div class="col-6 text-align-right">
-                <span class="price-right">{{adultForm.totalFareAmount}}</span>
-              </div>
-            </div>
-          </ng-container>
-          <ng-container *ngFor="let childForm of childArrayPrice; let i = index">
-            <div class="row mb-1">
-              <div class="col-6">
-                <span class="traveller1">Traveller (Child)-{{i+1}} &nbsp; &nbsp;<i
-                    class="fas fa-chevron-down pl-1"></i></span>
-              </div>
-              <div class="col-6 text-align-right">
-                <span class="price-right">{{childForm.totalFareAmount}}</span>
-              </div>
-            </div>
-          </ng-container>
-          <ng-container *ngFor="let infantForm of infArrayPrice; let i = index">
-            <div class="row mb-1">
-              <div class="col-6">
-                <span class="traveller1">Traveller (Infant)-{{i+1}} &nbsp;<i
-                    class="fas fa-chevron-down pl-1"></i></span>
-              </div>
-              <div class="col-6 text-align-right">
-                <span class="price-right">{{infantForm.totalFareAmount}}</span>
-              </div>
-            </div>
-          </ng-container>
-          <div class="row">
-            <div class="col-6">
-              <span class="left-side-text">Service fee <i class="far fa-info-circle"></i></span>
-            </div>
-            <div class="col-6 text-align-right">
-              <span class="price-right">EUR 40.00</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <span class="left-side-text">VAT <i class="far fa-info-circle"></i></span>
-            </div>
-            <div class="col-6 text-align-right">
-              <span class="price-right">EUR 0.00</span>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-6">
-              <span style="font-size: 14px;font-weight: bold;color: rgb(58, 58, 58);">Total (incl. VAT)</span>
-            </div>
-            <div class="col-6 text-align-right">
-              <span class="price-right" style="font-size: 18px;">EUR {{bookFlightItem.price}}</span>
-            </div>
-          </div>
-
-
-
-          <div class="row pl-3 pr-3 pt-3">
-            <button class="add-submit" type="submit" [disabled]="!bookingForm.valid">
-              Continue to final details
-              <i class="fas fa-chevron-right pl-1"></i>
-            </button>
-
-          </div>
-
         </div>
-
-      </div>
     </div>
-</div>
-  </form>
+</form>
 
 
 
@@ -648,107 +680,107 @@
 
 
 
-  <div class="modal-content modal-body-md border-md">
-    <button type="button" class="close-btn-md clos-md" (click)="modal.dismiss('Cross click')">
+    <div class="modal-content modal-body-md border-md">
+        <button type="button" class="close-btn-md clos-md" (click)="modal.dismiss('Cross click')">
 
-      <span aria-hidden="true">close</span>
-    </button>
+            <span aria-hidden="true">close</span>
+        </button>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="flight-mid-md p-3">
-          <button type="button" class="btn-md-flgt">Flight itinerary</button>
-          <button type="button" class="btn-md-flgt">Baggage info</button>
-          <button type="button" class="btn-md-flgt">Cancel & change</button>
-          <button type="button" class="btn-md-flgt">Fare details</button>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div>
-        <div>
-          <div *ngFor="let item of viewDataAll">
-            <div>
-              <div class="d-flex dis-box-2">
-                <div class="dept">
-                  <div *ngIf="item.index_arr && item.index_dep"><i style="margin-right: 8px;"
-                      class="fa fa-fighter-jet"></i>
-                    <span style="font-weight: bold;">{{item.index_dep}} </span>
-                    <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
-                    <span style="font-weight: bold;"> {{item.index_arr}}</span>
-                  </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="flight-mid-md p-3">
+                    <button type="button" class="btn-md-flgt">Flight itinerary</button>
+                    <button type="button" class="btn-md-flgt">Baggage info</button>
+                    <button type="button" class="btn-md-flgt">Cancel & change</button>
+                    <button type="button" class="btn-md-flgt">Fare details</button>
                 </div>
-                <div *ngIf="item.totalltime">
-
-                  Total duration <span style="font-weight: bold;"> {{item.totalltime}}</span>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; margin-bottom: 20px;">
-                  <div style="flex: 0.9 1 0%; padding-right: 20px;">
-                    <div style="display: flex;align-items: flex-start;">
-                      <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}" class="img-fr"
-                        style="height: 50px;">
-                      <div>
-
-                        <div style="font-weight:100;">
-                          {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
-                        <div style="font-weight:100;">{{item.cabin}}</div>
-                        <div></div>
-                        <div></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div style="flex: 0.9 1 0%;padding-right: 20px;">
-                    <div style="font-size: 14px;">
-
-                      <span style="font-weight: bold;
-                                                ">{{item.from_Origin}} {{item.from_flight_time}}</span>
-                      <span></span>
-                    </div>
-                    <div class="timing-text">
-                      {{item.from_weekday}}, {{item.from_flight_date}}
-                    </div>
-                    <span> {{item.from_airportname}}
-                      {{item.from_terminal}}</span><br>
-                    <span style="font-weight:100;">
-                      {{item.from_cityName}}, {{item.from_countryName}}</span>
-                  </div>
-                  <div style="flex: 0.9 1 0%;padding-right: 20px;">
-                    <div style="font-size: 14px;">
-                      <span class="orange-bva">{{item.to_Origin}}</span>
-                      <span style="font-weight: bold;
-                                                margin-left: 5px;">{{item.to_time_arrival}}</span>
-                      <span></span>
-                    </div>
-                    <div class="timing-text">
-                      {{item.to_weekday}}, {{item.to_date_arrival}}
-                    </div>
-                    <span> {{item.to_airportname}}
-                      {{item.to_terminal}}
-                    </span><br>
-                    <span style="font-weight:100;">
-                      {{item.to_cityName}}, {{item.to_countryName}}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="yelooVividLight" *ngIf="item.transit_city">
-                <div style="text-align: center;">
-                  <i style="margin-right: 8px;" class="fa fa-clock"></i>
-                  Waiting time in<b>{{item.transit_city}}</b>
-                </div>
-                <div style="text-align: end;">
-                  {{item.overlay_time}}
-                </div>
-              </div>
-
-              <hr *ngIf="item.overlay_time==''"
-                style="margin:0px; border:1px dashed rgb(102, 100, 100) ; margin-bottom: 5px;">
             </div>
+        </div>
 
-            <!-- <div *ngFor="let allindex1 of indexAll">
+        <div>
+            <div>
+                <div>
+                    <div *ngFor="let item of viewDataAll">
+                        <div>
+                            <div class="d-flex dis-box-2">
+                                <div class="dept">
+                                    <div *ngIf="item.index_arr && item.index_dep"><i style="margin-right: 8px;"
+                                            class="fa fa-fighter-jet"></i>
+                                        <span style="font-weight: bold;">{{item.index_dep}} </span>
+                                        <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
+                                        <span style="font-weight: bold;"> {{item.index_arr}}</span>
+                                    </div>
+                                </div>
+                                <div *ngIf="item.totalltime">
+
+                                    Total duration <span style="font-weight: bold;"> {{item.totalltime}}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; margin-bottom: 20px;">
+                                    <div style="flex: 0.9 1 0%; padding-right: 20px;">
+                                        <div style="display: flex;align-items: flex-start;">
+                                            <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
+                                                class="img-fr" style="height: 50px;">
+                                            <div>
+
+                                                <div style="font-weight:100;">
+                                                    {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
+                                                <div style="font-weight:100;">{{item.cabin}}</div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                        <div style="font-size: 14px;">
+
+                                            <span style="font-weight: bold;
+                                                ">{{item.from_Origin}} {{item.from_flight_time}}</span>
+                                            <span></span>
+                                        </div>
+                                        <div class="timing-text">
+                                            {{item.from_weekday}}, {{item.from_flight_date}}
+                                        </div>
+                                        <span> {{item.from_airportname}}
+                                            {{item.from_terminal}}</span><br>
+                                        <span style="font-weight:100;">
+                                            {{item.from_cityName}}, {{item.from_countryName}}</span>
+                                    </div>
+                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                        <div style="font-size: 14px;">
+                                            <span class="orange-bva">{{item.to_Origin}}</span>
+                                            <span style="font-weight: bold;
+                                                margin-left: 5px;">{{item.to_time_arrival}}</span>
+                                            <span></span>
+                                        </div>
+                                        <div class="timing-text">
+                                            {{item.to_weekday}}, {{item.to_date_arrival}}
+                                        </div>
+                                        <span> {{item.to_airportname}}
+                                            {{item.to_terminal}}
+                                        </span><br>
+                                        <span style="font-weight:100;">
+                                            {{item.to_cityName}}, {{item.to_countryName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="yelooVividLight" *ngIf="item.transit_city">
+                                <div style="text-align: center;">
+                                    <i style="margin-right: 8px;" class="fa fa-clock"></i>
+                                    Waiting time in<b>{{item.transit_city}}</b>
+                                </div>
+                                <div style="text-align: end;">
+                                    {{item.overlay_time}}
+                                </div>
+                            </div>
+
+                            <hr *ngIf="item.overlay_time==''"
+                                style="margin:0px; border:1px dashed rgb(102, 100, 100) ; margin-bottom: 5px;">
+                        </div>
+
+                        <!-- <div *ngFor="let allindex1 of indexAll">
 
                                 {{allindex1.airline_cod}}
                                 {{allindex1.dep_arr}}
@@ -768,26 +800,27 @@
 
                             </div> -->
 
-          </div>
+                    </div>
 
+                </div>
+            </div>
+
+
+
+            <!---bottom hide btn-->
+            <div class="hide-box-bttom">
+                <button class="hide-btn" (click)="modal.dismiss('Cross click')">Hide details</button>
+                <button type="button" class="select-flight" (click)="navToBookFlight(viwItemData)"
+                    (click)="modal.dismiss('cancel')">Select flight EUR {{_price}}
+                    <i _ngcontent-cck-c225="" class="fas fa-chevron-right"
+                        style="padding-left: 5px; font-size: 12px;"></i>
+                </button>
+            </div>
+            <!---bottom hide btn-->
         </div>
-      </div>
-
-
-
-      <!---bottom hide btn-->
-      <div class="hide-box-bttom">
-        <button class="hide-btn" (click)="modal.dismiss('Cross click')">Hide details</button>
-        <button type="button" class="select-flight" (click)="navToBookFlight(viwItemData)"
-          (click)="modal.dismiss('cancel')">Select flight EUR {{_price}}
-          <i _ngcontent-cck-c225="" class="fas fa-chevron-right" style="padding-left: 5px; font-size: 12px;"></i>
-        </button>
-      </div>
-      <!---bottom hide btn-->
     </div>
-  </div>
 
 
-  <!-----Modal------>
+    <!-----Modal------>
 
 </ng-template>

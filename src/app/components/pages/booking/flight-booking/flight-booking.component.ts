@@ -18,7 +18,10 @@ export class FlightBookingComponent implements OnInit {
   bookingForm = new FormGroup({
     adults: this.fb.array([]),
     childs: this.fb.array([]),
-    infants: this.fb.array([])
+    infants: this.fb.array([]),
+    phone: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+
   });
   flightSearchReqData: any = [];
   localUserIds: any;
@@ -26,10 +29,10 @@ export class FlightBookingComponent implements OnInit {
   passportOpendetailsChild: null;
   passportOpendetailsAddults: null;
   viwItemData: any;
-  loadingViewDta: boolean=false;
-  viewDataAll: any[]=[];
-  viewDataAll2: any[]=[];
-  indexAll2: any[]=[];
+  loadingViewDta: boolean = false;
+  viewDataAll: any[] = [];
+  viewDataAll2: any[] = [];
+  indexAll2: any[] = [];
   arr_code: any;
   dep_code: any;
   gds: any;
@@ -38,11 +41,11 @@ export class FlightBookingComponent implements OnInit {
   dep_time: any;
   _price: any;
   indexAll: any;
-  confirmResut='';
+  confirmResut = '';
   viewDataPrice: any;
-  infArrayPrice: any[]=[];
-  childArrayPrice: any[]=[];
-  adultsArrayPrice: any[]=[];
+  infArrayPrice: any[] = [];
+  childArrayPrice: any[] = [];
+  adultsArrayPrice: any[] = [];
 
   constructor(
     private _location: Location,
@@ -53,12 +56,12 @@ export class FlightBookingComponent implements OnInit {
     private _router: Router,
 
   ) {
-    this.passportOpendetailsInfrnt=null;
-    this.passportOpendetailsChild= null;
-    this.passportOpendetailsAddults= null;
-    this.adultsArrayPrice=[];
-    this.childArrayPrice=[];
-    this.infArrayPrice=[];
+    this.passportOpendetailsInfrnt = null;
+    this.passportOpendetailsChild = null;
+    this.passportOpendetailsAddults = null;
+    this.adultsArrayPrice = [];
+    this.childArrayPrice = [];
+    this.infArrayPrice = [];
   }
 
 
@@ -131,7 +134,9 @@ export class FlightBookingComponent implements OnInit {
           first_name: ele?.firstname,
           last_name: ele?.lastname
         };
-      })
+      }),
+      email:this.email.value,
+      phone:this.phone.value,
     }
     this.loading = true;
     if (this.bookFlightItem.gds == "gal") {
@@ -178,6 +183,11 @@ export class FlightBookingComponent implements OnInit {
 
   get childs() {
     return this.bookingForm.controls["childs"] as FormArray;
+  }
+  get email() {
+    return this.bookingForm.controls["email"].value;
+  } get phone() {
+    return this.bookingForm.controls["phone"].value;
   }
 
   get infants() {
@@ -322,7 +332,7 @@ export class FlightBookingComponent implements OnInit {
     this._router.navigate(['/booking']);
   }
   viewData(content: any, item: any) {
-    this.viwItemData=item
+    this.viwItemData = item
     this.loadingViewDta = true;
     this.viewDataAll = [];
     this.viewDataAll2 = [];
@@ -333,7 +343,7 @@ export class FlightBookingComponent implements OnInit {
     this.Dep_date = item.Dep_date
     this.arr_time = item.arr_time
     this.dep_time = item.dep_time
-    this._price= item.price;
+    this._price = item.price;
     if (item.gds == "gal") {
       let reqData = {
         "flgith_id": item.flight_id,
@@ -393,9 +403,9 @@ export class FlightBookingComponent implements OnInit {
 
 
 
-  openTaxModal( item: any) {
-  
-  
+  openTaxModal(item: any) {
+
+
     if (item.gds == "gal") {
       let reqData = {
         "bag_ref_no": item.bag_ref_no,
@@ -405,32 +415,33 @@ export class FlightBookingComponent implements OnInit {
       }
       this.locationsService.Api_viewgaleusprice_api(reqData).subscribe((res: any) => {
         this.viewDataPrice = res;
-        this.viewDataPrice?.forEach((ele:any)=>{
-          if(ele.ptc_ntype=="LBR"){
-          for(var i=0;i<ele.paxcount;i++){
-            this.adultsArrayPrice.push({
-              totalFareAmount:ele.totalFareAmount,
-              paxcount:i,
-            })
-          }
-          }else if(ele.ptc_ntype=="CH"){
-            for(var i=0;i<ele.paxcount;i++){
-              this.childArrayPrice.push({
-                totalFareAmount:ele.totalFareAmount,
-                paxcount:i,
+        this.viewDataPrice?.forEach((ele: any) => {
+          if (ele.ptc_ntype == "LBR") {
+            for (var i = 0; i < ele.paxcount; i++) {
+              this.adultsArrayPrice.push({
+                totalFareAmount: ele.totalFareAmount,
+                paxcount: i,
               })
             }
-          }else if(ele.ptc_ntype=="INF"){
-            for(var i=0;i<ele.paxcount;i++){
+          } else if (ele.ptc_ntype == "CH") {
+            for (var i = 0; i < ele.paxcount; i++) {
+              this.childArrayPrice.push({
+                totalFareAmount: ele.totalFareAmount,
+                paxcount: i,
+              })
+            }
+          } else if (ele.ptc_ntype == "INF") {
+            for (var i = 0; i < ele.paxcount; i++) {
               this.infArrayPrice.push({
-                totalFareAmount:ele.totalFareAmount,
-                paxcount:i,
-              })}
-          }else{
-    
+                totalFareAmount: ele.totalFareAmount,
+                paxcount: i,
+              })
+            }
+          } else {
+
           }
         })
-    console.log("adultsArrayPrice",this.adultsArrayPrice)
+        console.log("adultsArrayPrice", this.adultsArrayPrice)
         console.log(" this.viewDataPrice", this.viewDataPrice)
       }, (err: any) => {
       });
@@ -443,32 +454,34 @@ export class FlightBookingComponent implements OnInit {
       }
       this.locationsService.Api_viewamadeusprice_api(reqData).subscribe((res: any) => {
         this.viewDataPrice = res;
-        this.viewDataPrice?.forEach((ele:any)=>{
-          if(ele.ptc_ntype=="LBR"){
-          for(var i=0;i<ele.paxcount;i++){
-            this.adultsArrayPrice.push({
-              totalFareAmount:ele.totalFareAmount,
-              paxcount:i,
-            })
-          }
-          }else if(ele.ptc_ntype=="CH"){
-            for(var i=0;i<ele.paxcount;i++){
+        this.viewDataPrice?.forEach((ele: any) => {
+          if (ele.ptc_ntype == "LBR") {
+            for (var i = 0; i < ele.paxcount; i++) {
+              this.adultsArrayPrice.push({
+                totalFareAmount: ele.totalFareAmount,
+                paxcount: i,
+              })
+            }
+          } else if (ele.ptc_ntype == "CH") {
+            for (var i = 0; i < ele.paxcount; i++) {
               this.childArrayPrice.push({
-                totalFareAmount:ele.totalFareAmount,
-                paxcount:i,
-              })}
-          }else if(ele.ptc_ntype=="INF"){
-            for(var i=0;i<ele.paxcount;i++){
+                totalFareAmount: ele.totalFareAmount,
+                paxcount: i,
+              })
+            }
+          } else if (ele.ptc_ntype == "INF") {
+            for (var i = 0; i < ele.paxcount; i++) {
               this.infArrayPrice.push({
-                totalFareAmount:ele.totalFareAmount,
-                paxcount:i,
-              })}
-          }else{
+                totalFareAmount: ele.totalFareAmount,
+                paxcount: i,
+              })
+            }
+          } else {
           }
 
-          
+
         })
-    console.log("adultsArrayPrice",this.adultsArrayPrice)
+        console.log("adultsArrayPrice", this.adultsArrayPrice)
         console.log(" this.viewDataPrice", this.viewDataPrice)
       }, (err: any) => {
       });
@@ -476,6 +489,6 @@ export class FlightBookingComponent implements OnInit {
     else {
       alert("No data found")
     }
-   
+
   }
 }

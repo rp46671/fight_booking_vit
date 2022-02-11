@@ -198,7 +198,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
       this.cusFlightblockArrfilter = res.filter;
-      this.cusFlightblockArrfilter.forEach(ele => {
+      this.cusFlightblockArrfilter?.forEach(ele => {
         ele.isSelected = false;
       });
       //  console.log("this.cusFlightblockArrfilter",this.cusFlightblockArrfilter)

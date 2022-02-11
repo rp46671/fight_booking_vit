@@ -3,12 +3,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="tabs">
+                    <app-flight-booking></app-flight-booking>
+                          
                     <ul ngbNav #nav="ngbNav" class="custom-flex nav nav-tabs">
                        
                         <li [ngbNavItem]="1">
-                            <a ngbNavLink>Flights Booking</a>
+                          
                             <ng-template ngbNavContent>
-                                <app-flight-booking></app-flight-booking>
                             </ng-template>
                         </li>
                        

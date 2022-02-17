@@ -132,16 +132,14 @@
 
                                             </div>
                                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div class="mb-2">
-                                                    <div>
-                                                        <input type="checkbox" class="input-add-flight-book">
-                                                        <label> Add frequent flyer details (optional)</label>
-                                                    </div>
+                                                <div>
+                                                    <input type="checkbox" class="input-add-flight-book" formControlName="frequent_flyerdetails">
+                                                    <label> Add frequent flyer details (optional)</label>
+                                                </div>
 
-                                                    <div>
-                                                        <input type="checkbox" class="input-add-flight-book">
-                                                        <label> Add meal and special assistance (optional)</label>
-                                                    </div>
+                                                <div>
+                                                    <input type="checkbox" class="input-add-flight-book" formControlName="addMeal">
+                                                    <label> Add meal and special assistance (optional)</label>
                                                 </div>
                                             </div>
 
@@ -267,16 +265,14 @@
 
                                             </div>
                                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div class="mb-2">
-                                                    <div>
-                                                        <input type="checkbox" class="input-add-flight-book">
-                                                        <label> Add frequent flyer details (optional)</label>
-                                                    </div>
+                                                <div>
+                                                    <input type="checkbox" class="input-add-flight-book" formControlName="frequent_flyerdetails">
+                                                    <label> Add frequent flyer details (optional)</label>
+                                                </div>
 
-                                                    <div>
-                                                        <input type="checkbox" class="input-add-flight-book">
-                                                        <label> Add meal and special assistance (optional)</label>
-                                                    </div>
+                                                <div>
+                                                    <input type="checkbox" class="input-add-flight-book" formControlName="addMeal">
+                                                    <label> Add meal and special assistance (optional)</label>
                                                 </div>
                                             </div>
 
@@ -400,18 +396,19 @@
                                                 </ng-container>
 
                                             </div>
+                                        
                                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                                <div class="mb-2">
+                                               
                                                     <div>
-                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <input type="checkbox" class="input-add-flight-book" formControlName="frequent_flyerdetails">
                                                         <label> Add frequent flyer details (optional)</label>
                                                     </div>
 
                                                     <div>
-                                                        <input type="checkbox" class="input-add-flight-book">
+                                                        <input type="checkbox" class="input-add-flight-book" formControlName="addMeal">
                                                         <label> Add meal and special assistance (optional)</label>
                                                     </div>
-                                                </div>
+                                               
                                             </div>
 
                                         </div>
@@ -435,14 +432,15 @@
                             <div class="d-flex">
 
 
-                                <input class="form-control" placeholder="Email to receive e-ticket"  formControlName="email">
+                                <input class="form-control" placeholder="Email to receive e-ticket"
+                                    formControlName="email">
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="lable-1">Mobile number</label>
                             <div class="d-flex">
-                                <input class="form-control" placeholder="Mobile number"  formControlName="phone">
+                                <input class="form-control" placeholder="Mobile number" formControlName="phone">
 
 
                             </div>
@@ -456,89 +454,38 @@
             <!--------------end contact details--------------------->
 
         </div>
-        <div class="col-md-4">
-            <div class="right-pane sticky-top">
+        <div class="col-md-4 right-pane webView">
+            <div class="">
+                <div class=" sticky-top">
 
-                <div class="add-to-card p-2 pl-3 pr-3">
+                    <div class="add-to-card p-2 pl-3 pr-3">
 
 
-                    <div class="row pb-2 pt-3">
-                        <div class="col-8">
-                            <span style="    font-size: 20px;
+                        <div class="row pb-2 pt-3">
+                            <div class="col-8">
+                                <span style="    font-size: 20px;
                     font-weight: 600;
                     color: rgb(58, 58, 58);">Flight summary</span>
-                        </div>
-                        <div class="col-4 text-align-right">
-                            <button class="flight-detl-rgt mt-2 btn-cancel" role="button"
-                                (click)="viewData(modalViewPopUP,bookFlightItem)">Flight details</button>
-                        </div>
-                    </div>
-
-                    <div class="row pb-2 pt-3">
-                        <div class="col-2">
-                            <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}" class="img-fr">
-
-                        </div>
-                        <div class="col-2">
-                            <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time}}
                             </div>
-                            <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
-                                <div class="tj-tooltip__children sc-TFwJa cFsBnr">
-                                    <div class="box-4-time" style="background-color: coral;">
-                                        <span> {{bookFlightItem.dep_code}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="box3">
-                                <p class="stop">
-                                    Stops-{{bookFlightItem.stop}}&nbsp;
-                                </p>
-                            </div>
-                            <i class="fas fa-fighter-jet flights-icon"></i>
-                            <div class="box3-line"></div>
-                            <div class="box-last">
-                                <div>
-                                    <div>
-                                        <div>
-
-                                            <p class="stop">
-                                                <i class="fa fa-clock" style="font-size: 14px;"></i>
-                                                {{bookFlightItem.totall_time}}
-
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="box2" style="font-size: 13px;">
-                                {{bookFlightItem.arr_time}}
-                            </div>
-                            <div class="">
-                                <div class="box-4-time">
-                                    <span>{{bookFlightItem.arr_code}}</span>
-                                </div>
+                            <div class="col-4 text-align-right">
+                                <button class="flight-detl-rgt mt-2 btn-cancel" role="button" type="button"
+                                    (click)="viewData(modalViewPopUP,bookFlightItem)">Flight details</button>
                             </div>
                         </div>
 
-                    </div>
-                    <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
-                        <div class="row pb-2 pt-3">
-                            <div class="col-2">
-                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline2}}{{formatImage}}"
-                                    class="img-fr">
+                        <div class="row pb-2 pt-3 pr-3" style="border-bottom: 1px dashed rgb(204, 204, 204);">
+                            <div class="col-3 pl-3 pr-0">
+                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}"
+                                    class="img-fr1">
 
                             </div>
                             <div class="col-2">
-                                <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time2}}
+                                <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time}}
                                 </div>
                                 <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
                                     <div class="tj-tooltip__children sc-TFwJa cFsBnr">
                                         <div class="box-4-time" style="background-color: coral;">
-                                            <span> {{bookFlightItem.dep_code2}}</span>
+                                            <span> {{bookFlightItem.dep_code}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -546,7 +493,7 @@
                             <div class="col-5">
                                 <div class="box3">
                                     <p class="stop">
-                                        Stops-{{bookFlightItem.stop2}}&nbsp;
+                                        Stops-{{bookFlightItem.stop}}&nbsp;
                                     </p>
                                 </div>
                                 <i class="fas fa-fighter-jet flights-icon"></i>
@@ -558,7 +505,7 @@
 
                                                 <p class="stop">
                                                     <i class="fa fa-clock" style="font-size: 14px;"></i>
-                                                    {{bookFlightItem.totall_time2}}
+                                                    {{bookFlightItem.totall_time}}
 
                                                 </p>
                                             </div>
@@ -568,117 +515,190 @@
                             </div>
                             <div class="col-2">
                                 <div class="box2" style="font-size: 13px;">
-                                    {{bookFlightItem.arr_time2}}
+                                    {{bookFlightItem.arr_time}}
                                 </div>
                                 <div class="">
                                     <div class="box-4-time">
-                                        <span>{{bookFlightItem.arr_code2}}</span>
+                                        <span>{{bookFlightItem.arr_code}}</span>
                                     </div>
                                 </div>
                             </div>
 
-
-
-                            <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
-                                <div class="search-result-leg-card" style="border-top: 1px solid rgb(223, 223, 223);">
+                        </div>
+                        <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
+                            <div class="row pb-2 pt-3 pr-3" style="border-bottom: 1px dashed rgb(204, 204, 204);">
+                                <div class="col-3 pl-3 pr-0">
+                                    <img src="{{defaultImageAddress}}{{bookFlightItem.airline2}}{{formatImage}}"
+                                        class="">
 
                                 </div>
-                            </ng-container>
+                                <div class="col-2">
+                                    <div class="box2" style="font-size: 13px;"> {{bookFlightItem.dep_time2}}
+                                    </div>
+                                    <div class="sc-jkCMRl kLfzQC tj-tooltip__wrapper sc-rBLzX gpttxZ">
+                                        <div class="tj-tooltip__children sc-TFwJa cFsBnr">
+                                            <div class="box-4-time" style="background-color: coral;">
+                                                <span> {{bookFlightItem.dep_code2}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="box3">
+                                        <p class="stop">
+                                            Stops-{{bookFlightItem.stop2}}&nbsp;
+                                        </p>
+                                    </div>
+                                    <i class="fas fa-fighter-jet flights-icon"></i>
+                                    <div class="box3-line"></div>
+                                    <div class="box-last">
+                                        <div>
+                                            <div>
+                                                <div>
 
-                        </div>
-                    </ng-container>
+                                                    <p class="stop">
+                                                        <i class="fa fa-clock" style="font-size: 14px;"></i>
+                                                        {{bookFlightItem.totall_time2}}
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="box2" style="font-size: 13px;">
+                                        {{bookFlightItem.arr_time2}}
+                                    </div>
+                                    <div class="">
+                                        <div class="box-4-time">
+                                            <span>{{bookFlightItem.arr_code2}}</span>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                    <div class="row pb-2 pt-3">
-                        <div class="col-6">
-                            <span style="font-size: 20px; font-weight: 600;color: rgb(58, 58, 58);">Fare details</span>
-                        </div>
-                        <div class="col-6 text-align-right">
-                            <a href="" class="btn-cancel">Cancel & change</a>
-                        </div>
-                    </div>
-                    <ng-container *ngFor="let adultForm of adultsArrayPrice; let i = index">
-                        <div class="row mb-1">
+
+                                <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
+                                    <div class="search-result-leg-card"
+                                        style="border-top: 1px solid rgb(223, 223, 223);">
+
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </ng-container>
+
+
+                        <div class="row pb-2 pt-3">
                             <div class="col-6">
-                                <span class="traveller1">Traveller (Adults)-{{i+1}} &nbsp;<i
-                                        class="fas fa-chevron-down pl-1"></i></span>
+                                <span style="font-size: 20px; font-weight: 600;color: rgb(58, 58, 58);">Fare
+                                    details</span>
                             </div>
                             <div class="col-6 text-align-right">
-                                <span class="price-right">{{adultForm.totalFareAmount}}</span>
+                                <a href="" class="btn-cancel">Cancel & change</a>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngFor="let childForm of childArrayPrice; let i = index">
-                        <div class="row mb-1">
+                        <ng-container *ngFor="let adultForm of adultsArrayPrice; let i = index">
+                            <div class="row mb-1">
+                                <div class="col-6">
+                                    <span class="traveller1">Traveller (Adults)-{{i+1}} &nbsp;<i
+                                            class="fas fa-chevron-down pl-1"></i></span>
+                                </div>
+                                <div class="col-6 text-align-right">
+                                    <span class="price-right">{{adultForm.totalFareAmount}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngFor="let childForm of childArrayPrice; let i = index">
+                            <div class="row mb-1">
+                                <div class="col-6">
+                                    <span class="traveller1">Traveller (Child)-{{i+1}} &nbsp; &nbsp;<i
+                                            class="fas fa-chevron-down pl-1"></i></span>
+                                </div>
+                                <div class="col-6 text-align-right">
+                                    <span class="price-right">{{childForm.totalFareAmount}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngFor="let infantForm of infArrayPrice; let i = index">
+                            <div class="row mb-1">
+                                <div class="col-6">
+                                    <span class="traveller1">Traveller (Infant)-{{i+1}} &nbsp;<i
+                                            class="fas fa-chevron-down pl-1"></i></span>
+                                </div>
+                                <div class="col-6 text-align-right">
+                                    <span class="price-right">{{infantForm.totalFareAmount}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="row">
                             <div class="col-6">
-                                <span class="traveller1">Traveller (Child)-{{i+1}} &nbsp; &nbsp;<i
-                                        class="fas fa-chevron-down pl-1"></i></span>
+                                <span class="left-side-text">Service fee <i class="far fa-info-circle"></i></span>
                             </div>
                             <div class="col-6 text-align-right">
-                                <span class="price-right">{{childForm.totalFareAmount}}</span>
+                                <span class="price-right">EUR 40.00</span>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngFor="let infantForm of infArrayPrice; let i = index">
-                        <div class="row mb-1">
+                        <div class="row">
                             <div class="col-6">
-                                <span class="traveller1">Traveller (Infant)-{{i+1}} &nbsp;<i
-                                        class="fas fa-chevron-down pl-1"></i></span>
+                                <span class="left-side-text">VAT <i class="far fa-info-circle"></i></span>
                             </div>
                             <div class="col-6 text-align-right">
-                                <span class="price-right">{{infantForm.totalFareAmount}}</span>
+                                <span class="price-right">EUR 0.00</span>
                             </div>
                         </div>
-                    </ng-container>
-                    <div class="row">
-                        <div class="col-6">
-                            <span class="left-side-text">Service fee <i class="far fa-info-circle"></i></span>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <span style="font-size: 14px;font-weight: bold;color: rgb(58, 58, 58);">Total (incl.
+                                    VAT)</span>
+                            </div>
+                            <div class="col-6 text-align-right">
+                                <span class="price-right" style="font-size: 18px;">EUR {{bookFlightItem.price}}</span>
+                            </div>
                         </div>
-                        <div class="col-6 text-align-right">
-                            <span class="price-right">EUR 40.00</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <span class="left-side-text">VAT <i class="far fa-info-circle"></i></span>
-                        </div>
-                        <div class="col-6 text-align-right">
-                            <span class="price-right">EUR 0.00</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <span style="font-size: 14px;font-weight: bold;color: rgb(58, 58, 58);">Total (incl.
-                                VAT)</span>
-                        </div>
-                        <div class="col-6 text-align-right">
-                            <span class="price-right" style="font-size: 18px;">EUR {{bookFlightItem.price}}</span>
-                        </div>
-                    </div>
 
 
 
-                    <div class="row pl-3 pr-3 pt-3">
-                        <button class="add-submit" type="submit" [disabled]="!bookingForm.valid">
-                            Continue to final details
-                            <i class="fas fa-chevron-right pl-1"></i>
-                        </button>
+                        <div class="row pl-3 pr-3 pt-3">
+                            <button class="add-submit" type="submit" [disabled]="!bookingForm.valid">
+                                Continue to final details
+                                <i class="fas fa-chevron-right pl-1"></i>
+                            </button>
+                        </div>
 
-                    </div>
 
+                    </div><!------>
                 </div>
-
             </div>
         </div>
+
+        <div class="mobileView bottom-pane sticky-bottom">
+
+            <div class="row ml-0 mr-0 pl-0 pr-0 mob-box-2">
+               
+            </div>
+
+            <div class="row ml-0 mr-0 pl-0 pr-0 mob-box-2">
+               
+                    <button class="add-submit" type="submit" [disabled]="!bookingForm.valid">
+                        Continue to final details
+                        <i class="fas fa-chevron-right pl-1"></i>
+                    </button>
+                
+            </div>
+        </div>
+
+
+
+
     </div>
 </form>
 
 
 
 <ng-template #modalViewPopUP let-modal>
-
-
 
     <div class="modal-content modal-body-md border-md">
         <button type="button" class="close-btn-md clos-md" (click)="modal.dismiss('Cross click')">
@@ -689,137 +709,185 @@
         <div class="row">
             <div class="col-12">
                 <div class="flight-mid-md p-3">
-                    <button type="button" class="btn-md-flgt">Flight itinerary</button>
-                    <button type="button" class="btn-md-flgt">Baggage info</button>
-                    <button type="button" class="btn-md-flgt">Cancel & change</button>
-                    <button type="button" class="btn-md-flgt">Fare details</button>
+                    <button type="button" class="btn-md-flgt" (click)="changeFightMidButton('Flight_itinerary')">Flight
+                        itinerary</button>
+                    <button type="button" class="btn-md-flgt" (click)="changeFightMidButton('Baggage_info')">Baggage
+                        info</button>
+                    <button type="button" class="btn-md-flgt" (click)="changeFightMidButton('Cancel_&_change')">Cancel &
+                        change</button>
+                    <button type="button" class="btn-md-flgt" (click)="changeFightMidButton('Fare_details')">Fare
+                        details</button>
                 </div>
             </div>
         </div>
 
-        <div>
+        <ng-container *ngIf="ButtonMidChange=='Flight_itinerary'">
             <div>
-                <div>
-                    <div *ngFor="let item of viewDataAll">
-                        <div>
-                            <div class="d-flex dis-box-2">
-                                <div class="dept">
-                                    <div *ngIf="item.index_arr && item.index_dep"><i style="margin-right: 8px;"
-                                            class="fa fa-fighter-jet"></i>
-                                        <span style="font-weight: bold;">{{item.index_dep}} </span>
-                                        <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
-                                        <span style="font-weight: bold;"> {{item.index_arr}}</span>
-                                    </div>
-                                </div>
-                                <div *ngIf="item.totalltime">
-
-                                    Total duration <span style="font-weight: bold;"> {{item.totalltime}}</span>
+                <div *ngFor="let item of viewDataAll">
+                    <div>
+                        <div class="d-flex dis-box-2">
+                            <div class="dept">
+                                <div *ngIf="item.index_arr && item.index_dep"><i style="margin-right: 8px;"
+                                        class="fa fa-fighter-jet"></i>
+                                    <span style="font-weight: bold;">{{item.index_dep}} </span>
+                                    <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
+                                    <span style="font-weight: bold;"> {{item.index_arr}}</span>
                                 </div>
                             </div>
-                            <div>
-                                <div style="display: flex; margin-bottom: 20px;">
-                                    <div style="flex: 0.9 1 0%; padding-right: 20px;">
-                                        <div style="display: flex;align-items: flex-start;">
-                                            <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
-                                                class="img-fr" style="height: 50px;">
-                                            <div>
+                            <div *ngIf="item.totalltime">
 
-                                                <div style="font-weight:100;">
-                                                    {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
-                                                <div style="font-weight:100;">{{item.cabin}}</div>
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
-                                        <div style="font-size: 14px;">
+                                Total duration <span style="font-weight: bold;"> {{item.totalltime}}</span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div style="display: flex; margin-bottom: 20px;">
+                                <div style="flex: 0.9 1 0%; padding-right: 20px;">
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
+                                            class="img-fr" style="height: 50px;">
+                                        <div>
 
-                                            <span style="font-weight: bold;
-                                                ">{{item.from_Origin}} {{item.from_flight_time}}</span>
-                                            <span></span>
+                                            <div style="font-weight:100;">
+                                                {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
+                                            <div style="font-weight:100;">{{item.cabin}}</div>
+                                            <div></div>
+                                            <div></div>
                                         </div>
-                                        <div class="timing-text">
-                                            {{item.from_weekday}}, {{item.from_flight_date}}
-                                        </div>
-                                        <span> {{item.from_airportname}}
-                                            {{item.from_terminal}}</span><br>
-                                        <span style="font-weight:100;">
-                                            {{item.from_cityName}}, {{item.from_countryName}}</span>
                                     </div>
-                                    <div style="flex: 0.9 1 0%;padding-right: 20px;">
-                                        <div style="font-size: 14px;">
-                                            <span class="orange-bva">{{item.to_Origin}}</span>
-                                            <span style="font-weight: bold;
-                                                margin-left: 5px;">{{item.to_time_arrival}}</span>
-                                            <span></span>
-                                        </div>
-                                        <div class="timing-text">
-                                            {{item.to_weekday}}, {{item.to_date_arrival}}
-                                        </div>
-                                        <span> {{item.to_airportname}}
-                                            {{item.to_terminal}}
-                                        </span><br>
-                                        <span style="font-weight:100;">
-                                            {{item.to_cityName}}, {{item.to_countryName}}</span>
+                                </div>
+                                <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                    <div style="font-size: 14px;">
+
+                                        <span style="font-weight: bold;
+                                                    ">{{item.from_Origin}} {{item.from_flight_time}}</span>
+                                        <span></span>
                                     </div>
+                                    <div class="timing-text">
+                                        {{item.from_weekday}}, {{item.from_flight_date}}
+                                    </div>
+                                    <span> {{item.from_airportname}}
+                                        {{item.from_terminal}}</span><br>
+                                    <span style="font-weight:100;">
+                                        {{item.from_cityName}}, {{item.from_countryName}}</span>
+                                </div>
+                                <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                    <div style="font-size: 14px;">
+                                        <span class="orange-bva">{{item.to_Origin}}</span>
+                                        <span style="font-weight: bold;
+                                                    margin-left: 5px;">{{item.to_time_arrival}}</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="timing-text">
+                                        {{item.to_weekday}}, {{item.to_date_arrival}}
+                                    </div>
+                                    <span> {{item.to_airportname}}
+                                        {{item.to_terminal}}
+                                    </span><br>
+                                    <span style="font-weight:100;">
+                                        {{item.to_cityName}}, {{item.to_countryName}}</span>
                                 </div>
                             </div>
-
-                            <div class="yelooVividLight" *ngIf="item.transit_city">
-                                <div style="text-align: center;">
-                                    <i style="margin-right: 8px;" class="fa fa-clock"></i>
-                                    Waiting time in<b>{{item.transit_city}}</b>
-                                </div>
-                                <div style="text-align: end;">
-                                    {{item.overlay_time}}
-                                </div>
-                            </div>
-
-                            <hr *ngIf="item.overlay_time==''"
-                                style="margin:0px; border:1px dashed rgb(102, 100, 100) ; margin-bottom: 5px;">
                         </div>
 
-                        <!-- <div *ngFor="let allindex1 of indexAll">
-
-                                {{allindex1.airline_cod}}
-                                {{allindex1.dep_arr}}
-                                {{allindex1.dep_time}}
-                                {{allindex1.index_arr}}
-                                {{allindex1.index_dep}}
+                        <div class="yelooVividLight" *ngIf="item.transit_city">
+                            <div style="text-align: center;">
+                                <i style="margin-right: 8px;" class="fa fa-clock"></i>
+                                Waiting time in<b>{{item.transit_city}}</b>
                             </div>
+                            <div style="text-align: end;">
+                                {{item.overlay_time}}
+                            </div>
+                        </div>
 
-                            <div *ngFor="let allindex2 of indexAll2">
-
-
-                                {{allindex2.airline_cod}}
-                                {{allindex2.dep_arr}}
-                                {{allindex2.dep_time}}
-                                {{allindex2.index_arr}}
-                                {{allindex2.index_dep}}
-
-                            </div> -->
-
+                        <hr *ngIf="item.overlay_time==''"
+                            style="margin:0px; border:1px dashed rgb(102, 100, 100) ; margin-bottom: 5px;">
                     </div>
 
                 </div>
+
             </div>
-
-
-
-            <!---bottom hide btn-->
-            <div class="hide-box-bttom">
-                <button class="hide-btn" (click)="modal.dismiss('Cross click')">Hide details</button>
-                <button type="button" class="select-flight" (click)="navToBookFlight(viwItemData)"
-                    (click)="modal.dismiss('cancel')">Select flight EUR {{_price}}
-                    <i _ngcontent-cck-c225="" class="fas fa-chevron-right"
-                        style="padding-left: 5px; font-size: 12px;"></i>
-                </button>
+        </ng-container>
+        <ng-container *ngIf="ButtonMidChange=='Fare_details'">
+            <div class="p-4">
+                <ng-container *ngFor="let adultForm of adultsArrayPrice; let i = index">
+                    <div class="row mb-1">
+                        <div class="col-6">
+                            <span class="traveller1">Traveller (Adults)-{{i+1}} &nbsp;<i
+                                    class="fas fa-chevron-down pl-1"></i></span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <span class="price-right">{{adultForm.totalFareAmount}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngFor="let childForm of childArrayPrice; let i = index">
+                    <div class="row mb-1">
+                        <div class="col-6">
+                            <span class="traveller1">Traveller (Child)-{{i+1}} &nbsp; &nbsp;<i
+                                    class="fas fa-chevron-down pl-1"></i></span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <span class="price-right">{{childForm.totalFareAmount}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngFor="let infantForm of infArrayPrice; let i = index">
+                    <div class="row mb-1">
+                        <div class="col-6">
+                            <span class="traveller1">Traveller (Infant)-{{i+1}} &nbsp;<i
+                                    class="fas fa-chevron-down pl-1"></i></span>
+                        </div>
+                        <div class="col-6 text-align-right">
+                            <span class="price-right">{{infantForm.totalFareAmount}}</span>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="left-side-text">Service fee <i class="far fa-info-circle"></i></span>
+                    </div>
+                    <div class="col-6 text-align-right">
+                        <span class="price-right">EUR 40.00</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="left-side-text">VAT <i class="far fa-info-circle"></i></span>
+                    </div>
+                    <div class="col-6 text-align-right">
+                        <span class="price-right">EUR 0.00</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <span style="font-size: 14px;font-weight: bold;color: rgb(58, 58, 58);">Total (incl.
+                            VAT)</span>
+                    </div>
+                    <div class="col-6 text-align-right">
+                        <span class="price-right" style="font-size: 18px;">EUR {{bookFlightItem.price}}</span>
+                    </div>
+                </div>
             </div>
-            <!---bottom hide btn-->
-        </div>
+        </ng-container>
+        <ng-container *ngIf="ButtonMidChange=='Cancel_&_change'">
+            <div class="p-4">
+                Cancel_&_change
+            </div>
+        </ng-container>
+        <ng-container *ngIf="ButtonMidChange=='Baggage_info'">
+            <div class="p-4">
+                Baggage_info
+            </div>
+        </ng-container>
+
+
+
+
+
+
+
     </div>
-
 
     <!-----Modal------>
 

@@ -46,6 +46,7 @@ export class FlightBookingComponent implements OnInit {
   infArrayPrice: any[] = [];
   childArrayPrice: any[] = [];
   adultsArrayPrice: any[] = [];
+  ButtonMidChange: any;
 
   constructor(
     private _location: Location,
@@ -56,6 +57,7 @@ export class FlightBookingComponent implements OnInit {
     private _router: Router,
 
   ) {
+    this.ButtonMidChange="Flight_itinerary";
     this.passportOpendetailsInfrnt = null;
     this.passportOpendetailsChild = null;
     this.passportOpendetailsAddults = null;
@@ -110,7 +112,13 @@ export class FlightBookingComponent implements OnInit {
           gender: ele?.gender,
           title: ele?.title,
           first_name: ele?.firstname,
-          last_name: ele?.lastname
+          last_name: ele?.lastname,
+          issueDate:ele?.issueDate,
+          expiryDate: ele?.expiryDate,
+          passportIssueCountry: ele?.passportIssueCountry,
+          countryofNationality: ele?.countryofNationality,
+          addMeal:ele?.addMeal,
+          frequent_flyerdetails:ele?.frequent_flyerdetails,
         };
       }),
       child_no: childArr.length,
@@ -121,7 +129,13 @@ export class FlightBookingComponent implements OnInit {
           gender: ele?.gender,
           title: ele?.title,
           first_name: ele?.firstname,
-          last_name: ele?.lastname
+          last_name: ele?.lastname,
+          issueDate:ele?.issueDate,
+          expiryDate: ele?.expiryDate,
+          passportIssueCountry: ele?.passportIssueCountry,
+          countryofNationality: ele?.countryofNationality,
+          addMeal:ele?.addMeal,
+          frequent_flyerdetails:ele?.frequent_flyerdetails,
         };
       }),
       infant_no: infantArr.length,
@@ -132,7 +146,13 @@ export class FlightBookingComponent implements OnInit {
           gender: ele?.gender,
           title: ele?.title,
           first_name: ele?.firstname,
-          last_name: ele?.lastname
+          last_name: ele?.lastname, 
+          issueDate:ele?.issueDate,
+          expiryDate: ele?.expiryDate,
+          passportIssueCountry: ele?.passportIssueCountry,
+          countryofNationality: ele?.countryofNationality,
+          addMeal:ele?.addMeal,
+          frequent_flyerdetails:ele?.frequent_flyerdetails,
         };
       }),
       email:this.email.value,
@@ -208,6 +228,8 @@ export class FlightBookingComponent implements OnInit {
         expiryDate: new FormControl(''),
         passportIssueCountry: new FormControl(''),
         countryofNationality: new FormControl(''),
+        addMeal:new FormControl(false, [Validators.required]),
+        frequent_flyerdetails:new FormControl(false, [Validators.required]),
 
       });
       this.adults.push(adultForm);
@@ -231,6 +253,8 @@ export class FlightBookingComponent implements OnInit {
         expiryDate: new FormControl(''),
         passportIssueCountry: new FormControl(''),
         countryofNationality: new FormControl(''),
+        addMeal:new FormControl(false, [Validators.required]),
+        frequent_flyerdetails:new FormControl(false, [Validators.required]),
 
       });
       this.childs.push(childForm);
@@ -277,6 +301,8 @@ export class FlightBookingComponent implements OnInit {
         expiryDate: new FormControl(''),
         passportIssueCountry: new FormControl(''),
         countryofNationality: new FormControl(''),
+        addMeal:new FormControl(false, [Validators.required]),
+        frequent_flyerdetails:new FormControl(false, [Validators.required]),
 
       });
       this.infants.push(infantForm);
@@ -490,5 +516,9 @@ export class FlightBookingComponent implements OnInit {
       alert("No data found")
     }
 
+  }
+
+  changeFightMidButton(valu:any){
+    this.ButtonMidChange=valu;
   }
 }

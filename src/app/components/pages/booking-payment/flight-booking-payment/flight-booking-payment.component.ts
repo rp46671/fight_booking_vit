@@ -4,6 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-flight-booking-payment',
   templateUrl: './flight-booking-payment.component.html',
@@ -41,6 +42,12 @@ export class FlightBookingPaymentComponent implements OnInit {
   childArrayPrice: any[] = [];
   adultsArrayPrice: any[] = [];
   localUserIds:any;
+  _CardName: any;
+  _CardNumber: any;
+  _holderNameDEtails: any;
+  cardExpiry: any;
+  cardYear: any;
+  paymentWindiow3d: any;
   constructor(
     private _location: Location,
     protected _sanitizer: DomSanitizer,
@@ -51,11 +58,12 @@ export class FlightBookingPaymentComponent implements OnInit {
 
   ) {
     this.ButtonMidChange="Flight_itinerary";
-   
+    
    }
 
 
   ngOnInit(): void {
+
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
@@ -72,6 +80,7 @@ export class FlightBookingPaymentComponent implements OnInit {
     if (!this.bookFlightItem) {
       this._location.back();
     }
+   
 
     this.paymentUrl = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.khalsatravel.net/index.php/flight/api/addmoney?amount=" + this.bookFlightItem?.price);
     this.adultArr = this.confirmBookFlightData?.adults;
@@ -94,6 +103,8 @@ export class FlightBookingPaymentComponent implements OnInit {
       flight_id: this.bookFlightItem?.flight_id,
       flight_rec: this.bookFlightItem?.flight_rec,
       adult_no: this.adultArr.length,
+      email:this.confirmBookFlightData?.email,
+      phone:this.confirmBookFlightData?.phone,
       adult: this.adultArr.map((ele: any) => {
         return {
           dob: ele?.dob,
@@ -129,27 +140,34 @@ export class FlightBookingPaymentComponent implements OnInit {
     }
     
     this.loading = true;
-    console.log(reqData)
-    if (value.gds == "gal") {
-      
-      console.log("gal", value.gds)
-      this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
-        this.bookingDetailPrice=res.detail
-        this.loading = false;
-      }, (err: any) => {
-        this.loading = false;
-      });
-    } else if (value.gds == "ama") {
-      console.log("ama", value.gds)
-      this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
-        this.loading = false;
-        this.bookingDetailPrice=res.detail
-      }, (err: any) => {
-        this.loading = false;
-      });
-    } else {
+    console.log(reqData);
+    console.log("gal", value.gds)
+    this.locationsService.Api_mybooking(reqData).subscribe((res: any) => {
+     console.log(res)
       this.loading = false;
-    }
+    }, (err: any) => {
+      this.loading = false;
+    });
+    // if (value.gds == "gal") {
+      
+    //   console.log("gal", value.gds)
+    //   this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
+    //     this.bookingDetailPrice=res.detail
+    //     this.loading = false;
+    //   }, (err: any) => {
+    //     this.loading = false;
+    //   });
+    // } else if (value.gds == "ama") {
+    //   console.log("ama", value.gds)
+    //   this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
+    //     this.loading = false;
+    //     this.bookingDetailPrice=res.detail
+    //   }, (err: any) => {
+    //     this.loading = false;
+    //   });
+    // } else {
+    //   this.loading = false;
+    // }
 
   }
   changeFightMidButton(valu:any){
@@ -223,6 +241,28 @@ export class FlightBookingPaymentComponent implements OnInit {
     }, (reason) => {
       this.confirmResut = `Dismissed with: ${reason}`;
     });
+  }
+
+  Api_mybooking() {  
+    this.loading = true;
+    let reqData = {
+      // user_id:this.localUserId,
+      // cardName:this._CardName,
+      // cardNo:this._CardNumber,
+      // cardHolderName:this._holderNameDEtails,
+      // cardExpiry:this.cardExpiry,
+      // cardYear:this.cardYear
+    }
+    this.loading = true;
+    console.log(reqData);
+    this.locationsService.Api_payment().subscribe((res: any) => {
+     console.log(res)
+     this.paymentWindiow3d=this._sanitizer.bypassSecurityTrustResourceUrl(res.window3d)
+      this.loading = false;
+    }, (err: any) => {
+      this.loading = false;
+    });
+   
   }
 
 }

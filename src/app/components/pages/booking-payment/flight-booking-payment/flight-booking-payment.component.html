@@ -1,21 +1,55 @@
-
-
 <div class="row pl-0 pr-0">
     <div class="col-md-8">
         <div class="card-tra-det">
             <h5 class="mb-0 pb-0">Traveller details</h5>
             <div class="card-body">
-               
-
                 <!----Adult 1-->
                 <div class="mb-md-80">
-                    <div class="row ml-0 mr-0" >
+                    <div class="row ml-0 mr-0">
                         <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">DOB</th>
+                                            <th scope="col">Passport </th>
+                                            <th scope="col"> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let adult of adultArr ; let i = index">
+                                            <th> Adult-{{i+1}}</th>
+                                            <td>{{adult.title}} {{adult.firstname}} {{ adult.lastname}}</td>
+                                            <td>{{adult.dob||'NA'}}</td>
+                                            <td>{{adult.passport||'NA'}}</td>
+                                            <td class="text-right"><i class="fa fa-edit mr-2"></i> <i
+                                                    class="fa fa-eye"></i></td>
+                                        </tr>
+                                        <tr *ngFor="let child of childArr ; let i = index">
+                                            <th> Child-{{i+1}}</th>
+                                            <td>{{child.title}} {{child.firstname}} {{ child.lastname}}</td>
+                                            <td>{{child.dob||'NA'}}</td>
+                                            <td>{{child.passport||'NA'}}</td>
+                                        </tr>
+
+                                        <tr *ngFor="let infant of infantArr; let i = index">
+                                            <th> Infant-{{i+1}}</th>
+                                            <td>{{infant.title}} {{infant.firstname}} {{ infant.lastname}}</td>
+                                            <td>{{infant.dob||'NA'}}</td>
+                                            <td>{{infant.passport||'NA'}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
 
                     </div>
 
-                   
+
                 </div>
             </div>
         </div>
@@ -23,23 +57,130 @@
         <!--------------Enter contact details--------------------->
         <div class="card-tra-det">
             <h5 class="mb-0 ">Enter contact details</h5>
-
             <div class="card-body">
-
                 <div class="row frm-1 d-flex">
                     <div class="col-md-6">
                         <label class="lable-1">Email address</label>
                         <div class="d-flex">
-                            
 
+                            {{confirmBookFlightData?.email}}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="lable-1">Mobile number</label>
                         <div class="d-flex">
-                           
+                            {{confirmBookFlightData?.phone}}
 
                         </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                             <button class="btn btn-primary">Credit Card</button>
+                            </div> 
+                            <div class="col-md-3">
+                                <button class="btn btn-primary">Multi Banco</button>
+                  
+                            </div> 
+                            <div class="col-md-3">
+                                <button class="btn btn-primary">Bancontact</button>
+                  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <hr>
+                        <h5 class="text-custom-black">Your Card Information</h5>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row" >
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fs-14 text-custom-black fw-500">Card Type</label>
+                                    <div class="group-form">
+                                        <select class=" form-control " [(ngModel)]="_CardName"
+                                            >
+                                            <option value="Select Card">Select Card</option>
+                                            <option value="Visa">Visa</option>
+                                            <option value="Master Card">Master Card</option>
+                                            <option value="Credit Card">Credit Card</option>
+                                            <option value="Americal Express">Americal Express</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fs-14 text-custom-black fw-500">Card Holder Name</label>
+                                    <input type="text"  class="form-control "
+                                        placeholder="Card Holder Name"  [(ngModel)]="_holderNameDEtails">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fs-14 text-custom-black fw-500">Card Number</label>
+                                    <input type="text" class="form-control "  [(ngModel)]="_CardNumber"
+                                        placeholder="Card Number" required>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Expiration Month</label>
+                                            <div class="group-form">
+                                                <select class=" form-control "  [(ngModel)]="cardExpiry"
+                                                 >
+                                                    <option value="Month">Month</option>
+                                                    <option value="Jan">Jan</option>
+                                                    <option value="Feb">Feb</option>
+                                                    <option value="Mar">Mar</option>
+                                                    <option value="Apr">Apr</option>
+                                                    <option value="May">May</option>
+                                                    <option value="June">June</option>
+                                                    <option value="July">July</option>
+                                                    <option value="Aug">Aug</option>
+                                                    <option value="Sep">Sep</option>
+                                                    <option value="Oct">Oct</option>
+                                                    <option value="Nov">Nov</option>
+                                                    <option value="Dec">Dec</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Expiration Year</label>
+                                            <div class="group-form">
+                                                <select class=" form-control " [(ngModel)]="cardYear"
+                                                  >
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-12 text-center">
+                                <button (click)="Api_mybooking()" class="btn btn-primary"> Submit </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ng-container *ngIf="paymentWindiow3d">
+                                <iframe [src]="paymentWindiow3d" width="100%" height="500" style="border: 2px solid red;">
+                    
+                                </iframe>
+                            </ng-container>
+                        </div>
+                       
                     </div>
                 </div>
 
@@ -48,20 +189,14 @@
 
         </div>
         <!--------------end contact details--------------------->
-
     </div>
     <div class="col-md-4 right-pane">
         <div class="">
             <div class=" sticky-top">
-
                 <div class="add-to-card p-2 pl-3 pr-3">
-
-
                     <div class="row pb-2 pt-3">
                         <div class="col-8">
-                            <span style="    font-size: 20px;
-                font-weight: 600;
-                color: rgb(58, 58, 58);">Flight summary</span>
+                            <span style="font-size: 20px;font-weight: 600;color: rgb(58, 58, 58);">Flight summary</span>
                         </div>
                         <div class="col-4 text-align-right">
                             <button class="flight-detl-rgt mt-2 btn-cancel" role="button" type="button"
@@ -71,8 +206,7 @@
 
                     <div class="row pb-2 pt-3 pr-3" style="border-bottom: 1px dashed rgb(204, 204, 204);">
                         <div class="col-3 pl-3 pr-0">
-                            <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}"
-                                class="img-fr1">
+                            <img src="{{defaultImageAddress}}{{bookFlightItem.airline}}{{formatImage}}" class="img-fr1">
 
                         </div>
                         <div class="col-2">
@@ -124,8 +258,7 @@
                     <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
                         <div class="row pb-2 pt-3 pr-3" style="border-bottom: 1px dashed rgb(204, 204, 204);">
                             <div class="col-3 pl-3 pr-0">
-                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline2}}{{formatImage}}"
-                                    class="">
+                                <img src="{{defaultImageAddress}}{{bookFlightItem.airline2}}{{formatImage}}" class="">
 
                             </div>
                             <div class="col-2">
@@ -176,8 +309,7 @@
 
 
                             <ng-container *ngIf="bookFlightItem.flight_id_rt || bookFlightItem.return_date">
-                                <div class="search-result-leg-card"
-                                    style="border-top: 1px solid rgb(223, 223, 223);">
+                                <div class="search-result-leg-card" style="border-top: 1px solid rgb(223, 223, 223);">
 
                                 </div>
                             </ng-container>
@@ -258,7 +390,7 @@
 
 
                     <div class="row pl-3 pr-3 pt-3">
-                        <button class="add-submit" type="submit" >
+                        <button class="add-submit" type="submit">
                             Continue to final details
                             <i class="fas fa-chevron-right pl-1"></i>
                         </button>

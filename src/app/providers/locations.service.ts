@@ -61,10 +61,14 @@ export class LocationsService {
     data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/Api_viewgaleus', data, { withCredentials: true });
   }
-
+  
   public booking_oneway_gal(data: any) {
     data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/booking_oneway_gal', data, { withCredentials: true });
+  }
+  public Api_payment() {
+   // data = this.bindData(data);
+    return this._http.post('https://www.khalsatravel.net/flight/Api_payment', { withCredentials: true });
   }
   public booking_oneway_ams(data: any) {
     data = this.bindData(data);

@@ -25,6 +25,7 @@
     "@ng-select/ng-select": "^7.3.0",
     "angular-crumbs": "^3.0.1",
     "angular-ng-autocomplete": "^2.0.5",
+    "angular-user-idle": "^2.2.7",
     "angular2-multiselect-dropdown": "^5.0.4",
     "animate.css": "^4.1.1",
     "bootstrap": "^4.6.0",

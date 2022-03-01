@@ -13,6 +13,7 @@ import { ViewDetailsComponent } from './view-details/view-details.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
+import { UserIdleModule } from 'angular-user-idle';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ViewTicketComponent } from './view-ticket/view-ticket.component';
     NgxPaginationModule,
     SlickCarouselModule,
     AngularMultiSelectModule,
+    UserIdleModule.forRoot({idle: 100, timeout: 100, ping: 60}),
     NgxSkeletonLoaderModule.forRoot({ animation: 'pulse', loadingText: 'This item is actually loading...' }),
   ], providers: [
     DatePipe

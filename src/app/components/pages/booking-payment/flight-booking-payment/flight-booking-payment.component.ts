@@ -20,7 +20,7 @@ export class FlightBookingPaymentComponent implements OnInit {
   bookFlightItem: any = null;
   paymentUrl: SafeUrl = "";
   loading: boolean = false;
-  localUserId:any
+
   viwItemData: any;
   bookingDetailPrice: any;
   ButtonMidChange: any;
@@ -41,13 +41,14 @@ export class FlightBookingPaymentComponent implements OnInit {
   infArrayPrice: any[] = [];
   childArrayPrice: any[] = [];
   adultsArrayPrice: any[] = [];
-  localUserIds:any;
+  localUserIds: any;
   _CardName: any;
   _CardNumber: any;
   _holderNameDEtails: any;
   cardExpiry: any;
   cardYear: any;
   paymentWindiow3d: any;
+  spinerrLoading!: boolean;
   constructor(
     private _location: Location,
     protected _sanitizer: DomSanitizer,
@@ -57,9 +58,10 @@ export class FlightBookingPaymentComponent implements OnInit {
     private _router: Router,
 
   ) {
-    this.ButtonMidChange="Flight_itinerary";
-    
-   }
+    this.spinerrLoading = false;
+    this.ButtonMidChange = "Flight_itinerary";
+
+  }
 
 
   ngOnInit(): void {
@@ -67,10 +69,10 @@ export class FlightBookingPaymentComponent implements OnInit {
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
-  
+
     let bookFlightObj: any = window.sessionStorage.getItem('bookFlight');
     let confirmBookFlightData: any = window.sessionStorage.getItem('confirmBookFlightData');
-   
+
     this.confirmBookFlightData = JSON.parse(confirmBookFlightData);
     if (!this.confirmBookFlightData) {
       this._location.back();
@@ -80,31 +82,31 @@ export class FlightBookingPaymentComponent implements OnInit {
     if (!this.bookFlightItem) {
       this._location.back();
     }
-   
+
 
     this.paymentUrl = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.khalsatravel.net/index.php/flight/api/addmoney?amount=" + this.bookFlightItem?.price);
     this.adultArr = this.confirmBookFlightData?.adults;
     this.childArr = this.confirmBookFlightData?.childs;
     this.infantArr = this.confirmBookFlightData?.infants;
 
-   /// this.onPaymentConfirmSubmitData(this.bookFlightItem);
+    /// this.onPaymentConfirmSubmitData(this.bookFlightItem);
   }
 
   editData() {
     this.router.navigate(['/booking']);
   }
 
-  onPaymentConfirmSubmitData(value: any) {  
+  onPaymentConfirmSubmitData(value: any) {
     this.loading = true;
     let reqData = {
-      user_id:this.localUserId,
+      user_id: this.localUserIds,
       myAirSegment1: value?.myAirSegment1,
       myAirSegment2: value?.myAirSegment2,
       flight_id: this.bookFlightItem?.flight_id,
       flight_rec: this.bookFlightItem?.flight_rec,
       adult_no: this.adultArr.length,
-      email:this.confirmBookFlightData?.email,
-      phone:this.confirmBookFlightData?.phone,
+      email: this.confirmBookFlightData?.email,
+      phone: this.confirmBookFlightData?.phone,
       adult: this.adultArr.map((ele: any) => {
         return {
           dob: ele?.dob,
@@ -138,40 +140,40 @@ export class FlightBookingPaymentComponent implements OnInit {
         };
       })
     }
-    
+
     this.loading = true;
     console.log(reqData);
-    console.log("gal", value.gds)
-    this.locationsService.Api_mybooking(reqData).subscribe((res: any) => {
-     console.log(res)
-      this.loading = false;
-    }, (err: any) => {
-      this.loading = false;
-    });
-    // if (value.gds == "gal") {
-      
-    //   console.log("gal", value.gds)
-    //   this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
-    //     this.bookingDetailPrice=res.detail
-    //     this.loading = false;
-    //   }, (err: any) => {
-    //     this.loading = false;
-    //   });
-    // } else if (value.gds == "ama") {
-    //   console.log("ama", value.gds)
-    //   this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
-    //     this.loading = false;
-    //     this.bookingDetailPrice=res.detail
-    //   }, (err: any) => {
-    //     this.loading = false;
-    //   });
-    // } else {
+    // console.log("gal", value.gds)
+    // this.locationsService.Api_mybooking(reqData).subscribe((res: any) => {
+    //   console.log(res)
     //   this.loading = false;
-    // }
+    // }, (err: any) => {
+    //   this.loading = false;
+    // });
+    if (value.gds == "gal") {
+
+      console.log("gal", value.gds)
+      this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
+        this.bookingDetailPrice=res.detail
+        this.loading = false;
+      }, (err: any) => {
+        this.loading = false;
+      });
+    } else if (value.gds == "ama") {
+      console.log("ama", value.gds)
+      this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
+        this.loading = false;
+        this.bookingDetailPrice=res.detail
+      }, (err: any) => {
+        this.loading = false;
+      });
+    } else {
+      this.loading = false;
+    }
 
   }
-  changeFightMidButton(valu:any){
-    this.ButtonMidChange=valu;
+  changeFightMidButton(valu: any) {
+    this.ButtonMidChange = valu;
   }
   viewData(content: any, item: any) {
     this.viwItemData = item
@@ -243,26 +245,52 @@ export class FlightBookingPaymentComponent implements OnInit {
     });
   }
 
-  Api_mybooking() {  
+  Api_mybooking() {
+    var localUserId: any = window.localStorage.getItem('fight-user');
+    localUserId = JSON.parse(localUserId);
+    this.localUserIds = localUserId?.detail.id;
+
+    this.spinerrLoading = true;
     this.loading = true;
     let reqData = {
-      // user_id:this.localUserId,
-      // cardName:this._CardName,
-      // cardNo:this._CardNumber,
-      // cardHolderName:this._holderNameDEtails,
-      // cardExpiry:this.cardExpiry,
-      // cardYear:this.cardYear
+      user_id:this.localUserIds,
+      cardName:this._CardName,
+      cardNo:this._CardNumber,
+      cardHolderName:this._holderNameDEtails,
+      cardExpiry:this.cardExpiry,
+      cardYear:this.cardYear,
+      price:this.bookFlightItem?.price,
+      
     }
     this.loading = true;
     console.log(reqData);
-    this.locationsService.Api_payment().subscribe((res: any) => {
-     console.log(res)
-     this.paymentWindiow3d=this._sanitizer.bypassSecurityTrustResourceUrl(res.window3d)
+    this.locationsService.Api_payment(reqData).subscribe((res: any) => {
+      console.log(res)
+      this.spinerrLoading = false;
+      this.paymentWindiow3d = this._sanitizer.bypassSecurityTrustResourceUrl(res.window3d)
       this.loading = false;
     }, (err: any) => {
       this.loading = false;
     });
-   
+    console.log(this.localUserIds)
+  
   }
 
+
+  openChangePAyloaModal(content: any) {
+    var localUserId: any = window.localStorage.getItem('fight-user');
+    localUserId = JSON.parse(localUserId);
+    this.localUserIds = localUserId?.detail.id;
+  console.log(this.localUserIds)
+  
+  this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl', backdrop: 'static',
+      keyboard: false,
+    })
+      .result.then((result) => {
+
+      }, (reason) => {
+
+      });
+  }
 }

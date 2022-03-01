@@ -9,6 +9,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './providers/guard/auth.guard';
+import { UserIdleModule } from 'angular-user-idle';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AuthGuard } from './providers/guard/auth.guard';
     AppRoutingModule,
     BrowserAnimationsModule,
     BreadcrumbModule,
-    NgbModule,
+    NgbModule, 
+     UserIdleModule.forRoot({idle: 600, timeout: 300, ping: 120}),
     HttpClientModule
   ],
   providers: [

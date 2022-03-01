@@ -170,16 +170,16 @@
                             </div>
                           
                             <div class="col-md-12 text-center">
-                                <button (click)="Api_mybooking()" class="btn btn-primary"> Submit </button>
+                                <button (click)="Api_mybooking()" (click)="openChangePAyloaModal(modalPaytmentConfirm)" class="btn btn-primary"> Submit </button>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <ng-container *ngIf="paymentWindiow3d">
                                 <iframe [src]="paymentWindiow3d" width="100%" height="500" style="border: 2px solid red;">
                     
                                 </iframe>
                             </ng-container>
-                        </div>
+                        </div> -->
                        
                     </div>
                 </div>
@@ -382,7 +382,7 @@
                             <span style="font-size: 14px;font-weight: bold;color: rgb(58, 58, 58);">Total (incl.
                                 VAT)</span>
                         </div>
-                        <div class="col-6 text-align-right">
+                        <div class="col-6 text-align-right" >
                             <span class="price-right" style="font-size: 18px;">EUR {{bookFlightItem.price}}</span>
                         </div>
                     </div>
@@ -390,7 +390,7 @@
 
 
                     <div class="row pl-3 pr-3 pt-3">
-                        <button class="add-submit" type="submit">
+                        <button class="add-submit"(click)="onPaymentConfirmSubmitData(bookFlightItem)" type="submit">
                             Continue to final details
                             <i class="fas fa-chevron-right pl-1"></i>
                         </button>
@@ -401,89 +401,9 @@
             </div>
         </div>
     </div>
+
+
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -687,7 +607,25 @@
 </ng-template>
 
 
+<ng-template #modalPaytmentConfirm let-modal>
+    <button type="button" class="float-right close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span class="float-right mt-1 mr-2" aria-hidden="true">&times;</span>
+    </button>
+  
+  <div class="modal-body">
+    <ng-container *ngIf="paymentWindiow3d">
+        <iframe [src]="paymentWindiow3d" width="100%" height="500" style="border: 2px solid red;">
 
+        </iframe>
+    </ng-container>
+    <ng-container *ngIf="!paymentWindiow3d">
+        fetch the Payment thing
+
+  </ng-container>
+  </div>
+  
+  </ng-template>
 
 
 

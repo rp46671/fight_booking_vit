@@ -1,10 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocationsService } from 'src/app/providers/locations.service';
 import moment from 'moment';
+import { UserIdleService } from 'angular-user-idle';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
@@ -64,13 +67,30 @@ export class ContentComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private _router: Router,
-    private datePipe: DatePipe
-  ) { }
+    private datePipe: DatePipe,
+    private userIdle: UserIdleService
+  ) {
+    this.setTimeout();
+    this.userInactive.subscribe(() => console.log('user has been inactive for 3s'));
+   }
 
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings = {};
+  userActivity:any;
+
+  userInactive: Subject<any> = new Subject();
   ngOnInit() {
+    this.userIdle.startWatching();
+    
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => console.log(count));
+    
+    // Start watch when time is up.
+    this.userIdle.onTimeout().subscribe(() => console.log('Time is up!'));
+
+
+    
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
@@ -80,6 +100,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.formDataValue = JSON.parse(data);
 
     this.load();
+    this.Api_filter()
+  
     this.interval = setInterval(() => {
      this.load(false);
      this.getCalender(this.localUserIds)
@@ -130,6 +152,14 @@ export class ContentComponent implements OnInit, OnDestroy {
       enableSearchFilter: true,
       classes: "myclass custom-class"
     };
+  }
+  setTimeout() {
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 8000);
+  }
+
+  @HostListener('window:mousemove') refreshUserState() {
+    clearTimeout(this.userActivity);
+    this.setTimeout();
   }
   onItemSelect(item: any) {
     console.log(item);
@@ -197,6 +227,35 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.locationsService.get_alll(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
+      // this.cusFlightblockArrfilter = res.filter;
+      // this.cusFlightblockArrfilter?.forEach(ele => {
+      //   ele.isSelected = false;
+      // });
+      //  console.log("this.cusFlightblockArrfilter",this.cusFlightblockArrfilter)
+      // this.changesArrfilterInfomationArry();
+      // this.cusFlightblockArrbaggage = res.baggage;
+      // this.cusFlightblockArrbaggage.forEach(ele => {
+      //   ele.isSelected = false;
+      // });
+      // this.changesBaggadeInfomationArry();
+      // this.cusFlightblockArrstop = res.stop;
+      // this.cusFlightblockArrstop.forEach(ele => {
+      //   ele.isSelected = false;
+      // });
+      // this.changesStopsInfomationArry();
+
+    }, (err: any) => {
+      this.isLoadingEvent.emit(false);
+      this.cusFlightblockArr = [];
+      //   alert('Error');
+    });
+
+
+  }
+  Api_filter(){
+    this.locationsService.Api_filter(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
+      this.isLoadingEvent.emit(false);
+      this.cusFlightblockArr = res.detail;
       this.cusFlightblockArrfilter = res.filter;
       this.cusFlightblockArrfilter?.forEach(ele => {
         ele.isSelected = false;
@@ -219,10 +278,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.cusFlightblockArr = [];
       //   alert('Error');
     });
-
-
+ 
   }
-
   StoreBaggadeInfomation(val: any, event: any) {
     console.log("baggeee",event.target.checked);
   
@@ -854,5 +911,20 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.isLoadingEvent.emit(false);
       this.load();
     });
+  }
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
   }
 }

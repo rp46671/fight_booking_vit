@@ -61,19 +61,21 @@ export class LocationsService {
     data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/Api_viewgaleus', data, { withCredentials: true });
   }
+
   
   public booking_oneway_gal(data: any) {
     data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/booking_oneway_gal', data, { withCredentials: true });
   }
-  public Api_payment() {
-   // data = this.bindData(data);
-    return this._http.post('https://www.khalsatravel.net/flight/Api_payment', { withCredentials: true });
+  public Api_payment(data:any) {
+   data = this.bindData(data);
+    return this._http.post('https://www.khalsatravel.net/flight/Api_payment',data ,{ withCredentials: true });
   }
   public booking_oneway_ams(data: any) {
     data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/Api_amadeus_book', data, { withCredentials: true });
   }
+
 
   public Api_pre_booking_ama(data: any) {
     data = this.bindData(data);
@@ -113,6 +115,11 @@ export class LocationsService {
     return this._http.post(environment.baseUrl + 'get_all/' + id, data, { withCredentials: true });
   }
 
+  public Api_filter(id: any,stops:any,bagges:any,airlineName:any): Observable<Object> {
+    let data = { userId: id, stops:stops,bagges:bagges,airlineName:airlineName};
+    data = this.bindData(data);
+    return this._http.post("https://www.khalsatravel.net/index.php/flight/Api_filter", data, { withCredentials: true });
+  }
   public Api_mybooking(id: any): Observable<Object> {
     let data = { userId: id };
     data = this.bindData(data);

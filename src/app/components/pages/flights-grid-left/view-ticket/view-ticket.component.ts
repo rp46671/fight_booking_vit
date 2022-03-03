@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
 
 @Component({
@@ -10,13 +11,19 @@ export class ViewTicketComponent implements OnInit {
   statusData: any = null;
   showingValue?: boolean;
   constructor(
-    private _locationsService: LocationsService
+    private _locationsService: LocationsService, private activateRoute:ActivatedRoute
   ) {
     this.showingValue = false;
     this.statusData = null;
   }
   ngOnInit(): void {
     this.showingValue = false;
+    this.activateRoute.params.subscribe(parms=>{
+      console.log(parms)
+      if(parms.pnr!=null && parms.pnr!='null'){
+        this.getTicket(parms)
+      }
+    })
   }
 
   getTicket(refrenceNumber: any) {

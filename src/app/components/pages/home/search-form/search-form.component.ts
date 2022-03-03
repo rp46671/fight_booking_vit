@@ -27,6 +27,12 @@ export class SearchFormComponent implements OnInit {
   dropdownSettings = {};
   localUserIds: any;
   ngOnInit() {
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
     var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id

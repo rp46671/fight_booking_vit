@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, LocationStrategy } from '@angular/common';
 import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -62,35 +62,44 @@ export class ContentComponent implements OnInit, OnDestroy {
   sendingArrayBaggage: any[] = [];
   _price: any;
   viwItemData: any;
+  directValue!: boolean;
+  CheckedBaggageD!:boolean;
   constructor(
     private locationsService: LocationsService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private locationStrategy: LocationStrategy,
     private _router: Router,
     private datePipe: DatePipe,
     private userIdle: UserIdleService
   ) {
     this.setTimeout();
+    this.directValue=false;
+    this.CheckedBaggageD=false;
     this.userInactive.subscribe(() => console.log('user has been inactive for 3s'));
-   }
+  }
 
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings = {};
-  userActivity:any;
+  userActivity: any;
 
   userInactive: Subject<any> = new Subject();
   ngOnInit() {
+    history.pushState(null, '', location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, '', location.href);
+    })
     this.userIdle.startWatching();
-    
+
     // Start watching when user idle is starting.
     this.userIdle.onTimerStart().subscribe(count => console.log(count));
-    
+
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() => console.log('Time is up!'));
 
 
-    
+
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
@@ -101,10 +110,10 @@ export class ContentComponent implements OnInit, OnDestroy {
 
     this.load();
     this.Api_filter()
-  
+
     this.interval = setInterval(() => {
-     this.load(false);
-     this.getCalender(this.localUserIds)
+      this.load(false);
+      this.getCalender(this.localUserIds)
 
     }, 15000);
 
@@ -153,6 +162,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       classes: "myclass custom-class"
     };
   }
+
+
   setTimeout() {
     this.userActivity = setTimeout(() => this.userInactive.next(undefined), 8000);
   }
@@ -200,8 +211,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.sendingArrayAirline = [];
     if (this.StoreBaggadeInfomationArry.length != 0) {
       this.StoreBaggadeInfomationArry.forEach((element, index) => {
-        console.log(this.StoreBaggadeInfomationArry,"this.StoreBaggadeInfomationArry")
-        if (element.isSelected==true) {
+        console.log(this.StoreBaggadeInfomationArry, "this.StoreBaggadeInfomationArry")
+        if (element.isSelected == true) {
           this.sendingArrayBaggage.push(element.baggage)
         }
       });
@@ -252,7 +263,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
   }
-  Api_filter(){
+  Api_filter() {
     this.locationsService.Api_filter(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
@@ -278,11 +289,19 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.cusFlightblockArr = [];
       //   alert('Error');
     });
- 
+
   }
+  fightDirect() {
+    this.directValue = !this.directValue;
+    console.log(" this.directValue ", this.directValue )
+  }
+  Checkedbaggage(){
+    this.CheckedBaggageD=!this.CheckedBaggageD
+  } 
+
   StoreBaggadeInfomation(val: any, event: any) {
-    console.log("baggeee",event.target.checked);
-  
+    console.log("baggeee", event.target.checked);
+
     if (event.target.checked) {
       this.StoreBaggadeInfomationArry.push({ baggage: val, isSelected: event.target.checked })
       this.StoreBaggadeInfomationArry = this.StoreBaggadeInfomationArry.filter(
@@ -293,7 +312,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.StoreBaggadeInfomationArry);
-  //  this.changesBaggadeInfomationArry();
+    //  this.changesBaggadeInfomationArry();
     this.load()
   }
   changesBaggadeInfomationArry() {
@@ -307,7 +326,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
   StoreStopsInfomation(val: any, event: any) {
-    console.log("stop",event.target.checked);
+    console.log("stop", event.target.checked);
     if (event.target.checked) {
       this.StoreStopsInfomationArry.push({ stop: val, isSelected: event.target.checked })
       this.StoreStopsInfomationArry = this.StoreStopsInfomationArry.filter(
@@ -318,7 +337,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
     console.log(this.StoreStopsInfomationArry);
-  //  this.changesStopsInfomationArry();
+    //  this.changesStopsInfomationArry();
     this.load();
   }
   changesStopsInfomationArry() {
@@ -333,7 +352,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
   StoreArrfilterInfomation(val: any, event: any) {
-  console.log("airline",event.target.checked);
+    console.log("airline", event.target.checked);
     if (event.target.checked) {
       this.StoreArrfilterInfomationArry.push({ airline: val, price: null, isSelected: event.target.checked })
       this.StoreArrfilterInfomationArry = this.StoreArrfilterInfomationArry.filter(
@@ -591,7 +610,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
   viewData(content: any, item: any) {
-    this.viwItemData=item
+    this.viwItemData = item
     this.loadingViewDta = true;
     this.viewDataAll = [];
     this.viewDataAll2 = [];
@@ -603,7 +622,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.Dep_date = item.Dep_date
     this.arr_time = item.arr_time
     this.dep_time = item.dep_time
-    this._price= item.price
+    this._price = item.price
 
     if (item.gds == "gal") {
       let reqData = {

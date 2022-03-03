@@ -305,3 +305,8 @@ label.custom-checkbox .checkmark:after {
 .hr1 {
     margin: 4px 0;
 }
+
+
+.selected{
+  background: #e2ecee;
+}

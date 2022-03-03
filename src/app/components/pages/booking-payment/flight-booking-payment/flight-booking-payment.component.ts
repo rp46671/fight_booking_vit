@@ -154,7 +154,10 @@ export class FlightBookingPaymentComponent implements OnInit {
 
       console.log("gal", value.gds)
       this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
-        this.bookingDetailPrice=res.detail
+        this.bookingDetailPrice=res.detail;
+        if(res[0].status=="confirm"){
+          this.router.navigate(['/flight-grid-left/view-ticket/'+res[0].pnr])
+        }
         this.loading = false;
       }, (err: any) => {
         this.loading = false;
@@ -164,6 +167,9 @@ export class FlightBookingPaymentComponent implements OnInit {
       this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
         this.loading = false;
         this.bookingDetailPrice=res.detail
+        if(res[0].status=="confirm"){
+          this.router.navigate(['/flight-grid-left/view-ticket/'+res[0].pnr])
+        }
       }, (err: any) => {
         this.loading = false;
       });

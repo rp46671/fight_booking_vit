@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
 
 @Component({
@@ -9,9 +10,15 @@ import { LocationsService } from 'src/app/providers/locations.service';
 export class TicketViewComponent implements OnInit {
   statusData:any = null;
   constructor(
-    private _locationsService: LocationsService
+    private _locationsService: LocationsService,
+    private activateRoute:ActivatedRoute
   ) { }
   ngOnInit(): void {
+    this.activateRoute.params.subscribe(parms=>{
+      if(parms){
+        this.getTicket(parms)
+      }
+    })
   }
 
   getTicket(refrenceNumber: any) {

@@ -152,7 +152,7 @@ export class LocationsService {
   }
 
   public ama_print(data: any): Observable<Object> {
-    data = this.bindData(data);
-    return this._http.post('https://www.khalsatravel.net/flight/Api_amadeus_print/ama_print/' + data, { pnr: data }, { withCredentials: true });
+    //data = this.bindData(data);
+    return this._http.post('https://www.khalsatravel.net/flight/Api_amadeus_print/ama_print/', { pnr: data }, { withCredentials: true });
   }
 }

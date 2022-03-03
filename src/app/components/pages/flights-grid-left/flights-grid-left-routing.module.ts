@@ -13,7 +13,7 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'content-fight' },
       { path: 'content-fight', component: ContentComponent },
       { path: 'view-fight', component: ViewDetailsComponent },
-      { path: 'view-ticket', component: ViewTicketComponent },
+      { path: 'view-ticket/:pnr', component: ViewTicketComponent },
     ]
   }
 ];

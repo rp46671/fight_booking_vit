@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { Location } from '@angular/common';
+import { Location, LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -54,7 +54,9 @@ export class FlightBookingComponent implements OnInit {
     private router: Router,
     private locationsService: LocationsService,
     private modalService: NgbModal,
-    private _router: Router,
+    private _router: Router,  
+    private locationStrategy: LocationStrategy,
+   
 
   ) {
     this.ButtonMidChange="Flight_itinerary";
@@ -69,6 +71,10 @@ export class FlightBookingComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // history.pushState('/', '', location.href);
+    // this.locationStrategy.onPopState(() => {
+    //   history.pushState('/', '', location.href);
+    // })
     var localUserId: any = window.localStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;

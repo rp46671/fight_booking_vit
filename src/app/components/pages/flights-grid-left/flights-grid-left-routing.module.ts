@@ -4,6 +4,7 @@ import { ContentComponent } from './content/content.component';
 import { FlightsGridLeftComponent } from './flights-grid-left.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
+import { MylistComponent } from './mylist/mylist.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'content-fight' },
       { path: 'content-fight', component: ContentComponent },
-      { path: 'view-fight', component: ViewDetailsComponent },
+      { path: 'view-fight', component: ViewDetailsComponent }, 
+      { path: 'my-list', component: MylistComponent },
       { path: 'view-ticket/:pnr', component: ViewTicketComponent },
     ]
   }

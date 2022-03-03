@@ -14,13 +14,15 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { UserIdleModule } from 'angular-user-idle';
+import { MylistComponent } from './mylist/mylist.component';
 
 @NgModule({
   declarations: [
     FlightsGridLeftComponent,
     ContentComponent,
     ViewDetailsComponent,
-    ViewTicketComponent
+    ViewTicketComponent,
+    MylistComponent
   ],
   imports: [
     CommonModule,

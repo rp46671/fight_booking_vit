@@ -125,6 +125,11 @@ export class LocationsService {
     data = this.bindData(data);
     return this._http.post(environment.baseUrl2 + 'Api_mybooking/mybooking/' + id, data, { withCredentials: true });
   }
+  public Api_mylist(id: any): Observable<Object> {
+    let data = { userId: id };
+    data = this.bindData(data);
+    return this._http.post("https://www.khalsatravel.net/agent/Api_mylist" , data, { withCredentials: true });
+  }
 
   public get_calander(id: any): Observable<Object> {
     let data = { userId: id };

@@ -1299,5 +1299,35 @@ pagination-template .ngx-pagination li.pagination-next span {
   .flights-icon {
     top: 33px !important;
   }
+  .flights-icon-mod{
+    top:0px;
+    position: absolute;
+    width: 16px;
+    right: 0px;
+    margin: auto;
+    top: 24px;
+    bottom: 0px;
+    color: rgb(223, 223, 223);
+    transform: scaleX(1);
+  }
 
+}
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom: 71px;
+    right: 22px;
+    background: linear-gradient(to right, rgb(35, 165, 185), rgb(35, 165, 185)) rgb(35, 165, 185);
+    border-color: rgb(35, 165, 185);
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	font-size:22px;margin-top: 18px;
 }

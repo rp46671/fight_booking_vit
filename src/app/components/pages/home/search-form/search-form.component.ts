@@ -27,11 +27,11 @@ export class SearchFormComponent implements OnInit {
   dropdownSettings = {};
   localUserIds: any;
   ngOnInit() {
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload')
+      location.reload()
     } else {
-      localStorage.removeItem('foo') 
+      localStorage.removeItem('foo')
     }
     var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
@@ -159,18 +159,23 @@ export class SearchFormComponent implements OnInit {
       this.locationsService.getLocation(fromLocationCode).subscribe(
         (res: any) => {
           let resArr: any[] = res;
-          let unique: any[] = resArr.filter((value: any, index: number, self: any) => {
-            return self.findIndex((ele: any) => ele.cityName === value.cityName) === index;
-          });
-          unique.forEach(uniqueEle => {
-            uniqueEle['childArr'] = [];
-            resArr.forEach(resArrEle => {
-              if (uniqueEle.cityName === resArrEle.cityName) {
-                uniqueEle['childArr'].push(resArrEle);
-              }
-            })
-          });
-          this.fromLocationArr = unique;
+
+          let unique: any[];
+          if (resArr.length != 0) {
+            unique = resArr?.filter((value: any, index: number, self: any) => {
+              return self.findIndex((ele: any) => ele.cityName === value.cityName) === index;
+            });
+            unique.forEach(uniqueEle => {
+              uniqueEle['childArr'] = [];
+              resArr.forEach(resArrEle => {
+                if (uniqueEle.cityName === resArrEle.cityName) {
+                  uniqueEle['childArr'].push(resArrEle);
+                }
+              })
+            });
+            this.fromLocationArr = unique;
+          }
+
         }
       );
     } else {
@@ -219,7 +224,7 @@ export class SearchFormComponent implements OnInit {
       "vfr": formValue.vfr,
       "direct": formValue.direct,
       "airlines": formValue.preferred_carriers.map((item: any) => item.id),
-      "class":formValue.class
+      "class": formValue.class
     }
 
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
@@ -239,6 +244,7 @@ export class SearchFormComponent implements OnInit {
 
   set_form_depart_val(valueObj: any, selectedItem: string = 'individual') {
     valueObj['childArr'] = [];
+    console.log("selectedItem",selectedItem)
     this.obj_form_depart?.setValue(valueObj);
     this.set_form_depart_val_selected_item = selectedItem;
     if (selectedItem == 'individual') {

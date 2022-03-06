@@ -21,7 +21,7 @@ export class AuthService {
   
   signout() {
     this.authenticated = false;
-    localStorage.removeItem('fight-user');
+    sessionStorage.removeItem('fight-user');
     this.removeSession()
   }
   login(requestData: any) {
@@ -37,30 +37,30 @@ export class AuthService {
     return this.userSubject.asObservable();
   }
   removeSession() {
-    localStorage.removeItem('fight-user');
+    sessionStorage.removeItem('fight-user');
     this.userSubject.next(null);
     this._route.navigate(['auth/login']);
   }
 
   createSession(user: any) {
     console.log("user",user);
-    localStorage.setItem('fight-user', JSON.stringify(user));
+    sessionStorage.setItem('fight-user', JSON.stringify(user));
     this.userSubject.next(user);
   }
   getAccessToken() {
-    let a:any=localStorage?.getItem('fight-user')
+    let a:any=sessionStorage?.getItem('fight-user')
     let result = JSON.parse(a).token;
     console.log('result service token==>>', result);
     return result
   }
   getUserID() {
-    let a:any=localStorage?.getItem('fight-user')
+    let a:any=sessionStorage?.getItem('fight-user')
     let result = JSON.parse(a).userInfor.email;
     console.log('result==>>', result);
     return result
   }
   getUserInfo() {
-    let a:any=localStorage?.getItem('fight-user')
+    let a:any=sessionStorage?.getItem('fight-user')
   
     let result = JSON.parse(a).userInfor;
     console.log('result==>>', result);

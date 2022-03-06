@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, LocationStrategy } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
@@ -56,6 +56,8 @@ export class FlightBookingPaymentComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private _router: Router,
+    private locationStrategy: LocationStrategy,
+   
 
   ) {
     this.spinerrLoading = false;
@@ -65,8 +67,12 @@ export class FlightBookingPaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    var localUserId: any = window.localStorage.getItem('fight-user');
+    
+    history.pushState(null, '', location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, '', location.href);
+    });
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
 
@@ -252,7 +258,7 @@ export class FlightBookingPaymentComponent implements OnInit {
   }
 
   Api_mybooking() {
-    var localUserId: any = window.localStorage.getItem('fight-user');
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
 
@@ -284,7 +290,7 @@ export class FlightBookingPaymentComponent implements OnInit {
 
 
   openChangePAyloaModal(content: any) {
-    var localUserId: any = window.localStorage.getItem('fight-user');
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
   console.log(this.localUserIds)

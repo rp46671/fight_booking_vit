@@ -100,7 +100,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
 
-    var localUserId: any = window.localStorage.getItem('fight-user');
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
     console.log(" this.localUserIds", this.localUserIds)
@@ -293,10 +293,20 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   fightDirect() {
     this.directValue = !this.directValue;
+    if(this.directValue){
+     this.load()
+    }else{
+
+    }
     console.log(" this.directValue ", this.directValue )
   }
   Checkedbaggage(){
     this.CheckedBaggageD=!this.CheckedBaggageD
+    if(this.CheckedBaggageD){
+
+    }else{
+
+    }
   } 
 
   StoreBaggadeInfomation(val: any, event: any) {
@@ -532,6 +542,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   set_form_depart_val(valueObj: any, selectedItem: string = 'individual') {
     valueObj['childArr'] = [];
+    console.log("selectedItem",selectedItem)
     this.obj_form_depart?.setValue(valueObj);
     this.set_form_depart_val_selected_item = selectedItem;
     if (selectedItem == 'individual') {

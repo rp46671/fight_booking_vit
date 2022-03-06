@@ -50,21 +50,18 @@ export class LoginComponent implements OnInit {
     this.auth.login(requestData).subscribe(
       (res: any) => {
         this.response = res;
-
         this.loginDisable = false;
-
         console.log(this.response);
         if (this.response.error == "Error" && this.response.status == "0") {
           this.signinForm?.reset();
           if (confirm('Please Put correct Data')) {
-
             this.router.navigate(['/auth/login']);
           }
         }
         else {
           this.auth.createSession(this.response);
-          localStorage.setItem('isLoggedin', 'true');
-          if (localStorage.getItem('isLoggedin')) {
+          sessionStorage.setItem('isLoggedin', 'true');
+          if (sessionStorage.getItem('isLoggedin')) {
             this.router.navigate(['']);
           }
         }

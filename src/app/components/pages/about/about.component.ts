@@ -15,7 +15,7 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var localUserId:any=window.localStorage.getItem('fight-user');
+    var localUserId:any=window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     if(localUserId?.detail.id){
      this.getApi_mybooking(localUserId?.detail.id)

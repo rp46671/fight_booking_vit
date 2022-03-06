@@ -15,14 +15,9 @@ export class FlightBookingComponent implements OnInit {
   defaultImageAddress = "https://www.khalsatravel.net/webroot/frontend/airline-images/"
   formatImage = ".png"
   bookFlightItem: any = null;
-  bookingForm = new FormGroup({
-    adults: this.fb.array([]),
-    childs: this.fb.array([]),
-    infants: this.fb.array([]),
-    phone: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-
-  });
+  
+  bookingForm!:FormGroup
+  
   flightSearchReqData: any = [];
   localUserIds: any;
   passportOpendetailsInfrnt: null;
@@ -47,6 +42,14 @@ export class FlightBookingComponent implements OnInit {
   childArrayPrice: any[] = [];
   adultsArrayPrice: any[] = [];
   ButtonMidChange: any;
+  frequent_flyerdetailsAddults: any;
+  frequent_flyerdetailsChilds: any;
+  frequent_flyerdetailsInfrants: any;
+  emailUser: any;
+  phoneUser: any;
+  addMealdetailsInfrants: any;
+  addMealdetailsChilds: any;
+  addMealdetailsAddults: any;
 
   constructor(
     private _location: Location,
@@ -54,12 +57,14 @@ export class FlightBookingComponent implements OnInit {
     private router: Router,
     private locationsService: LocationsService,
     private modalService: NgbModal,
-    private _router: Router,  
+    private _router: Router,
+    public formBuilder: FormBuilder,
+
     private locationStrategy: LocationStrategy,
-   
+
 
   ) {
-    this.ButtonMidChange="Flight_itinerary";
+    this.ButtonMidChange = "Flight_itinerary";
     this.passportOpendetailsInfrnt = null;
     this.passportOpendetailsChild = null;
     this.passportOpendetailsAddults = null;
@@ -75,9 +80,27 @@ export class FlightBookingComponent implements OnInit {
     // this.locationStrategy.onPopState(() => {
     //   history.pushState('/', '', location.href);
     // })
-    var localUserId: any = window.localStorage.getItem('fight-user');
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
+
+    console.log("localUserId", localUserId);
+    this.emailUser = localUserId.detail.mail;
+    this.phoneUser = localUserId.detail.phone;
+    console.log("  this.phoneUser",   this.phoneUser);
     this.localUserIds = localUserId?.detail.id;
+   
+    this.bookingForm = this.formBuilder.group({
+      adults: this.fb.array([]),
+      childs: this.fb.array([]),
+      infants: this.fb.array([]),
+      phone: new FormControl(this.phoneUser, [Validators.required]),
+      email: new FormControl( this.emailUser, [Validators.required]),
+  
+    })
+    history.pushState(null, '', location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, '', location.href);
+    })
     let bookFlightObj: any = window.sessionStorage.getItem('bookFlight');
     let flightSearchReqData: any = window.sessionStorage.getItem('flightSearchReqData');
     let confirmBookFlightData: any = window.sessionStorage.getItem('confirmBookFlightData');
@@ -119,12 +142,14 @@ export class FlightBookingComponent implements OnInit {
           title: ele?.title,
           first_name: ele?.firstname,
           last_name: ele?.lastname,
-          issueDate:ele?.issueDate,
+          issueDate: ele?.issueDate,
           expiryDate: ele?.expiryDate,
           passportIssueCountry: ele?.passportIssueCountry,
           countryofNationality: ele?.countryofNationality,
-          addMeal:ele?.addMeal,
-          frequent_flyerdetails:ele?.frequent_flyerdetails,
+          addMeal: ele?.addMeal,
+          frequent_flyerdetails: ele?.frequent_flyerdetails,
+          frequent_flyerdetailsOption:ele?.frequent_flyerdetailsOption,
+          addMealOption:ele?.addMealOption
         };
       }),
       child_no: childArr.length,
@@ -136,12 +161,14 @@ export class FlightBookingComponent implements OnInit {
           title: ele?.title,
           first_name: ele?.firstname,
           last_name: ele?.lastname,
-          issueDate:ele?.issueDate,
+          issueDate: ele?.issueDate,
           expiryDate: ele?.expiryDate,
           passportIssueCountry: ele?.passportIssueCountry,
           countryofNationality: ele?.countryofNationality,
-          addMeal:ele?.addMeal,
-          frequent_flyerdetails:ele?.frequent_flyerdetails,
+          addMeal: ele?.addMeal,
+          frequent_flyerdetails: ele?.frequent_flyerdetails,
+          frequent_flyerdetailsOption:ele?.frequent_flyerdetailsOption,
+          addMealOption:ele?.addMealOption
         };
       }),
       infant_no: infantArr.length,
@@ -152,17 +179,19 @@ export class FlightBookingComponent implements OnInit {
           gender: ele?.gender,
           title: ele?.title,
           first_name: ele?.firstname,
-          last_name: ele?.lastname, 
-          issueDate:ele?.issueDate,
+          last_name: ele?.lastname,
+          issueDate: ele?.issueDate,
           expiryDate: ele?.expiryDate,
           passportIssueCountry: ele?.passportIssueCountry,
           countryofNationality: ele?.countryofNationality,
-          addMeal:ele?.addMeal,
-          frequent_flyerdetails:ele?.frequent_flyerdetails,
+          addMeal: ele?.addMeal,
+          frequent_flyerdetails: ele?.frequent_flyerdetails,
+          frequent_flyerdetailsOption:ele?.frequent_flyerdetailsOption,
+          addMealOption:ele?.addMealOption
         };
       }),
-      email:this.email.value,
-      phone:this.phone.value,
+      email: this.email.value,
+      phone: this.phone.value,
     }
     this.loading = true;
     if (this.bookFlightItem.gds == "gal") {
@@ -234,9 +263,10 @@ export class FlightBookingComponent implements OnInit {
         expiryDate: new FormControl(''),
         passportIssueCountry: new FormControl(''),
         countryofNationality: new FormControl(''),
-        addMeal:new FormControl(false, [Validators.required]),
-        frequent_flyerdetails:new FormControl(false, [Validators.required]),
-
+        addMeal: new FormControl(false, [Validators.required]),
+        frequent_flyerdetails: new FormControl(false, [Validators.required]),
+        frequent_flyerdetailsOption:new FormControl('', ),
+        addMealOption:new FormControl('', ),
       });
       this.adults.push(adultForm);
     }
@@ -259,8 +289,10 @@ export class FlightBookingComponent implements OnInit {
         expiryDate: new FormControl(''),
         passportIssueCountry: new FormControl(''),
         countryofNationality: new FormControl(''),
-        addMeal:new FormControl(false, [Validators.required]),
-        frequent_flyerdetails:new FormControl(false, [Validators.required]),
+        addMeal: new FormControl(false, [Validators.required]),
+        frequent_flyerdetails: new FormControl(false, [Validators.required]),
+        frequent_flyerdetailsOption:new FormControl('', ),
+        addMealOption:new FormControl('', ),
 
       });
       this.childs.push(childForm);
@@ -294,6 +326,56 @@ export class FlightBookingComponent implements OnInit {
       this.passportOpendetailsInfrnt = null;
     }
   }
+
+
+  frequent_flyerdetailsAddultsFunction(val: any, event: any) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.frequent_flyerdetailsAddults = val
+    } else {
+      this.frequent_flyerdetailsAddults = null;
+    }
+  }
+  frequent_flyerdetailsChildsFunction(val: any, event: any) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.frequent_flyerdetailsChilds = val
+    } else {
+      this.frequent_flyerdetailsChilds = null;
+    }
+  }
+  frequent_flyerdetailsInfarntFunction(val: any, event: any) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.frequent_flyerdetailsInfrants = val
+    } else {
+      this.frequent_flyerdetailsInfrants = null;
+    }
+  }
+  addMealdetailsAddultsFunction(val: any, event: any) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.addMealdetailsAddults = val
+    } else {
+      this.addMealdetailsAddults = null;
+    }
+  }
+  addMealdetailsChildsFunction(val: any, event: any) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.addMealdetailsChilds = val
+    } else {
+      this.addMealdetailsChilds = null;
+    }
+  }
+  addMealdetailsInfarntFunction(val: any, event: any) {
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      this.addMealdetailsInfrants = val
+    } else {
+      this.addMealdetailsInfrants = null;
+    }
+  }
   addInfant(num: number = 1) {
     let counter = 1;
     while (counter++ <= num) {
@@ -307,9 +389,10 @@ export class FlightBookingComponent implements OnInit {
         expiryDate: new FormControl(''),
         passportIssueCountry: new FormControl(''),
         countryofNationality: new FormControl(''),
-        addMeal:new FormControl(false, [Validators.required]),
-        frequent_flyerdetails:new FormControl(false, [Validators.required]),
-
+        addMeal: new FormControl(false, [Validators.required]),
+        frequent_flyerdetails: new FormControl(false, [Validators.required]),
+        frequent_flyerdetailsOption:new FormControl('', ),
+        addMealOption:new FormControl('', ),
       });
       this.infants.push(infantForm);
     }
@@ -524,7 +607,17 @@ export class FlightBookingComponent implements OnInit {
 
   }
 
-  changeFightMidButton(valu:any){
-    this.ButtonMidChange=valu;
+  changeFightMidButton(valu: any) {
+    this.ButtonMidChange = valu;
+  }
+
+  openViewPriceModal(content: any) {
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title', size: 'lg', centered: true,
+    }).result.then((result) => {
+      this.confirmResut = `Closed with: ${result}`;
+    }, (reason) => {
+      this.confirmResut = `Dismissed with: ${reason}`;
+    });
   }
 }

@@ -206,6 +206,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
   load(showLoad = true) {
+    this.loading=true;
     this.sendingArrayBaggage = [];
     this.sendingArrayStops = [];
     this.sendingArrayAirline = [];
@@ -238,6 +239,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.locationsService.get_alll(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
+      this.loading=false;
       // this.cusFlightblockArrfilter = res.filter;
       // this.cusFlightblockArrfilter?.forEach(ele => {
       //   ele.isSelected = false;
@@ -699,6 +701,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   preDeparterDateflightSearchFromSub() {
+    this.loading=true;
     this.cusFlightblockArr = [];
     let formValue = this.flightSearchFrom.getRawValue();
     var new_date: any = moment(formValue.from_depart_date).subtract(1, 'days');
@@ -735,13 +738,16 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
+      this.loading=false;
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
+      this.loading=false;
     });
   }
   nextDeparterDateflightSearchFromSub() {
+    this.loading=true;
     this.cusFlightblockArr = [];
     let formValue = this.flightSearchFrom.getRawValue();
     var new_date: any = moment(formValue.from_depart_date).add(1, 'days');
@@ -776,15 +782,19 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
+      this.loading=false;
       this.getCalender(this.localUserIds);
     }, (err: any) => {
+
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
+      this.loading=false;
     });
   }
 
   preReturnDateflightSearchFromSub() {
+    this.loading=true;
     this.cusFlightblockArr = [];
     let formValue = this.flightSearchFrom.getRawValue();
 
@@ -831,14 +841,17 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
+      this.loading=false;
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
+      this.loading=false;
       this.getCalender(this.localUserIds);
     });
   }
   nextReturnDateflightSearchFromSub() {
     this.cusFlightblockArr = [];
+    this.loading=true;
     let formValue = this.flightSearchFrom.getRawValue();
 
     var to_arrival_date: any;
@@ -880,10 +893,12 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
+      this.loading=false;
       this.getCalender(this.localUserIds);
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
+      this.loading=false;
       this.getCalender(this.localUserIds);
     });
   }

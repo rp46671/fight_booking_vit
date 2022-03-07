@@ -64,6 +64,7 @@ export class FlightBookingComponent implements OnInit {
 
 
   ) {
+    this.loading=false
     this.ButtonMidChange = "Flight_itinerary";
     this.passportOpendetailsInfrnt = null;
     this.passportOpendetailsChild = null;

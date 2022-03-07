@@ -1,11 +1,6 @@
 [
     
-    {
-        "id": 6,
-        "linkText": "Agency Booking",
-        "child": false,
-        "link": "/flight-grid-left/my-list"
-    },
+   
     {
         "id": 1,
         "linkText": "Flights",

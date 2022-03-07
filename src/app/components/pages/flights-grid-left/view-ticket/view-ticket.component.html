@@ -5,18 +5,19 @@
             <form>
                 <div class="form-group">
                     <label for="refrenceNumber">Please Enter Your Booking Refrence Number</label>
-                    <input type="text" style="width: 200px;" #refrenceNumber class="form-control form-control-sm"
-                        id="refrenceNumber" placeholder="Booking Refrence Number" maxlength="6" minlength="6">
-                    <small id="refrenceNumber" class="form-text text-muted">We'll never share your booking refrence
+                    <input type="text" style="width: 300px;" [(ngModel)]="refrenceNumber" (keyup)="myButtonDisable(refrenceNumber)"class="form-control form-control-sm"
+                        id="refrenceNumber" name="refrenceNumber" placeholder="Booking Refrence Number" maxlength="6" minlength="6">
+                    <small id="refrenceNumber" class="form-text text-muted">
+                        We'll never share your booking refrence
                         number with anyone
                         else.</small>
                 </div>
-                <button type="submit" (click)="getTicket(refrenceNumber)" class="btn btn-primary">Submit</button>
+                <button type="submit" (click)="getTicket(refrenceNumber)"[disabled]="disableButton"  class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 
-    <div class="row" *ngIf="showingValue">
+    <div class="row mt-3" *ngIf="showingValue">
         <!-- BEGIN INVOICE -->
         <div class="col-xs-12">
             <div class="grid invoice">
@@ -24,15 +25,7 @@
                     <div class="invoice-title">
                         <div class="row">
                             <div class="col-xs-12">
-                                <img src="../../../../assets/images/khalsa.png" alt="" height="25"
-                                    style="max-width: 60%;">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2>ELECTRONIC TICKET<br>
-
+                                <h2>ELECTRONIC TICKET
                                 </h2>
                             </div>
                         </div>
@@ -162,7 +155,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
+                    <!-- <div class="row mt-5">
                         <div class="col-md-12 ">
                             <h5>Receipt</h5>
                             <div class="table-responsive">
@@ -220,10 +213,25 @@
                                 <p class="mb-0"> Restriction : SKCHG ND</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
         <!-- END INVOICE -->
+    </div>
+</div>
+
+
+<div *ngIf="loading" class="w-100 d-flex align-items-center justify-content-center"
+    style="position: fixed; left: 0; top: 0; bottom: 0; right: 0;  z-index: 99;">
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 </div>

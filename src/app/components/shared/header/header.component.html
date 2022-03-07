@@ -95,6 +95,7 @@
                             </div>
                             <nav>
                                 <ul class="custom-flex">
+                                   
                                     <li class="menu-item" [ngClass]="item.child == true ? 'menu-item-has-children' : ''"
                                         *ngFor="let item of navigation">
                                         <a href="javascript:void(0)" routerLinkActive="active" (click)="trigger(item)"
@@ -102,6 +103,8 @@
                                                 class="arrow"></span></a>
                                         <a routerLink="{{item.link}}" *ngIf="!item.child"
                                             class="text-light-dark">{{item.linkText}}</a>
+
+
                                         <ul class="sub-menu custom" *ngIf="item.child"
                                             [ngClass]="item.open ? 'd-block' : ''">
                                             <li class="menu-item"
@@ -125,7 +128,11 @@
                                     </li>
                                     <li class="menu-item">
                                         <span (click)="onLogout()"
-                                            class="text-light-dark">Sign Out</span>
+                                            class="text-light-dark">SIGN OUT</span>
+                                    </li>
+                                    <li class="menu-item ml-3" *ngIf="localUsertype==21">
+                                        <span (click)="myAgencyBoking()"
+                                            class="text-light-dark">AGENCY BOOKING</span>
                                     </li>
                                 </ul>
                             </nav>

@@ -26,6 +26,12 @@ export class SearchFormComponent implements OnInit {
   selectedItems: any[] = [];
   dropdownSettings = {};
   localUserIds: any;
+
+
+
+
+
+
   ngOnInit() {
     if (!localStorage.getItem('foo')) {
       localStorage.setItem('foo', 'no reload')
@@ -33,6 +39,12 @@ export class SearchFormComponent implements OnInit {
     } else {
       localStorage.removeItem('foo')
     }
+    window.sessionStorage.removeItem('search-flight-raw-data');
+    window.sessionStorage.removeItem('flightSearchReqData');
+    window.sessionStorage.removeItem('confirmBookFlightData');
+    window.sessionStorage.removeItem('bookFlight');
+    
+    
     var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id

@@ -206,7 +206,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
   load(showLoad = true) {
-    this.loading=true;
+   
     this.sendingArrayBaggage = [];
     this.sendingArrayStops = [];
     this.sendingArrayAirline = [];
@@ -239,7 +239,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.locationsService.get_alll(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = res.detail;
-      this.loading=false;
+     
       // this.cusFlightblockArrfilter = res.filter;
       // this.cusFlightblockArrfilter?.forEach(ele => {
       //   ele.isSelected = false;

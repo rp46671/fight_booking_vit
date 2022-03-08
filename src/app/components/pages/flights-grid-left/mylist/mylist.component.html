@@ -8,14 +8,26 @@
                     <th scope="col">city</th>
                     <th scope="col">Last</th>
                     <th scope="col">Handle</th>
+                    <th scope="col">#</th>
+                    <th scope="col">city</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let history of historyBooking">
                     <th scope="row">{{history.id}}</th>
+                    <td>{{history.client_id}}</td>
+                    <td>{{history.pnr}}</td>
+                    <td>{{history.name}}<br>{{history.number}}</td>
+                    <td>{{history.amount}}  {{history.mode}} </td>
+                    <td>{{history.bill}}</td>       
+                   
                     <td>{{history.city}}</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>{{history.date}}</td>
+ 
+
+
                 </tr>
                
             </tbody>

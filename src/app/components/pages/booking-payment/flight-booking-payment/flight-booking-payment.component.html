@@ -24,7 +24,8 @@
                                             <td>{{adult.title}} {{adult.firstname}} {{ adult.lastname}}</td>
                                             <td>{{adult.dob||'NA'}}</td>
                                             <td>{{adult.passport||'NA'}}</td>
-                                            <td class="text-right"><i class="fa fa-edit mr-2"></i> <i
+                                            <td class="text-right">
+                                                <i class="fa fa-edit mr-2" (click)="editData()"></i> <i
                                                     class="fa fa-eye"></i></td>
                                         </tr>
                                         <tr *ngFor="let child of childArr ; let i = index">
@@ -32,6 +33,9 @@
                                             <td>{{child.title}} {{child.firstname}} {{ child.lastname}}</td>
                                             <td>{{child.dob||'NA'}}</td>
                                             <td>{{child.passport||'NA'}}</td>
+                                            <td class="text-right">
+                                                <i class="fa fa-edit mr-2" (click)="editData()"></i> <i
+                                                    class="fa fa-eye"></i></td>
                                         </tr>
 
                                         <tr *ngFor="let infant of infantArr; let i = index">
@@ -39,6 +43,9 @@
                                             <td>{{infant.title}} {{infant.firstname}} {{ infant.lastname}}</td>
                                             <td>{{infant.dob||'NA'}}</td>
                                             <td>{{infant.passport||'NA'}}</td>
+                                            <td class="text-right">
+                                                <i class="fa fa-edit mr-2" (click)="editData()"></i> <i
+                                                    class="fa fa-eye"></i></td>
                                         </tr>
 
                                     </tbody>

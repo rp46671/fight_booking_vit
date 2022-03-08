@@ -1,17 +1,69 @@
 <section class="bg-light-white pt-4">
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                <div class="row mb-2 d-flex" (click)="openModifySearch(modalModificationPopUP)"
+                style="border-bottom: 1px solid rgb(223, 223, 223);padding-bottom: 15px; cursor: pointer;">
+                <div class="col-md-1 ">
+
+
+                    <div style="font-size: 16px; margin-bottom: 0px;padding:0px; " class="brrrfdddf">
+                        {{formDataValue. obj_form_depart.cityName}}</div>
+                    <p style="margin-top:-8px;    margin-bottom: 0px;">
+                        {{formDataValue.obj_form_depart.code}}</p>
+
+                </div>
+                <div class="col-md-1 d-flex justify-content-around mt-10">
+                    <span>
+                        <i class="fa fa-long-arrow-right"
+                            style="font-size:20px;color: rgb(189, 189, 189);font-weight: 600;"></i></span>
+                </div>
+                <div class="col-md-1 border-right">
+                    <div style="font-size: 16px; margin-bottom: 0px;padding:0px;" class="brrrfdddf">
+                        {{formDataValue.obj_to_arrival.cityName}}</div>
+                    <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_to_arrival.code}}
+                    </p>
+
+                </div>
+                <div class="col-md-2 border-right">
+                    <span
+                        style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Departure
+                    </span>
+                    <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.from_depart_date |date}}
+                    </p>
+                </div>
+
+                <div class="col-md-2 border-right" *ngIf="formDataValue.to_arrival_date">
+                    <span
+                        style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Arrival
+                    </span>
+                    <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.to_arrival_date |date}}
+                    </p>
+                </div>
+
+                <div class="col-md-1 border-right">
+                    <span
+                        style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 3px;padding:0px;">Passengers</span>
+                    <p style="margin-top:-3px; margin-bottom: 0px;">{{ formDataValue.adults +
+                        formDataValue.child + formDataValue.infant}}</p>
+                </div>
+                <div class="col-md-2 border-right" >
+                    <span
+                        style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Cabin</span>
+                    <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.class=='Y'?
+                        'Economy':'Business'}}</p>
+                </div>
+                <div class="col-md-2 border-right" *ngIf="!formDataValue.to_arrival_date"></div>
+                <div class="col-md-2" style="text-align: end;" 
+                
+               >
+                    <button type="button" class="btn-modify">Modify search</button>
+                </div>
+            </div>
+            </div>
             <!-----Left Side Div------>
             <div class="col-lg-3">
-                <div class="display-time-box">
-                    <div class="d-flex">
-                        <i class="fal fa-clock" style="font-size: 25px;margin: 10px 5px;"></i>
-                        <div class="dis-text">
-                            Display times in <b>AM / PM</b> format
-                        </div>
-                    </div>
-                    <span class="disable-btn"></span>
-                </div>
+               
                 <div class="cLEopS">
                     <h5>FILTER YOUR RESULTS</h5>
                     <div class="pIuie">{{cusFlightblockArr?.length}} flights found</div>
@@ -97,61 +149,7 @@
             <div class="col-lg-9 pl-0 pr-0">
                 <div class="row ml-0 mr-0">
                     <div class="col-lg-12 pr-0 pl-0">
-                        <div class="row mb-2 d-flex" (click)="openModifySearch(modalModificationPopUP)"
-                            style="border-bottom: 1px solid rgb(223, 223, 223);padding-bottom: 15px; cursor: pointer;">
-                            <div class="col-md-1 ">
-
-
-                                <div style="font-size: 16px; margin-bottom: 0px;padding:0px; " class="brrrfdddf">
-                                    {{formDataValue. obj_form_depart.cityName}}</div>
-                                <p style="margin-top:-8px;    margin-bottom: 0px;">
-                                    {{formDataValue.obj_form_depart.code}}</p>
-
-                            </div>
-                            <div class="col-md-1 d-flex justify-content-around mt-10">
-                                <span>
-                                    <i class="fa fa-long-arrow-right"
-                                        style="font-size:20px;color: rgb(189, 189, 189);font-weight: 600;"></i></span>
-                            </div>
-                            <div class="col-md-1 border-right">
-                                <div style="font-size: 16px; margin-bottom: 0px;padding:0px;" class="brrrfdddf">
-                                    {{formDataValue.obj_to_arrival.cityName}}</div>
-                                <p style="margin-top:-8px;    margin-bottom: 0px;">{{formDataValue.obj_to_arrival.code}}
-                                </p>
-
-                            </div>
-                            <div class="col-md-2 border-right">
-                                <span
-                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Departure
-                                </span>
-                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.from_depart_date |date}}
-                                </p>
-                            </div>
-
-                            <div class="col-md-2 border-right" *ngIf="formDataValue.to_arrival_date">
-                                <span
-                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Arrival
-                                </span>
-                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.to_arrival_date |date}}
-                                </p>
-                            </div>
-
-                            <div class="col-md-2 border-right">
-                                <span
-                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 3px;padding:0px;">Passengers</span>
-                                <p style="margin-top:-3px; margin-bottom: 0px;">{{ formDataValue.adults +
-                                    formDataValue.child + formDataValue.infant}}</p>
-                            </div>
-                            <div class="col-md-2 border-right">
-                                <span
-                                    style="color: rgb(169, 169, 169);font-size: 12px; margin-bottom: 0px;padding:0px;">Cabin</span>
-                                <p style="margin-top:-3px; margin-bottom: 0px;">{{formDataValue.class=='Y'?
-                                    'Economy':'Business'}}</p>
-                            </div>
-                            <div class="col-md-3" style="text-align: end;">
-                                <button type="button" class="btn-modify">Modify search</button>
-                            </div>
-                        </div>
+                      
 
 
                         <div class="row">

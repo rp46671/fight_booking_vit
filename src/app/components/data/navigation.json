@@ -14,13 +14,6 @@
         "link": "/about"
     },
     {
-        "id": 3,
-        "linkText": "Print Ticket",
-        "link": "/flight-grid-left/view-ticket/null",
-        "child": false 
-        
-    },
-    {
         "id": 4,
         "linkText": "Support",
         "child": false,

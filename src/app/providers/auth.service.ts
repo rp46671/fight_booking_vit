@@ -22,7 +22,15 @@ export class AuthService {
   signout() {
     this.authenticated = false;
     sessionStorage.removeItem('fight-user');
-    this.removeSession()
+    this.removeSession();
+    window.sessionStorage.removeItem('search-flight-raw-data');
+    window.sessionStorage.removeItem('flightSearchReqData');
+    window.sessionStorage.removeItem('confirmBookFlightData');
+    window.sessionStorage.removeItem('session_cal');
+    window.sessionStorage.removeItem('session_ama');
+    window.sessionStorage.removeItem('session_gal');
+    window.sessionStorage.removeItem('isLoggedin');
+    
   }
   login(requestData: any) {
     this.authenticated = true;

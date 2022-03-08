@@ -29,5 +29,11 @@ export class HeaderComponent extends HelperService {
 myAgencyBoking(){
   this.route.navigate(['/flight-grid-left/my-list'])
 }
+
+goToRandomNumberPage(event:any) {
+  event.preventDefault();
+  this.route.navigateByUrl('/', {skipLocationChange: true})
+    .then(() => this.route.navigate(['/flight-grid-left/view-ticket/null']));
+}
   
 }

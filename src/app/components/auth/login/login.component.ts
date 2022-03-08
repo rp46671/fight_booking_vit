@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.loginDisable = false;
     this.signinForm = this.fb.group({
       email: ['singhandghotralda@gmail.com', Validators.required],
-      password: ['loveu.021', Validators.required]
+      password: ['rinku.021', Validators.required]
     });
 
     this.response = {};

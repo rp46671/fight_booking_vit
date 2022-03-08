@@ -1,18 +1,23 @@
-<section class="section-padding bg-light-white booking-paymentform">
-    <div class="container-fluid">
+
+
+
+<section class="section-padding bg-light-white booking-form">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="tabs">
+                    <app-flight-booking-payment></app-flight-booking-payment>
+                          
                     <ul ngbNav #nav="ngbNav" class="custom-flex nav nav-tabs">
-                     
+                       
                         <li [ngbNavItem]="1">
                           
                             <ng-template ngbNavContent>
-                                <app-flight-booking-payment></app-flight-booking-payment>
                             </ng-template>
                         </li>
-                      </ul>
-                    <div [ngbNavOutlet]="nav" class="bg-custom-white bx-wrapper padding-20"></div>
+                       
+                    </ul>
+                  
                 </div>
             </div>
         </div>

@@ -287,7 +287,24 @@ export class FlightBookingPaymentComponent implements OnInit {
     console.log(this.localUserIds)
   
   }
-
+  multiBanco(){
+    this.loading = true;
+    let reqData = {
+      user_id:this.localUserIds,
+      price:this.bookFlightItem?.price,
+      
+    }
+    this.loading = true;
+    console.log(reqData);
+    this.locationsService.Api_mb(reqData).subscribe((res: any) => {
+      console.log(res)
+      this.spinerrLoading = false;
+     this.loading = false;
+    }, (err: any) => {
+      this.loading = false;
+    });
+  
+  }
 
   openChangePAyloaModal(content: any) {
     var localUserId: any = window.sessionStorage.getItem('fight-user');

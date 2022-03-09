@@ -2,11 +2,13 @@
   height: 160px;
   padding: 16px 8px;
 }
-.cuppa-dropdown{
-  overflow-x: hidden!important;
-  height: 65px!important;
-  overflow-y: scroll!important;
+
+.cuppa-dropdown {
+  overflow-x: hidden !important;
+  height: 65px !important;
+  overflow-y: scroll !important;
 }
+
 .border-style-my-right {
   border-style: dashed;
   border-top-style: none;
@@ -25,7 +27,7 @@
 }
 
 
-.suggestion_box{
+.suggestion_box {
   /* border: 1px solid black; */
   border-radius: 10px !important;
   margin-top: 10px !important;
@@ -34,24 +36,39 @@
   z-index: 999;
 }
 
-.suggestion_box_item div{
+.suggestion_box_item div {
   cursor: pointer !important;
   opacity: 0.7 !important;
 }
 
-.suggestion_box_item div:hover{
+.suggestion_box_item div:hover {
   opacity: 1 !important;
 }
 
-.btn-submit-disabled{
+.btn-submit-disabled {
   opacity: 0.5 !important;
   cursor: not-allowed !important;
 }
 
-.myBackGroundClass{
+.myBackGroundClass {
   background-image: url(../../../../../assets/images/home-banner-new.jpeg);
-                background-size: cover;
-                 background-position: center center; 
-                 background-repeat: no-repeat;
-                  display:block;
-                }
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: block;
+}
+.form-control-custom{
+  border-radius: 0px!important;
+}
+.form-control-custom, .group-form .form-control-custom:not(:last-child) {
+  border-radius: 00px !important;
+}
+
+.sele{
+  border: 2px solid #efefef;
+    background: #f5f5f5;
+   
+}
+c-icon{
+  filter: brightness(0.5)!important;
+}

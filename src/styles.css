@@ -28,7 +28,7 @@ ngb-rating:focus {
 
 .group-form .form-control-custom,
 .group-form .form-control-custom:not(:last-child) {
-  border-radius: 50px !important;
+  border-radius: 0px !important;
 }
 
 .banner-tabs .tab-pane .row {

@@ -147,12 +147,10 @@
                                                         <div class="input-group group-form">
                                                             <input type="date" [min]="today" name="from_depart_date"
                                                                 formControlName="from_depart_date"
-                                                                class="form-control form-control-custom datepickr"
+                                                                class="form-control form-control-custom "
                                                                 placeholder="mm/dd/yy"
                                                                 (change)="reset_from_depart_date()">
-                                                            <span class="input-group-append">
-                                                                <i class="far fa-calendar"></i>
-                                                            </span>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -162,11 +160,9 @@
                                                         <div class="input-group group-form">
                                                             <input type="date" [min]="from_depart_date?.value"
                                                                 name="to_arrival_date" formControlName="to_arrival_date"
-                                                                class="form-control form-control-custom datepickr"
+                                                                class="form-control form-control-custom "
                                                                 placeholder="mm/dd/yy">
-                                                            <span class="input-group-append">
-                                                                <i class="far fa-calendar"></i>
-                                                            </span>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -175,7 +171,7 @@
                                                         <label class="fs-14 text-custom-black fw-500">
                                                             Your Preferred Airline
                                                         </label>
-                                                        <div class="group-form">
+                                                        <div class="group-form sele">
                                                             <angular2-multiselect [data]="dropdownList"
                                                                 formControlName="preferred_carriers"
                                                                 [(ngModel)]="selectedItems"

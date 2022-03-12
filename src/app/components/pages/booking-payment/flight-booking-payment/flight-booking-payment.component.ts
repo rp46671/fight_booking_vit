@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location, LocationStrategy } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-flight-booking-payment',
   templateUrl: './flight-booking-payment.component.html',
@@ -42,13 +43,19 @@ export class FlightBookingPaymentComponent implements OnInit {
   childArrayPrice: any[] = [];
   adultsArrayPrice: any[] = [];
   localUserIds: any;
-  _CardName: any;
+
   _CardNumber: any;
   _holderNameDEtails: any;
   cardExpiry: any;
   cardYear: any;
   paymentWindiow3d: any;
   spinerrLoading!: boolean;
+  cvvNo: any
+  @ViewChild("modalPaytmentConfirm") modalPaytmentConfirm: ElementRef | undefined
+  @ViewChild("modalBancoModalAfterConfirm") modalBancoModalAfterConfirm: ElementRef | undefined
+  _ip: any;
+  multiBancoData: any;
+  count: any=0;
   constructor(
     private _location: Location,
     protected _sanitizer: DomSanitizer,
@@ -57,17 +64,17 @@ export class FlightBookingPaymentComponent implements OnInit {
     private modalService: NgbModal,
     private _router: Router,
     private locationStrategy: LocationStrategy,
-   
+
 
   ) {
     this.spinerrLoading = false;
     this.ButtonMidChange = "Flight_itinerary";
-
+    this.api_ipaddress();
   }
 
 
   ngOnInit(): void {
-    
+
     history.pushState(null, '', location.href);
     this.locationStrategy.onPopState(() => {
       history.pushState(null, '', location.href);
@@ -160,9 +167,9 @@ export class FlightBookingPaymentComponent implements OnInit {
 
       console.log("gal", value.gds)
       this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
-        this.bookingDetailPrice=res.detail;
-        if(res[0].status=="confirm"){
-          this.router.navigate(['/flight-grid-left/view-ticket/'+res[0].pnr])
+        this.bookingDetailPrice = res.detail;
+        if (res[0].status == "confirm") {
+          this.router.navigate(['/flight-grid-left/view-ticket/' + res[0].pnr])
         }
         this.loading = false;
       }, (err: any) => {
@@ -172,9 +179,9 @@ export class FlightBookingPaymentComponent implements OnInit {
       console.log("ama", value.gds)
       this.locationsService.booking_oneway_ams(reqData).subscribe((res: any) => {
         this.loading = false;
-        this.bookingDetailPrice=res.detail
-        if(res[0].status=="confirm"){
-          this.router.navigate(['/flight-grid-left/view-ticket/'+res[0].pnr])
+        this.bookingDetailPrice = res.detail
+        if (res[0].status == "confirm") {
+          this.router.navigate(['/flight-grid-left/view-ticket/' + res[0].pnr])
         }
       }, (err: any) => {
         this.loading = false;
@@ -265,54 +272,103 @@ export class FlightBookingPaymentComponent implements OnInit {
     this.spinerrLoading = true;
     this.loading = true;
     let reqData = {
-      user_id:this.localUserIds,
-      cardName:this._CardName,
-      cardNo:this._CardNumber,
-      cardHolderName:this._holderNameDEtails,
-      cardExpiry:this.cardExpiry,
-      cardYear:this.cardYear,
-      price:this.bookFlightItem?.price,
-      
+      user_id: this.localUserIds,
+      cardNo: this._CardNumber,
+      cardHolderName: this._holderNameDEtails,
+      cardExpiry: this.cardExpiry,
+      cardYear: this.cardYear,
+      price: this.bookFlightItem?.price,
+      cvvNo: this.cvvNo,
+      ip: this._ip,
+      gds: this.bookFlightItem.gds,
+      uniqueNo: this.getRandomColor()
     }
     this.loading = true;
     console.log(reqData);
     this.locationsService.Api_payment(reqData).subscribe((res: any) => {
       console.log(res)
       this.spinerrLoading = false;
-      this.paymentWindiow3d = this._sanitizer.bypassSecurityTrustResourceUrl(res.window3d)
+      if (res.otp != '' && res.window3d != '') {
+        this.paymentWindiow3d = this._sanitizer.bypassSecurityTrustResourceUrl(res.window3d)
+        this.openChangePAyloaModal(this.modalPaytmentConfirm)
+      } else {
+        confirm(res.status)
+      }
+
       this.loading = false;
     }, (err: any) => {
       this.loading = false;
     });
     console.log(this.localUserIds)
-  
+
   }
-  multiBanco(){
+  multiBanco() {
     this.loading = true;
     let reqData = {
-      user_id:this.localUserIds,
-      price:this.bookFlightItem?.price,
-      
+      user_id: this.localUserIds,
+      price: this.bookFlightItem?.price,
+
     }
     this.loading = true;
     console.log(reqData);
     this.locationsService.Api_mb(reqData).subscribe((res: any) => {
       console.log(res)
+      this.multiBancoData = res
+      if (res) {
+        this.openMultiBancoModalAfterPayment(this.modalBancoModalAfterConfirm)
+        this.mulltiBanccoPaytmentsuccfully(this.multiBancoData);
+      }
       this.spinerrLoading = false;
-     this.loading = false;
+      this.loading = false;
     }, (err: any) => {
       this.loading = false;
     });
-  
+
+  }
+  api_ipaddress() {
+    this.locationsService.api_ipaddress().subscribe((res: any) => {
+      console.log(res)
+      if (res.ip) {
+        this._ip = res.ip;
+      }
+      this.spinerrLoading = false;
+      this.loading = false;
+    }, (err: any) => {
+      this.loading = false;
+    });
   }
 
   openChangePAyloaModal(content: any) {
     var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
-  console.log(this.localUserIds)
-  
-  this.modalService.open(content, {
+    if (this.paymentWindiow3d) {
+      console.log(this.localUserIds)
+
+      this.modalService.open(content, {
+        ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl', backdrop: 'static',
+        keyboard: false,
+      })
+        .result.then((result) => {
+
+        }, (reason) => {
+
+        });
+    }
+  }
+  getRandomColor() {
+    var uniqueNo = Math.floor(0x1000000 * Math.random())
+    return uniqueNo;
+  }
+
+
+
+  openMultiBancoModalAfterPayment(content: any) {
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
+    localUserId = JSON.parse(localUserId);
+    this.localUserIds = localUserId?.detail.id;
+
+    this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title', centered: true, size: 'xl', backdrop: 'static',
       keyboard: false,
     })
@@ -321,5 +377,32 @@ export class FlightBookingPaymentComponent implements OnInit {
       }, (reason) => {
 
       });
+
+    setInterval(() => {
+      this.mulltiBanccoClosemode()
+    }, 10000);
+  }
+
+  mulltiBanccoPaytmentsuccfully(myValue: any) {
+    let reqData = {
+      amount: myValue.amount,
+      client: myValue.client,
+      reference: myValue.reference,
+      status: myValue.status
+    }
+    this.loading = true;
+    console.log(reqData);
+    this.locationsService.checkmb(reqData).subscribe((res: any) => {
+      console.log("mulltiBanccoPaytmentsuccfully", res)
+      this.loading = false;
+
+    }, (err: any) => {
+      this.loading = false;
+    });
+  }
+  mulltiBanccoClosemode() {
+    this.count=this.count+1
+    this.modalService.dismissAll();
+    this.mulltiBanccoPaytmentsuccfully(this.multiBancoData)
   }
 }

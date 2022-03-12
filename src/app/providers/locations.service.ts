@@ -164,4 +164,16 @@ export class LocationsService {
     //data = this.bindData(data);
     return this._http.post('https://www.khalsatravel.net/flight/Api_mb', data , { withCredentials: true });
   }
+  public checkmb(data: any): Observable<Object> {
+    data = this.bindData(data);
+    return this._http.post('https://www.khalsatravel.net/flight/Api_mb/checkmb', data , { withCredentials: true });
+  }
+  
+  // public api_ipaddress(): Observable<Object> {
+  //   return this._http.get('https://www.khalsatravel.net/flight/Api_payment/ip');
+  // }
+  public api_ipaddress() {
+  //  data = this.bindData(data);
+     return this._http.post('https://www.khalsatravel.net/flight/Api_payment/ip' ,{ withCredentials: true });
+   }
 }

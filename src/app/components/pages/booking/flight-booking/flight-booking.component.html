@@ -928,7 +928,107 @@
                     </div>
 
                 </div>
+                <div *ngFor="let item of viewDataAll2">
+                    <div>
+                        <div class="d-flex dis-box-2">
+                            <div class="dept">
+                                <div *ngIf="item.index_arr && item.index_dep"><i style="margin-right: 8px;"
+                                        class="fa fa-fighter-jet"></i>
+                                    <span style="font-weight: bold;">{{item.index_dep}} </span>
+                                    <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
+                                    <span style="font-weight: bold;"> {{item.index_arr}}</span>
+                                </div>
+                            </div>
+                            <div *ngIf="item.totalltime">
 
+                                Total duration <span style="font-weight: bold;"> {{item.totalltime}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; margin-bottom: 20px;">
+                                <div style="flex: 0.9 1 0%; padding-right: 20px;">
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
+                                            class="img-fr" style="height: 50px;">
+                                        <div>
+
+                                            <div style="font-weight:100;">
+                                                {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
+                                            <div style="font-weight:100;">{{item.cabin}}</div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                    <div style="font-size: 14px;">
+
+                                        <span style="font-weight: bold;
+                                            ">{{item.from_Origin}} {{item.from_flight_time}}</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="timing-text">
+                                        {{item.from_weekday}}, {{item.from_flight_date}}
+                                    </div>
+                                    <span> {{item.from_airportname}}
+                                        {{item.from_terminal}}</span><br>
+                                    <span style="font-weight:100;">
+                                        {{item.from_cityName}}, {{item.from_countryName}}</span>
+                                </div>
+                                <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                    <div style="font-size: 14px;">
+                                        <span class="orange-bva">{{item.to_Origin}}</span>
+                                        <span style="font-weight: bold;
+                                            margin-left: 5px;">{{item.to_time_arrival}}</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="timing-text">
+                                        {{item.to_weekday}}, {{item.to_date_arrival}}
+                                    </div>
+                                    <span> {{item.to_airportname}}
+                                        {{item.to_terminal}}
+                                    </span><br>
+                                    <span style="font-weight:100;">
+                                        {{item.to_cityName}}, {{item.to_countryName}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="yelooVividLight" *ngIf="item.transit_city">
+                            <div style="text-align: center;">
+                                <i style="margin-right: 8px;" class="fa fa-clock"></i>
+                                Waiting time in<b>{{item.transit_city}}</b>
+                            </div>
+                            <div style="text-align: end;">
+                                {{item.overlay_time}}
+                            </div>
+                        </div>
+
+                        <hr *ngIf="item.overlay_time==''"
+                            style="margin:0px; border:1px dashed rgb(102, 100, 100) ; margin-bottom: 5px;">
+                    </div>
+
+                    <!-- <div *ngFor="let allindex1 of indexAll">
+
+                            {{allindex1.airline_cod}}
+                            {{allindex1.dep_arr}}
+                            {{allindex1.dep_time}}
+                            {{allindex1.index_arr}}
+                            {{allindex1.index_dep}}
+                        </div>
+
+                        <div *ngFor="let allindex2 of indexAll2">
+
+
+                            {{allindex2.airline_cod}}
+                            {{allindex2.dep_arr}}
+                            {{allindex2.dep_time}}
+                            {{allindex2.index_arr}}
+                            {{allindex2.index_dep}}
+
+                        </div> -->
+
+                </div>
             </div>
         </ng-container>
         <ng-container *ngIf="ButtonMidChange=='Fare_details'">

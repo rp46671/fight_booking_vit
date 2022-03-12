@@ -87,7 +87,7 @@
                              <button class="btn btn-primary">Credit Card</button>
                             </div> 
                             <div class="col-md-3">
-                                <button class="btn btn-primary"(click)="multiBanco()">Multi Banco</button>
+                                <button class="btn btn-primary"(click)="multiBanco()" >Multi Banco</button>
                   
                             </div> 
                             <div class="col-md-3">
@@ -102,21 +102,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="row" >
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="fs-14 text-custom-black fw-500">Card Type</label>
-                                    <div class="group-form">
-                                        <select class=" form-control " [(ngModel)]="_CardName"
-                                            >
-                                            <option value="Select Card">Select Card</option>
-                                            <option value="Visa">Visa</option>
-                                            <option value="Master Card">Master Card</option>
-                                            <option value="Credit Card">Credit Card</option>
-                                            <option value="Americal Express">Americal Express</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                          
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="fs-14 text-custom-black fw-500">Card Holder Name</label>
@@ -131,35 +117,34 @@
                                         placeholder="Card Number" required>
                                 </div>
                             </div>
-                           
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label class="fs-14 text-custom-black fw-500">Expiration Month</label>
+                                            <label class="fs-14 text-custom-black fw-500">Month</label>
                                             <div class="group-form">
                                                 <select class=" form-control "  [(ngModel)]="cardExpiry"
                                                  >
-                                                    <option value="Month">Month</option>
-                                                    <option value="Jan">Jan</option>
-                                                    <option value="Feb">Feb</option>
-                                                    <option value="Mar">Mar</option>
-                                                    <option value="Apr">Apr</option>
-                                                    <option value="May">May</option>
-                                                    <option value="June">June</option>
-                                                    <option value="July">July</option>
-                                                    <option value="Aug">Aug</option>
-                                                    <option value="Sep">Sep</option>
-                                                    <option value="Oct">Oct</option>
-                                                    <option value="Nov">Nov</option>
-                                                    <option value="Dec">Dec</option>
+                                                    <option value="Month" disabled selected>Month</option>
+                                                    <option value="1">Jan</option>
+                                                    <option value="2">Feb</option>
+                                                    <option value="3">Mar</option>
+                                                    <option value="4">Apr</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">Aug</option>
+                                                    <option value="9">Sep</option>
+                                                    <option value="10">Oct</option>
+                                                    <option value="11">Nov</option>
+                                                    <option value="12">Dec</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label class="fs-14 text-custom-black fw-500">Expiration Year</label>
+                                            <label class="fs-14 text-custom-black fw-500">Year</label>
                                             <div class="group-form">
                                                 <select class=" form-control " [(ngModel)]="cardYear"
                                                   >
@@ -173,11 +158,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="fs-14 text-custom-black fw-500">Cvv</label>
+                                            <div class="group-form">
+                                                <input type="text" class=" form-control " [(ngModel)]="cvvNo">
+                                                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                           
                             <div class="col-md-12 text-center">
-                                <button (click)="Api_mybooking()" (click)="openChangePAyloaModal(modalPaytmentConfirm)" class="btn btn-primary"> Submit </button>
+                                <button (click)="Api_mybooking()"  class="btn btn-primary"> Submit </button>
                             </div>
                         </div>
                         <!-- <div class="row">
@@ -524,7 +519,107 @@
                     </div>
 
                 </div>
+                <div *ngFor="let item of viewDataAll2">
+                    <div>
+                        <div class="d-flex dis-box-2">
+                            <div class="dept">
+                                <div *ngIf="item.index_arr && item.index_dep"><i style="margin-right: 8px;"
+                                        class="fa fa-fighter-jet"></i>
+                                    <span style="font-weight: bold;">{{item.index_dep}} </span>
+                                    <i style="margin-right: 8px;" class="fa fa-long-arrow-right"></i>
+                                    <span style="font-weight: bold;"> {{item.index_arr}}</span>
+                                </div>
+                            </div>
+                            <div *ngIf="item.totalltime">
 
+                                Total duration <span style="font-weight: bold;"> {{item.totalltime}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; margin-bottom: 20px;">
+                                <div style="flex: 0.9 1 0%; padding-right: 20px;">
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <img src="{{defaultImageAddress}}{{item.from_Carrier}}{{formatImage}}"
+                                            class="img-fr" style="height: 50px;">
+                                        <div>
+
+                                            <div style="font-weight:100;">
+                                                {{item.from_Carrier}}-{{item.from_FlightNumber}}</div>
+                                            <div style="font-weight:100;">{{item.cabin}}</div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                    <div style="font-size: 14px;">
+
+                                        <span style="font-weight: bold;
+                                            ">{{item.from_Origin}} {{item.from_flight_time}}</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="timing-text">
+                                        {{item.from_weekday}}, {{item.from_flight_date}}
+                                    </div>
+                                    <span> {{item.from_airportname}}
+                                        {{item.from_terminal}}</span><br>
+                                    <span style="font-weight:100;">
+                                        {{item.from_cityName}}, {{item.from_countryName}}</span>
+                                </div>
+                                <div style="flex: 0.9 1 0%;padding-right: 20px;">
+                                    <div style="font-size: 14px;">
+                                        <span class="orange-bva">{{item.to_Origin}}</span>
+                                        <span style="font-weight: bold;
+                                            margin-left: 5px;">{{item.to_time_arrival}}</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="timing-text">
+                                        {{item.to_weekday}}, {{item.to_date_arrival}}
+                                    </div>
+                                    <span> {{item.to_airportname}}
+                                        {{item.to_terminal}}
+                                    </span><br>
+                                    <span style="font-weight:100;">
+                                        {{item.to_cityName}}, {{item.to_countryName}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="yelooVividLight" *ngIf="item.transit_city">
+                            <div style="text-align: center;">
+                                <i style="margin-right: 8px;" class="fa fa-clock"></i>
+                                Waiting time in<b>{{item.transit_city}}</b>
+                            </div>
+                            <div style="text-align: end;">
+                                {{item.overlay_time}}
+                            </div>
+                        </div>
+
+                        <hr *ngIf="item.overlay_time==''"
+                            style="margin:0px; border:1px dashed rgb(102, 100, 100) ; margin-bottom: 5px;">
+                    </div>
+
+                    <!-- <div *ngFor="let allindex1 of indexAll">
+
+                            {{allindex1.airline_cod}}
+                            {{allindex1.dep_arr}}
+                            {{allindex1.dep_time}}
+                            {{allindex1.index_arr}}
+                            {{allindex1.index_dep}}
+                        </div>
+
+                        <div *ngFor="let allindex2 of indexAll2">
+
+
+                            {{allindex2.airline_cod}}
+                            {{allindex2.dep_arr}}
+                            {{allindex2.dep_time}}
+                            {{allindex2.index_arr}}
+                            {{allindex2.index_dep}}
+
+                        </div> -->
+
+                </div>
             </div>
         </ng-container>
         <ng-container *ngIf="ButtonMidChange=='Fare_details'">
@@ -633,6 +728,68 @@
   </div>
   
   </ng-template>
+
+
+  <ng-template #modalBancoModalAfterConfirm let-modal>
+    <button type="button" class="float-right close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span class="float-right mt-1 mr-2" aria-hidden="true">&times;</span>
+    </button>
+  
+  <div class="modal-body">
+   
+        {{count}}
+
+  </div>
+  
+  </ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

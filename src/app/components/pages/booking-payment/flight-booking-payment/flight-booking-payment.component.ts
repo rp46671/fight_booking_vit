@@ -74,7 +74,7 @@ export class FlightBookingPaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+     this.Api_balance();
     history.pushState(null, '', location.href);
     this.locationStrategy.onPopState(() => {
       history.pushState(null, '', location.href);
@@ -404,5 +404,21 @@ export class FlightBookingPaymentComponent implements OnInit {
     this.count=this.count+1
     this.modalService.dismissAll();
     this.mulltiBanccoPaytmentsuccfully(this.multiBancoData)
+  }
+  Api_balance() {
+    var localUserId: any = window.sessionStorage.getItem('fight-user');
+    localUserId = JSON.parse(localUserId);
+    this.localUserIds = localUserId?.detail.id;
+    let reqData = {
+      clientId: this.localUserIds,
+    }
+    this.loading = true;
+    console.log(reqData);
+    this.locationsService.Api_balance(reqData).subscribe((res: any) => {
+      console.log("", res)
+      this.loading = false;
+    }, (err: any) => {
+      this.loading = false;
+    });
   }
 }

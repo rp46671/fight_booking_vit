@@ -40,6 +40,7 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
     }
     FlightBookingPaymentComponent.prototype.ngOnInit = function () {
         var _a, _b, _c, _d;
+        this.Api_balance();
         history.pushState(null, '', location.href);
         this.locationStrategy.onPopState(function () {
             history.pushState(null, '', location.href);
@@ -353,6 +354,23 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
         this.count = this.count + 1;
         this.modalService.dismissAll();
         this.mulltiBanccoPaytmentsuccfully(this.multiBancoData);
+    };
+    FlightBookingPaymentComponent.prototype.Api_balance = function () {
+        var _this = this;
+        var localUserId = window.sessionStorage.getItem('fight-user');
+        localUserId = JSON.parse(localUserId);
+        this.localUserIds = localUserId === null || localUserId === void 0 ? void 0 : localUserId.detail.id;
+        var reqData = {
+            clientId: this.localUserIds
+        };
+        this.loading = true;
+        console.log(reqData);
+        this.locationsService.Api_balance(reqData).subscribe(function (res) {
+            console.log("", res);
+            _this.loading = false;
+        }, function (err) {
+            _this.loading = false;
+        });
     };
     __decorate([
         core_1.ViewChild("modalPaytmentConfirm")

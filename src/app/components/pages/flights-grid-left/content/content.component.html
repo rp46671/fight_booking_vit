@@ -915,7 +915,7 @@
 
         </div>
         <div *ngIf="loading" class="w-100 d-flex align-items-center justify-content-center"
-    style="height: 100vh !important; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: white; z-index: 99;">
+    style="height: 100vh !important; position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 99;">
         <div class="loader">
             <span></span>
             <span></span>
@@ -1165,7 +1165,7 @@
                                 <div class="form-group">
                                     <label class="submit"></label>
                                     <button *ngIf="!loading" class="btn-first btn-submit full-width btn-height"
-                                        (click)="flightSearchFromSub()" (click)="modal.close('Ok')"
+                                        (click)="modal.close('Ok')"
                                         [class.btn-submit-disabled]="flightSearchFrom.invalid"
                                         [disabled]="flightSearchFrom.invalid">
                                         Search

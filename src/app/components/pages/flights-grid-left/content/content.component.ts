@@ -63,7 +63,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   _price: any;
   viwItemData: any;
   directValue!: boolean;
-  CheckedBaggageD!:boolean;
+  CheckedBaggageD!: boolean;
+  count: number=0;
+  interval2: any=null;
   constructor(
     private locationsService: LocationsService,
     private formBuilder: FormBuilder,
@@ -74,8 +76,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     private userIdle: UserIdleService
   ) {
     this.setTimeout();
-    this.directValue=false;
-    this.CheckedBaggageD=false;
+    this.directValue = false;
+    this.CheckedBaggageD = false;
     this.userInactive.subscribe(() => console.log('user has been inactive for 3s'));
   }
 
@@ -99,7 +101,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.userIdle.onTimeout().subscribe(() => console.log('Time is up!'));
 
 
-
+  
     var localUserId: any = window.sessionStorage.getItem('fight-user');
     localUserId = JSON.parse(localUserId);
     this.localUserIds = localUserId?.detail.id;
@@ -111,12 +113,20 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.load();
     this.Api_filter()
 
-    this.interval = setInterval(() => {
-      this.load(false);
-      this.getCalender(this.localUserIds)
+      this.interval = setInterval(() => {
+        this.load(false);
+        this.getCalender(this.localUserIds)
+       
+      }, 1000);
 
-    }, 15000);
+      this.interval2 = setInterval(() => {
+        this.load(false);
+        this.getCalender(this.localUserIds)
+       
+      }, 15000);
 
+    
+    
     console.log(" this.formDataValue", this.formDataValue)
     this.applyData(JSON.parse(data));
     this.getCalender(this.localUserIds);
@@ -206,7 +216,6 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
   load(showLoad = true) {
-   
     this.sendingArrayBaggage = [];
     this.sendingArrayStops = [];
     this.sendingArrayAirline = [];
@@ -238,25 +247,13 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
     this.locationsService.get_alll(this.localUserIds, this.sendingArrayStops, this.sendingArrayBaggage, this.sendingArrayAirline).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
+      this.cusFlightblockArr = []
       this.cusFlightblockArr = res.detail;
+      if( this.cusFlightblockArr){
+        this.pauseTimeLine()
+      }
+      
      
-      // this.cusFlightblockArrfilter = res.filter;
-      // this.cusFlightblockArrfilter?.forEach(ele => {
-      //   ele.isSelected = false;
-      // });
-      //  console.log("this.cusFlightblockArrfilter",this.cusFlightblockArrfilter)
-      // this.changesArrfilterInfomationArry();
-      // this.cusFlightblockArrbaggage = res.baggage;
-      // this.cusFlightblockArrbaggage.forEach(ele => {
-      //   ele.isSelected = false;
-      // });
-      // this.changesBaggadeInfomationArry();
-      // this.cusFlightblockArrstop = res.stop;
-      // this.cusFlightblockArrstop.forEach(ele => {
-      //   ele.isSelected = false;
-      // });
-      // this.changesStopsInfomationArry();
-
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.cusFlightblockArr = [];
@@ -295,21 +292,21 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   fightDirect() {
     this.directValue = !this.directValue;
-    if(this.directValue){
-     this.load()
-    }else{
+    if (this.directValue) {
+      this.load()
+    } else {
 
     }
-    console.log(" this.directValue ", this.directValue )
+    console.log(" this.directValue ", this.directValue)
   }
-  Checkedbaggage(){
-    this.CheckedBaggageD=!this.CheckedBaggageD
-    if(this.CheckedBaggageD){
+  Checkedbaggage() {
+    this.CheckedBaggageD = !this.CheckedBaggageD
+    if (this.CheckedBaggageD) {
 
-    }else{
+    } else {
 
     }
-  } 
+  }
 
   StoreBaggadeInfomation(val: any, event: any) {
     console.log("baggeee", event.target.checked);
@@ -505,6 +502,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   flightSearchFromSub() {
     this.cusFlightblockArr = [];
+    //this.loading=true;
     let formValue = this.flightSearchFrom.getRawValue();
     let reqData = {
       "user_id": this.localUserIds,
@@ -522,29 +520,30 @@ export class ContentComponent implements OnInit, OnDestroy {
       "airlines": formValue.preferred_carriers.map((item: any) => item.id),
       "class": formValue.class
     }
-
+    this.deletFunction(reqData)
+  
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
 
     let data: any = window.sessionStorage.getItem('search-flight-raw-data');
     this.formDataValue = JSON.parse(data);
-
     window.sessionStorage.removeItem('confirmBookFlightData');
-
+    this.cusFlightblockArr = [];
+    this.load();
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
-      // this.router.navigate(['/flight-grid-left']);
       this.load();
       this.getCalender(this.localUserIds);
+      this.loading=false;
     }, (err: any) => {
-      // this.router.navigate(['/flight-grid-left']);
       this.load();
       this.getCalender(this.localUserIds);
+      this.loading=false;
     });
   }
 
   set_form_depart_val(valueObj: any, selectedItem: string = 'individual') {
     valueObj['childArr'] = [];
-    console.log("selectedItem",selectedItem)
+    console.log("selectedItem", selectedItem)
     this.obj_form_depart?.setValue(valueObj);
     this.set_form_depart_val_selected_item = selectedItem;
     if (selectedItem == 'individual') {
@@ -576,6 +575,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       ariaLabelledBy: 'modal-basic-title', size: 'xl', scrollable: false, centered: true,
 
     }).result.then((result) => {
+      this.flightSearchFromSub();
       this.confirmResut = `Closed with: ${result}`;
 
     }, (reason) => {
@@ -701,7 +701,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   preDeparterDateflightSearchFromSub() {
-    this.loading=true;
+    this.loading = true;
     this.cusFlightblockArr = [];
     let formValue = this.flightSearchFrom.getRawValue();
     var new_date: any = moment(formValue.from_depart_date).subtract(1, 'days');
@@ -723,7 +723,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       "airlines": formValue.preferred_carriers.map((item: any) => item.id),
       "class": formValue.class
     }
-
+    this.deletFunction(reqData)
+  
     formValue['from_depart_date'] = new_date2;
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
     this.applyData(formValue);
@@ -734,20 +735,22 @@ export class ContentComponent implements OnInit, OnDestroy {
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.removeItem('confirmBookFlightData');
     this.isLoadingEvent.emit(true);
+    this.load();
+    this.loading = false;
+   
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
-      this.loading=false;
-    }, (err: any) => {
+      }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
-      this.loading=false;
+      this.loading = false;
     });
   }
   nextDeparterDateflightSearchFromSub() {
-    this.loading=true;
+    this.loading = true;
     this.cusFlightblockArr = [];
     let formValue = this.flightSearchFrom.getRawValue();
     var new_date: any = moment(formValue.from_depart_date).add(1, 'days');
@@ -768,7 +771,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       "direct": formValue.direct,
       "airlines": formValue.preferred_carriers.map((item: any) => item.id)
     }
-
+    this.deletFunction(reqData)
+  
     formValue['from_depart_date'] = new_date2;
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
     this.applyData(formValue);
@@ -778,23 +782,26 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.formDataValue = JSON.parse(data);
 
     window.sessionStorage.removeItem('confirmBookFlightData');
+    this.load();
+    this.loading = false;
+   
     this.isLoadingEvent.emit(true);
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
-      this.loading=false;
+      this.loading = false;
       this.getCalender(this.localUserIds);
     }, (err: any) => {
 
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
-      this.loading=false;
+      this.loading = false;
     });
   }
 
   preReturnDateflightSearchFromSub() {
-    this.loading=true;
+    this.loading = true;
     this.cusFlightblockArr = [];
     let formValue = this.flightSearchFrom.getRawValue();
 
@@ -821,7 +828,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       "airlines": formValue.preferred_carriers.map((item: any) => item.id),
       "class": formValue.class
     }
-
+    this.deletFunction(reqData)
+  
     if (formValue.to_arrival_date != "" && formValue.to_arrival_date != null && formValue.to_arrival_date != undefined) {
       formValue['to_arrival_date'] = to_arrival_date2;
     } else {
@@ -835,23 +843,25 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.formDataValue = JSON.parse(data);
 
     window.sessionStorage.removeItem('confirmBookFlightData');
-
+    this.load();
+    this.loading = false;
+   
     this.isLoadingEvent.emit(true);
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
       this.getCalender(this.localUserIds);
-      this.loading=false;
+      this.loading = false;
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
-      this.loading=false;
+      this.loading = false;
       this.getCalender(this.localUserIds);
     });
   }
   nextReturnDateflightSearchFromSub() {
     this.cusFlightblockArr = [];
-    this.loading=true;
+    this.loading = true;
     let formValue = this.flightSearchFrom.getRawValue();
 
     var to_arrival_date: any;
@@ -876,7 +886,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       "direct": formValue.direct,
       "airlines": formValue.preferred_carriers.map((item: any) => item.id)
     }
-
+    this.deletFunction(reqData)
+   
     if (formValue.to_arrival_date != "" && formValue.to_arrival_date != null && formValue.to_arrival_date != undefined) {
       formValue['to_arrival_date'] = to_arrival_date2;
     } else {
@@ -889,16 +900,19 @@ export class ContentComponent implements OnInit, OnDestroy {
 
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.removeItem('confirmBookFlightData');
+    this.load();
+    this.loading = false;
+   
     this.isLoadingEvent.emit(true);
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
-      this.loading=false;
+      this.loading = false;
       this.getCalender(this.localUserIds);
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
       this.load();
-      this.loading=false;
+      this.loading = false;
       this.getCalender(this.localUserIds);
     });
   }
@@ -925,6 +939,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       "airlines": formValue.preferred_carriers.map((item: any) => item.id),
       "class": formValue.class
     }
+    this.deletFunction(reqData)
     formValue['from_depart_date'] = new_date2;
     window.sessionStorage.setItem('search-flight-raw-data', JSON.stringify(formValue));
     this.applyData(formValue);
@@ -933,14 +948,28 @@ export class ContentComponent implements OnInit, OnDestroy {
 
     window.sessionStorage.setItem('flightSearchReqData', JSON.stringify(reqData));
     window.sessionStorage.removeItem('confirmBookFlightData');
+    this.load();
+    this.loading = false;
+   
     this.isLoadingEvent.emit(true);
     this.locationsService.flight_search(reqData).subscribe((res: any) => {
       this.isLoadingEvent.emit(false);
-      this.load();
-      this.getCalender(this.localUserIds);
+     this.load(false);
+    this.getCalender(this.localUserIds);
     }, (err: any) => {
       this.isLoadingEvent.emit(false);
-      this.load();
+      this.load(false);
+      this.getCalender(this.localUserIds);
+    });
+  }
+  deletFunction(reqData:any){
+    this.locationsService.Api_delete(reqData).subscribe((res: any) => {
+      this.cusFlightblockArr=[];
+      this.load(false);
+      this.getCalender(this.localUserIds);
+    }, (err: any) => {
+     this.cusFlightblockArr=[];
+       this.load(false);
       this.getCalender(this.localUserIds);
     });
   }
@@ -972,4 +1001,13 @@ export class ContentComponent implements OnInit, OnDestroy {
   restart() {
     this.userIdle.resetTimer();
   }
+
+  pauseTimeLine() {
+    console.log(this.interval,"this.interval")
+   clearInterval(this.interval);
+  
+}
+pauseTimeLine1() {
+  clearInterval(this.interval2);
+}
 }

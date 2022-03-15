@@ -160,6 +160,14 @@ var LocationsService = /** @class */ (function () {
         //  data = this.bindData(data);
         return this._http.post('https://www.khalsatravel.net/flight/Api_payment/ip', { withCredentials: true });
     };
+    LocationsService.prototype.Api_balance = function (data) {
+        /// data = this.bindData(data);
+        return this._http.post('https://www.khalsatravel.net/flight/Api_balance', data, { withCredentials: true });
+    };
+    LocationsService.prototype.Api_delete = function (data) {
+        data = this.bindData(data);
+        return this._http.post('https://www.khalsatravel.net/flight/Api_delete', data, { withCredentials: true });
+    };
     LocationsService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

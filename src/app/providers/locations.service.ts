@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -176,4 +177,13 @@ export class LocationsService {
   //  data = this.bindData(data);
      return this._http.post('https://www.khalsatravel.net/flight/Api_payment/ip' ,{ withCredentials: true });
    }
+   public Api_balance(data:any) {
+    /// data = this.bindData(data);
+       return this._http.post('https://www.khalsatravel.net/flight/Api_balance',data ,{ withCredentials: true });
+     }
+
+     public Api_delete(data:any) {
+       data = this.bindData(data);
+         return this._http.post('https://www.khalsatravel.net/flight/Api_delete',data ,{ withCredentials: true });
+       }
 }

@@ -9,8 +9,10 @@ exports.__esModule = true;
 exports.ContentComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
 var moment_1 = require("moment");
 var rxjs_1 = require("rxjs");
+var operators_1 = require("rxjs/operators");
 var ContentComponent = /** @class */ (function () {
     function ContentComponent(locationsService, formBuilder, modalService, locationStrategy, _router, datePipe, userIdle) {
         this.locationsService = locationsService;
@@ -61,6 +63,14 @@ var ContentComponent = /** @class */ (function () {
     ContentComponent.prototype.ngOnInit = function () {
         var _this = this;
         var _a;
+        this._router.events
+            .pipe(operators_1.filter(function (rs) { return rs instanceof router_1.NavigationEnd; }))
+            .subscribe(function (event) {
+            if (event.id === 1 &&
+                event.url === event.urlAfterRedirects) {
+                console.log("fg");
+            }
+        });
         history.pushState(null, '', location.href);
         this.locationStrategy.onPopState(function () {
             history.pushState(null, '', location.href);

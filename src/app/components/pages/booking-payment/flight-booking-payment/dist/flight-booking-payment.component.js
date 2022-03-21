@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.FlightBookingPaymentComponent = void 0;
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var FlightBookingPaymentComponent = /** @class */ (function () {
     function FlightBookingPaymentComponent(_location, _sanitizer, locationsService, router, modalService, _router, locationStrategy) {
         this._location = _location;
@@ -41,6 +42,7 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
     FlightBookingPaymentComponent.prototype.ngOnInit = function () {
         var _a, _b, _c, _d;
         this.Api_balance();
+        this.MyCardFromBinding();
         history.pushState(null, '', location.href);
         this.locationStrategy.onPopState(function () {
             history.pushState(null, '', location.href);
@@ -62,8 +64,43 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
         this.adultArr = (_b = this.confirmBookFlightData) === null || _b === void 0 ? void 0 : _b.adults;
         this.childArr = (_c = this.confirmBookFlightData) === null || _c === void 0 ? void 0 : _c.childs;
         this.infantArr = (_d = this.confirmBookFlightData) === null || _d === void 0 ? void 0 : _d.infants;
+        console.log("this.bookFlightItem.price", this.bookFlightItem.price);
         /// this.onPaymentConfirmSubmitData(this.bookFlightItem);
     };
+    FlightBookingPaymentComponent.prototype.MyCardFromBinding = function () {
+        this.cardInfo = new forms_1.FormGroup({
+            cardname: new forms_1.FormControl('', [forms_1.Validators.required]),
+            cardnumber: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(14), forms_1.Validators.min(14), forms_1.Validators.max(14)]),
+            cvv: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
+            expmonth: new forms_1.FormControl('', [forms_1.Validators.required]),
+            expyear: new forms_1.FormControl('', [forms_1.Validators.required])
+        });
+    };
+    Object.defineProperty(FlightBookingPaymentComponent.prototype, "cardname", {
+        get: function () { return this.cardInfo.get('cardname'); },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FlightBookingPaymentComponent.prototype, "cardnumber", {
+        get: function () { return this.cardInfo.get('cardnumber'); },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FlightBookingPaymentComponent.prototype, "cvv", {
+        get: function () { return this.cardInfo.get('cvv'); },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FlightBookingPaymentComponent.prototype, "expmonth", {
+        get: function () { return this.cardInfo.get('expmonth'); },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FlightBookingPaymentComponent.prototype, "expyear", {
+        get: function () { return this.cardInfo.get('expyear'); },
+        enumerable: false,
+        configurable: true
+    });
     FlightBookingPaymentComponent.prototype.editData = function () {
         this.router.navigate(['/booking']);
     };
@@ -111,7 +148,8 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
                     first_name: ele === null || ele === void 0 ? void 0 : ele.firstname,
                     last_name: ele === null || ele === void 0 ? void 0 : ele.lastname
                 };
-            })
+            }),
+            price: this.bookFlightItem.price
         };
         this.loading = true;
         console.log(reqData);
@@ -126,11 +164,24 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
             console.log("gal", value.gds);
             this.locationsService.booking_oneway_gal(reqData).subscribe(function (res) {
                 _this.bookingDetailPrice = res.detail;
+                _this.loading = false;
                 if (res[0].status == "confirm") {
                     _this.router.navigate(['/flight-grid-left/view-ticket/' + res[0].pnr]);
                 }
-                _this.loading = false;
+                else if (res[0].message == "negtive") {
+                    alert(res[0].error);
+                }
+                else if (res[0].message == "api_error") {
+                    alert(res[0].error);
+                    _this.router.navigate(['/flight-grid-left/content-fight']);
+                }
+                else {
+                    alert('Contact With Us');
+                    _this.router.navigate(['/flight-grid-left/content-fight']);
+                }
             }, function (err) {
+                // alert('Flight not confirm .Please look another recommendation')
+                //this.router.navigate(['/flight-grid-left/content-fight']);
                 _this.loading = false;
             });
         }
@@ -142,7 +193,20 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
                 if (res[0].status == "confirm") {
                     _this.router.navigate(['/flight-grid-left/view-ticket/' + res[0].pnr]);
                 }
+                else if (res[0].message == "negtive") {
+                    alert(res[0].error);
+                }
+                else if (res[0].message == "api_error") {
+                    alert(res[0].error);
+                    _this.router.navigate(['/flight-grid-left/content-fight']);
+                }
+                else {
+                    alert('Contact With us ');
+                    _this.router.navigate(['/flight-grid-left/content-fight']);
+                }
             }, function (err) {
+                // alert('Flight not confirm .Please look another recommendation')
+                // this.router.navigate(['/flight-grid-left/content-fight']);
                 _this.loading = false;
             });
         }
@@ -371,6 +435,40 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
         }, function (err) {
             _this.loading = false;
         });
+    };
+    FlightBookingPaymentComponent.prototype.onKeyPress = function (params) {
+        if (params.key === 'Backspace' || params.key === '.') {
+            return true;
+        }
+        else if (!this.isKeyPressedNumeric(params)) {
+            return false;
+        }
+    };
+    FlightBookingPaymentComponent.prototype.isKeyPressedNumeric = function (event) {
+        var inputVal = document.getElementById("cnumber");
+        var input = inputVal.value;
+        input = input + event.key;
+        if (input.length >= 2) {
+            var txtVal = input;
+            return /^((\d{1,14})|(\d{1,14})(\.{1}\d{1,14}))$/.test(txtVal);
+        }
+        var charCode = this.getCharCode(event);
+        var charStr = event.key ? event.key : String.fromCharCode(charCode);
+        return this.isCharNumeric(charStr);
+    };
+    FlightBookingPaymentComponent.prototype.getCharCode = function (event) {
+        event = event || window.event;
+        return (typeof event.which == "undefined") ? event.keyCode : event.which;
+    };
+    FlightBookingPaymentComponent.prototype.isCharNumeric = function (charStr) {
+        var validation = false;
+        if (charStr == ".") {
+            validation = !!/\./.test(charStr);
+        }
+        else {
+            validation = !!/\d/.test(charStr);
+        }
+        return validation;
     };
     __decorate([
         core_1.ViewChild("modalPaytmentConfirm")

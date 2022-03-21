@@ -1,12 +1,13 @@
 import { DatePipe, LocationStrategy } from '@angular/common';
 import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocationsService } from 'src/app/providers/locations.service';
 import moment from 'moment';
 import { UserIdleService } from 'angular-user-idle';
 import { Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-content',
@@ -16,6 +17,7 @@ import { Subject } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class ContentComponent implements OnInit, OnDestroy {
+
   calenderShown: boolean = false;
   filterAsideBar = false;
   loading = false;
@@ -88,6 +90,16 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   userInactive: Subject<any> = new Subject();
   ngOnInit() {
+    this._router.events
+    .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+    .subscribe(event => {
+      if (
+        event.id === 1 &&
+        event.url === event.urlAfterRedirects 
+      ) {
+       console.log("fg")
+      }
+    })
     history.pushState(null, '', location.href);
     this.locationStrategy.onPopState(() => {
       history.pushState(null, '', location.href);

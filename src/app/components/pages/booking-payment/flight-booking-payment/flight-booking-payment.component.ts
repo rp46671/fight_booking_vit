@@ -56,6 +56,7 @@ export class FlightBookingPaymentComponent implements OnInit {
   _ip: any;
   multiBancoData: any;
   count: any=0;
+  cardInfo!: FormGroup;
   constructor(
     private _location: Location,
     protected _sanitizer: DomSanitizer,
@@ -75,6 +76,7 @@ export class FlightBookingPaymentComponent implements OnInit {
 
   ngOnInit(): void {
      this.Api_balance();
+     this.MyCardFromBinding();
     history.pushState(null, '', location.href);
     this.locationStrategy.onPopState(() => {
       history.pushState(null, '', location.href);
@@ -101,10 +103,25 @@ export class FlightBookingPaymentComponent implements OnInit {
     this.adultArr = this.confirmBookFlightData?.adults;
     this.childArr = this.confirmBookFlightData?.childs;
     this.infantArr = this.confirmBookFlightData?.infants;
-
+console.log("this.bookFlightItem.price",this.bookFlightItem.price)
     /// this.onPaymentConfirmSubmitData(this.bookFlightItem);
   }
-
+MyCardFromBinding()
+{
+  this.cardInfo= new FormGroup({
+    cardname: new FormControl('', [Validators.required]),
+    cardnumber: new FormControl('', [Validators.required,Validators.minLength(14),Validators.min(14), Validators.max(14)]),
+    cvv: new FormControl('', [Validators.required,Validators.minLength(3)]),
+    expmonth: new FormControl('', [Validators.required]),
+    expyear: new FormControl('', [Validators.required]),
+  });
+}
+get cardname() { return this.cardInfo.get('cardname'); }
+get cardnumber() { return this.cardInfo.get('cardnumber'); }
+get cvv() { return this.cardInfo.get('cvv'); }
+get expmonth() { return this.cardInfo.get('expmonth'); }
+get expyear() { return this.cardInfo.get('expyear'); }
+  
   editData() {
     this.router.navigate(['/booking']);
   }
@@ -151,7 +168,8 @@ export class FlightBookingPaymentComponent implements OnInit {
           first_name: ele?.firstname,
           last_name: ele?.lastname
         };
-      })
+      }),
+      price:this.bookFlightItem.price
     }
 
     this.loading = true;
@@ -168,11 +186,23 @@ export class FlightBookingPaymentComponent implements OnInit {
       console.log("gal", value.gds)
       this.locationsService.booking_oneway_gal(reqData).subscribe((res: any) => {
         this.bookingDetailPrice = res.detail;
+        this.loading = false;
         if (res[0].status == "confirm") {
           this.router.navigate(['/flight-grid-left/view-ticket/' + res[0].pnr])
+        }else if(res[0].message== "negtive"){
+          alert(res[0].error);
         }
-        this.loading = false;
+        else if(res[0].message=="api_error"){
+          alert(res[0].error);
+          this.router.navigate(['/flight-grid-left/content-fight']);
+        }
+        else {
+         alert('Contact With Us');
+          this.router.navigate(['/flight-grid-left/content-fight']);
+        }
       }, (err: any) => {
+       // alert('Flight not confirm .Please look another recommendation')
+        //this.router.navigate(['/flight-grid-left/content-fight']);
         this.loading = false;
       });
     } else if (value.gds == "ama") {
@@ -182,8 +212,20 @@ export class FlightBookingPaymentComponent implements OnInit {
         this.bookingDetailPrice = res.detail
         if (res[0].status == "confirm") {
           this.router.navigate(['/flight-grid-left/view-ticket/' + res[0].pnr])
+        }else if(res[0].message== "negtive"){
+          alert(res[0].error);
+        }
+        else if(res[0].message=="api_error"){
+          alert(res[0].error);
+         this.router.navigate(['/flight-grid-left/content-fight']);
+        }
+        else {
+          alert('Contact With us ');
+          this.router.navigate(['/flight-grid-left/content-fight']);
         }
       }, (err: any) => {
+       // alert('Flight not confirm .Please look another recommendation')
+       // this.router.navigate(['/flight-grid-left/content-fight']);
         this.loading = false;
       });
     } else {
@@ -421,4 +463,46 @@ export class FlightBookingPaymentComponent implements OnInit {
       this.loading = false;
     });
   }
+  
+  onKeyPress(params: any) {
+    if (params.key === 'Backspace' || params.key === '.') {
+      return true;
+    }
+    else if (!this.isKeyPressedNumeric(params)) {
+      return false;
+    }
+  }
+
+  private isKeyPressedNumeric(event: any): boolean {
+
+    var inputVal = <HTMLInputElement>document.getElementById("cnumber");
+    var input = inputVal.value;
+    input = input + event.key;
+    if (input.length >= 2) {
+      var txtVal = input;
+      return /^((\d{1,14})|(\d{1,14})(\.{1}\d{1,14}))$/.test(txtVal);
+    }
+
+    const charCode = this.getCharCode(event);
+    const charStr = event.key ? event.key : String.fromCharCode(charCode);
+    return this.isCharNumeric(charStr);
+  }
+
+  private getCharCode(event: any): any {
+    event = event || window.event;
+    return (typeof event.which == "undefined") ? event.keyCode : event.which;
+  }
+
+  private isCharNumeric(charStr: any): boolean {
+    var validation = false;
+
+    if (charStr == ".") {
+      validation = !!/\./.test(charStr);
+    }
+    else {
+      validation = !!/\d/.test(charStr);
+    }
+    return validation;
+  }
+
 }

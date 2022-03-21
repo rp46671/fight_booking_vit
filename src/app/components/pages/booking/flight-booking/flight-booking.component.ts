@@ -204,11 +204,11 @@ export class FlightBookingComponent implements OnInit {
           this.router.navigate(['/booking-payment']);
           this.bookingForm.reset();
         } else {
-          alert('Something is wrong');
+          alert('Flight not confirm .Please look another recommendation');
           this.router.navigate(['/flight-grid-left/content-fight']);
         }
       }, (err: any) => {
-        alert('Something is wrong')
+        alert('Flight not confirm .Please look another recommendation')
         this.router.navigate(['/flight-grid-left/content-fight']);
         this.loading = false;
       });
@@ -220,11 +220,11 @@ export class FlightBookingComponent implements OnInit {
           this.router.navigate(['/booking-payment']);
           this.bookingForm.reset();
         } else {
-          alert('Something is wrong')
+          alert('Flight not confirm .Please look another recommendation')
           this.router.navigate(['/flight-grid-left/content-fight']);
         }
       }, (err: any) => {
-        alert('Something is wrong')
+        alert('Flight not confirm .Please look another recommendation')
         this.router.navigate(['/flight-grid-left/content-fight']);
         this.loading = false;
       });

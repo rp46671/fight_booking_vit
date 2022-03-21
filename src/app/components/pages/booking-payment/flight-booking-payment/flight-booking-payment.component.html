@@ -82,19 +82,160 @@
                     </div>
                     <div class="col-md-12 mt-2">
                         <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                             <button class="btn btn-primary">Credit Card</button>
-                            </div> 
-                            <div class="col-md-3">
-                                <button class="btn btn-primary"(click)="multiBanco()" >Multi Banco</button>
-                  
-                            </div> 
-                            <div class="col-md-3">
-                                <button class="btn btn-primary">Bancontact</button>
-                  
+                            <div class="listing-meta-sec mb-md-80">
+                                <div class="tabs">
+                                    <ul ngbNav #nav="ngbNav" class="custom-flex nav nav-tabs mb-xl-20">
+                                        <li [ngbNavItem]="1">
+                                            <a ngbNavLink>Credit/Debit Card</a>
+                                            <ng-template ngbNavContent>
+                                                <div class="tab-inner row">
+                                                   
+                                                    <div class="col-12">
+                                                        <h5 class="text-custom-black">Your Card Information</h5>
+                                                    </div>
+                                                    <div class="col-12">
+                                                     <form [formGroup]="cardInfo">
+                                                        <div class="row" >
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="fs-14 text-custom-black fw-500">Card Number</label>
+                                                                    <input type="text" formControlName="cardnumber" class="form-control form-control-custom"
+                                                                        placeholder="Card Number" required #cnumber id="cnumber"
+                                                                        (keydown)="onKeyPress($event)"  
+                                                                        [class.is-invalid]="cardnumber?.invalid && cardnumber?.touched"
+                                                                        [class.is-valid]="cardnumber?.valid && cardnumber?.touched">
+                                                                        <div *ngIf="cardnumber?.invalid && cardnumber?.touched">
+                                                                            <small class="text-danger" *ngIf="cardnumber?.errors?.required">
+                                                                                Card Number is
+                                                                                Required</small>
+                    
+                                                                        </div>
+                                                                      
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="fs-14 text-custom-black fw-500">Card Holder Name</label>
+                                                                    <input type="text" formControlName="cardname" class="form-control form-control-custom"
+                                                                        placeholder="Card Holder Name" required 
+                                                                        [class.is-invalid]="cardname.invalid && cardname.touched"
+                                                                        [class.is-valid]="cardname.valid && cardname.touched">
+                                                                        <div *ngIf="cardname.invalid && cardname.touched">
+                                                                            <small class="text-danger" *ngIf="cardname.errors?.required">
+                                                                                Card holder Name is
+                                                                                Required</small>
+                    
+                                                                        </div>
+                                                                        
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="fs-14 text-custom-black fw-500">Cvv</label>
+                                                                    <input type="text" formControlName="cvv" class="form-control form-control-custom"
+                                                                        placeholder="Card Identification Number" required
+                                                                        [class.is-invalid]="cvv.invalid && cvv.touched"
+                                                                        [class.is-valid]="cvv.valid && cvv.touched">
+                                                                        <div *ngIf="cvv.invalid && cvv.touched">
+                                                                            <small class="text-danger" *ngIf="cvv.errors?.required">
+                                                                                Card Identification Number is
+                                                                                Required</small>
+                    
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label class="fs-14 text-custom-black fw-500">Expiration Month</label>
+                                                                    <div class="group-form">
+                                                                        <ng-select appearance="outline"  class=" custom" 
+                                                                        [searchable]="false" formControlName="expmonth"
+                                                                        [class.is-invalid]="expmonth.invalid && expmonth.touched"
+                                                                            [class.is-valid]="expmonth.valid && expmonth.touched">
+                                                                            <ng-option [value]="1">Jan</ng-option>
+                                                                            <ng-option [value]="2">Feb</ng-option>
+                                                                            <ng-option [value]="3">Mar</ng-option>
+                                                                            <ng-option [value]="4">Apr</ng-option>
+                                                                            <ng-option [value]="5">May</ng-option>
+                                                                            <ng-option [value]="6">June</ng-option>
+                                                                            <ng-option [value]="7">July</ng-option>
+                                                                            <ng-option [value]="8">Aug</ng-option>
+                                                                            <ng-option [value]="9">Sep</ng-option>
+                                                                            <ng-option [value]="10">Oct</ng-option>
+                                                                            <ng-option [value]="11">Nov</ng-option>
+                                                                            <ng-option [value]="12">Dec</ng-option>
+                                                                        </ng-select>
+                                                                        <div *ngIf="expmonth.invalid && expmonth.touched">
+                                                                            <small class="text-danger" *ngIf="expmonth.errors?.required">
+                                                                                Month is
+                                                                                Required</small>
+                    
+                                                                        </div>
+                                                                        
+                                                                         
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label class="fs-14 text-custom-black fw-500">Expiration Year</label>
+                                                                    <div class="group-form">
+                                                                        <select class=" form-control form-select"
+                                                                            formControlName="expyear" 
+                                                                            [class.is-invalid]="expyear.invalid && expyear.touched"
+                                                                            [class.is-valid]="expyear.valid && expyear.touched">
+                                                                            <option value="2021">2021</option>
+                                                                            <option value="2022">2022</option>
+                                                                            <option value="2023">2023</option>
+                                                                            <option value="2024">2024</option>
+                                                                            <option value="2025">2025</option>
+                                                                            <option value="2026">2026</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div *ngIf="expyear.invalid && expyear.touched">
+                                                                        <small class="text-danger" *ngIf="expyear.errors?.required">
+                                                                            Year is
+                                                                            Required</small>
+                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <div class="col-md-12 text-center">
+                                                                <button (click)="Api_mybooking()" [disabled]="cardInfo.invalid"  class="btn btn-first btn-submit">Submit</button>
+                                                            </div>
+                                                        </div>
+
+                                                       
+                                                     </form>   
+                                                       
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </li>
+                                        <li [ngbNavItem]="2">
+                                            <a ngbNavLink>Multi Banco</a>
+                                            <ng-template ngbNavContent>
+                                                <h4 class="text-custom-black" (click)="multiBanco()">Multi Banco</h4>
+                                             
+                                            </ng-template>
+                                        </li>
+                                        <li [ngbNavItem]="3">
+                                            <a ngbNavLink>Bancontact</a>
+                                            <ng-template ngbNavContent>
+                                                <h4 class="text-custom-black"> Bancontact</h4>
+                                             
+                                         
+                                               
+                                         
+                                            </ng-template>
+                                        </li>
+                                    </ul>
+                                    <div [ngbNavOutlet]="nav"></div>
+                                </div>
                             </div>
-                        </div>
+                      
                     </div>
                     <div class="col-md-12 mt-2">
                         <hr>
@@ -403,7 +544,19 @@
             </div>
         </div>
     </div>
-
+    <div *ngIf="loading" class="w-100 d-flex align-items-center justify-content-center"
+    style="height: 100vh !important; position: fixed; left: 0; top: 0; bottom: 0; right: 0; background-color: white; z-index: 99;">
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
 
 </div>
 

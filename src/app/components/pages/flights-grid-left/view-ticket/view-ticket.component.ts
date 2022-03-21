@@ -1,3 +1,4 @@
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationsService } from 'src/app/providers/locations.service';
@@ -14,7 +15,7 @@ export class ViewTicketComponent implements OnInit {
   loading!: boolean;
   disableButton!: boolean;
   constructor(
-    private _locationsService: LocationsService, private activateRoute: ActivatedRoute
+    private _locationsService: LocationsService,private locationStrategy: LocationStrategy, private activateRoute: ActivatedRoute
   ) {
     this.showingValue = false;
     this.statusData = null;
@@ -23,6 +24,10 @@ export class ViewTicketComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    history.pushState(null, '', location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, '', location.href);
+    })
     this.showingValue = false;
     this.loading = false;
     this.activateRoute.params.subscribe(parms => {

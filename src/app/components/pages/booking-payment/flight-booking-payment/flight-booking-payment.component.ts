@@ -110,7 +110,7 @@ MyCardFromBinding()
 {
   this.cardInfo= new FormGroup({
     cardname: new FormControl('', [Validators.required]),
-    cardnumber: new FormControl('', [Validators.required,Validators.minLength(14),Validators.min(14), Validators.max(14)]),
+    cardnumber: new FormControl('', [Validators.required,Validators.minLength(16),Validators.maxLength(16)]),
     cvv: new FormControl('', [Validators.required,Validators.minLength(3)]),
     expmonth: new FormControl('', [Validators.required]),
     expyear: new FormControl('', [Validators.required]),
@@ -315,12 +315,12 @@ get expyear() { return this.cardInfo.get('expyear'); }
     this.loading = true;
     let reqData = {
       user_id: this.localUserIds,
-      cardNo: this._CardNumber,
-      cardHolderName: this._holderNameDEtails,
-      cardExpiry: this.cardExpiry,
-      cardYear: this.cardYear,
+      cardNo: this.cardnumber?.value,
+      cardHolderName: this.cardname?.value,
+      cardExpiry: this.expmonth?.value,
+      cardYear: this.expyear?.value,
       price: this.bookFlightItem?.price,
-      cvvNo: this.cvvNo,
+      cvvNo: this.cvv?.value,
       ip: this._ip,
       gds: this.bookFlightItem.gds,
       uniqueNo: this.getRandomColor()
@@ -330,7 +330,7 @@ get expyear() { return this.cardInfo.get('expyear'); }
     this.locationsService.Api_payment(reqData).subscribe((res: any) => {
       console.log(res)
       this.spinerrLoading = false;
-      if (res.otp != '' && res.window3d != '') {
+      if (res.otp!= ''&& res.window3d!= '') {
         this.paymentWindiow3d = this._sanitizer.bypassSecurityTrustResourceUrl(res.window3d)
         this.openChangePAyloaModal(this.modalPaytmentConfirm)
       } else {
@@ -480,7 +480,7 @@ get expyear() { return this.cardInfo.get('expyear'); }
     input = input + event.key;
     if (input.length >= 2) {
       var txtVal = input;
-      return /^((\d{1,14})|(\d{1,14})(\.{1}\d{1,14}))$/.test(txtVal);
+      return /^((\d{1,16})|(\d{1,16})(\.{1}\d{1,16}))$/.test(txtVal);
     }
 
     const charCode = this.getCharCode(event);

@@ -70,7 +70,7 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
     FlightBookingPaymentComponent.prototype.MyCardFromBinding = function () {
         this.cardInfo = new forms_1.FormGroup({
             cardname: new forms_1.FormControl('', [forms_1.Validators.required]),
-            cardnumber: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(14), forms_1.Validators.min(14), forms_1.Validators.max(14)]),
+            cardnumber: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(16), forms_1.Validators.maxLength(16)]),
             cvv: new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(3)]),
             expmonth: new forms_1.FormControl('', [forms_1.Validators.required]),
             expyear: new forms_1.FormControl('', [forms_1.Validators.required])
@@ -290,7 +290,7 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
     };
     FlightBookingPaymentComponent.prototype.Api_mybooking = function () {
         var _this = this;
-        var _a;
+        var _a, _b, _c, _d, _e, _f;
         var localUserId = window.sessionStorage.getItem('fight-user');
         localUserId = JSON.parse(localUserId);
         this.localUserIds = localUserId === null || localUserId === void 0 ? void 0 : localUserId.detail.id;
@@ -298,12 +298,12 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
         this.loading = true;
         var reqData = {
             user_id: this.localUserIds,
-            cardNo: this._CardNumber,
-            cardHolderName: this._holderNameDEtails,
-            cardExpiry: this.cardExpiry,
-            cardYear: this.cardYear,
-            price: (_a = this.bookFlightItem) === null || _a === void 0 ? void 0 : _a.price,
-            cvvNo: this.cvvNo,
+            cardNo: (_a = this.cardnumber) === null || _a === void 0 ? void 0 : _a.value,
+            cardHolderName: (_b = this.cardname) === null || _b === void 0 ? void 0 : _b.value,
+            cardExpiry: (_c = this.expmonth) === null || _c === void 0 ? void 0 : _c.value,
+            cardYear: (_d = this.expyear) === null || _d === void 0 ? void 0 : _d.value,
+            price: (_e = this.bookFlightItem) === null || _e === void 0 ? void 0 : _e.price,
+            cvvNo: (_f = this.cvv) === null || _f === void 0 ? void 0 : _f.value,
             ip: this._ip,
             gds: this.bookFlightItem.gds,
             uniqueNo: this.getRandomColor()
@@ -450,7 +450,7 @@ var FlightBookingPaymentComponent = /** @class */ (function () {
         input = input + event.key;
         if (input.length >= 2) {
             var txtVal = input;
-            return /^((\d{1,14})|(\d{1,14})(\.{1}\d{1,14}))$/.test(txtVal);
+            return /^((\d{1,16})|(\d{1,16})(\.{1}\d{1,16}))$/.test(txtVal);
         }
         var charCode = this.getCharCode(event);
         var charStr = event.key ? event.key : String.fromCharCode(charCode);
